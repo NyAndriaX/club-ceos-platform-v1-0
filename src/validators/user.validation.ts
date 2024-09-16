@@ -1,5 +1,4 @@
 import * as z from 'zod';
-import { isValidPhoneNumber } from 'react-phone-number-input';
 
 export const userSignupStepOneSchema = z.object({
   lastName: z.string({
@@ -29,9 +28,7 @@ export const userSignupStepOneSchema = z.object({
   phoneNumber: z.string({
     required_error: 'Le numéro de téléphone est requis.'
   })
-    .refine(value => {
-      return isValidPhoneNumber(value);
-    }, {
+    .refine(value => /^\+?[0-9\s\-()]{7,16}$/.test(value), {
       message: "Le numéro de téléphone est invalide",
     }),
 
@@ -78,9 +75,7 @@ export const userSignupStepTwoSchema = z.object({
   companyPhoneNumber: z.string({
     required_error: 'Le numéro de téléphone est requis.'
   })
-    .refine(value => {
-      return isValidPhoneNumber(value);
-    }, {
+    .refine(value => /^\+?[0-9\s\-()]{7,16}$/.test(value), {
       message: "Le numéro de téléphone est invalide",
     }),
 })

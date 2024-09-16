@@ -40,10 +40,10 @@ model User {
     isNew               Boolean @default(true)
     hasPaid             Boolean @default(false)
 
-    role         Role           @default(MEMBER)
-    createdAt    DateTime       @default(now())
-    updatedAt    DateTime       @updatedAt
-    subscription Subscription[]
+    role      Role     @default(MEMBER)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    // subscription Subscription[]
 }
 
 enum Role {
@@ -51,31 +51,31 @@ enum Role {
     MEMBER
 }
 
-model Plan {
-    id              Int            @id @default(autoincrement())
-    name            String
-    min_revenue     Decimal        @db.Decimal(10, 2)
-    max_revenue     Decimal        @db.Decimal(10, 2)
-    price           Decimal        @db.Decimal(10, 2)
-    duration_months Int
-    stripe_price_id String
-    subscriptions   Subscription[]
-    createdAt       DateTime       @default(now())
-}
+// model Plan {
+//     id              Int            @id @default(autoincrement())
+//     name            String
+//     min_revenue     Decimal        @db.Decimal(10, 2)
+//     max_revenue     Decimal        @db.Decimal(10, 2)
+//     price           Decimal        @db.Decimal(10, 2)
+//     duration_months Int
+//     stripe_price_id String
+//     subscriptions   Subscription[]
+//     createdAt       DateTime       @default(now())
+// }
 
-model Subscription {
-    id                     Int       @id @default(autoincrement())
-    userId                 Int
-    planId                 Int
-    stripe_subscription_id String?
-    status                 String    @default("pending") // "active", "canceled", etc.
-    start_date             DateTime?
-    end_date               DateTime?
-    createdAt              DateTime  @default(now())
+// model Subscription {
+//     id                     Int       @id @default(autoincrement())
+//     userId                 Int
+//     planId                 Int
+//     stripe_subscription_id String?
+//     status                 String    @default("pending") // "active", "canceled", etc.
+//     start_date             DateTime?
+//     end_date               DateTime?
+//     createdAt              DateTime  @default(now())
 
-    user User @relation(fields: [userId], references: [id])
-    plan Plan @relation(fields: [planId], references: [id])
+//     user User @relation(fields: [userId], references: [id])
+//     plan Plan @relation(fields: [planId], references: [id])
 
-    @@index([userId])
-    @@index([planId])
-}
+//     @@index([userId])
+//     @@index([planId])
+// }

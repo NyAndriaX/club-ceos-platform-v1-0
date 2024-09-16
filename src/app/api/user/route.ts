@@ -14,18 +14,18 @@ export async function POST(req:Request){
   }
 }
 
-export async function GET(){
-  try {
+// export async function GET(){
+//   try {
     
-  } catch (error) {
-    return handleError(error)
-  }
-}
+//   } catch (error) {
+//     return handleError(error)
+//   }
+// }
 
-export async function PUT(request:Request){
-  try {
-    console.log(request);
-  } catch (error) {
-    return handleError(error)
-  }
-}
+// export async function PUT(request:Request){
+//   try {
+//     console.log(request);
+//   } catch (error) {
+//     return handleError(error)
+//   }
+// }

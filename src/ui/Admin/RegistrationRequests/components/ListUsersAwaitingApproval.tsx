@@ -39,7 +39,7 @@ export function ListUsersAwaitingApproval() {
       }
     }
     getUsersAwaitingApproval();
-  }, []);
+  }, [setUsersAwaitingApproval]);
 
   const responsiveOptions = [
     {
