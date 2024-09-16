@@ -16,7 +16,7 @@ export async function findUserById(userId: number): Promise<User | null> {
   })
 }
 
-export async function update(data: UserInput, userId: number): Promise<User> {
+export async function update(data: Partial<UserInput>, userId: number): Promise<User> {
   return ctx.prisma.user.update({
     where: { id: userId },
     data
@@ -38,5 +38,19 @@ export async function findUnique(data: any): Promise<User | null> {
 export async function findMany(data: any): Promise<User[] | null> {
   return ctx.prisma.user.findMany({
     where: data,
+    orderBy: {
+      createdAt: 'desc',
+    },
   })
 }
+
+export async function updateMany(users: User[], data: Partial<UserInput>): Promise<User[] | null> {
+  await ctx.prisma.user.updateMany({
+    where: { id: { in: users.map(user => user.id) } },
+    data: data,
+  });
+  return await ctx.prisma.user.findMany({
+    where: { id: { in: users.map(user => user.id) } }
+  })
+}
+

@@ -21,5 +21,11 @@ const User = (
 );
 
 export const TopBar: React.FC = () => {
-  return <Menubar start={<Logo />} end={User} />;
+  return (
+    <Menubar
+      start={<Logo />}
+      end={User}
+      className="w-full bg-white shadow-md mb-4 lg:mb-0 rounded-none sticky top-0 z-50"
+    />
+  );
 };

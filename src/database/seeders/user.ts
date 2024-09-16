@@ -6,13 +6,13 @@ const hashPassword = (password: string = 'password'): string => {
   return hashSync(password, 10);
 };
 
-const createUserData = (isAdmin: boolean = false, hasPaid:boolean=false,postCode:string="14141"): Prisma.UserCreateInput => {
+const createUserData = (isAdmin: boolean = false, hasPaid: boolean = false, postCode: string = "14141"): Prisma.UserCreateInput => {
   return {
     lastName: faker.person.lastName(),
     firstName: faker.person.firstName(),
     country: faker.location.country(),
     city: faker.location.city(),
-    postCode:postCode,
+    postCode: postCode,
     email: faker.internet.email(),
     phoneNumber: faker.phone.number(),
     linkedInUrl: faker.internet.url(),
@@ -21,12 +21,12 @@ const createUserData = (isAdmin: boolean = false, hasPaid:boolean=false,postCode
     commercialName: faker.company.name(),
     companyCountry: faker.location.country(),
     companyCity: faker.location.city(),
-    companyPostCode:postCode,
+    companyPostCode: postCode,
     companyWebsite: faker.internet.url(),
     companyLinkedInPage: faker.internet.url(),
     companyPhoneNumber: faker.phone.number(),
     revenue: parseFloat(faker.commerce.price()),
-    revenueFileUrl: faker.system.filePath(),
+    revenueFileUrl: 'gs://juugap-d789f.appspot.com/revenueFiles/ClubdesCEO-CDC.pdf',
     isValidatedByAdmin: false,
     paymentUrl: faker.internet.url(),
     password: hashPassword(),

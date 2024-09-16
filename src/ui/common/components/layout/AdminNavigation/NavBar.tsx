@@ -10,7 +10,7 @@ const MenuItem: React.FC<{
 }> = ({ label, path, icon, onClick }) => {
   const pathname = usePathname();
 
-  const isActive = pathname === path;
+  const isActive = path ? pathname.startsWith(path) : false;
 
   const handleClick = () => {
     if (onClick) {

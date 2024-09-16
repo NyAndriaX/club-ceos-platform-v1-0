@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { handleError } from "../utils/request";
-import { handleGetUsersAwaitingApproval, handleGetUsersPendingPayment } from "./admin.handler";
+import { handleGetUsersAwaitingApproval, handleGetApprovedUser, handleApproveAUser, handleUnapproveUser } from "./admin.handler";
 
 export async function POST(req: Request) {
 
@@ -11,23 +11,38 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
 
     const action = searchParams.get('action');
+    const userId = searchParams.get('userId');
 
-    if (action === "getUsersAwaitingApproval") {
+    if (!action) {
+      throw new Error('Action non définie');
+    }
 
-      const users = await handleGetUsersAwaitingApproval();
+    switch (action) {
+      case "getUsersAwaitingApproval":
+        const usersAwaitingApproval = await handleGetUsersAwaitingApproval();
+        return NextResponse.json({ users: usersAwaitingApproval }, { status: 200 });
 
-      return NextResponse.json({ users }, { status: 201 })
+      case "getApprovedUser":
+        const approvedUsers = await handleGetApprovedUser();
+        return NextResponse.json({ users: approvedUsers }, { status: 200 });
 
-    } else if (action === 'getUsersPendingPayment') {
+      case "approveAUser":
+        if (!userId) {
+          throw new Error('ID de l\'utilisateur manquant pour l\'approbation');
+        }
+        const AuthorizedUser = await handleApproveAUser(Number(userId));
+        return NextResponse.json({ user: AuthorizedUser }, { status: 200 });
 
-      const users = await handleGetUsersPendingPayment();
-
-      return NextResponse.json({ users }, { status: 201 })
-
-    } else {
-      throw new Error('Action non définie ou invalide')
+      case "unapproveUser":
+        if (!userId) {
+          throw new Error('ID de l\'utilisateur manquant pour l\'approbation');
+        }
+        const UnauthorizedUser = await handleUnapproveUser(Number(userId));
+        return NextResponse.json({ user: UnauthorizedUser }, { status: 200 });
+      default:
+        throw new Error('Action non définie ou invalide');
     }
   } catch (error) {
-    return handleError(error)
+    return handleError(error);
   }
 }
