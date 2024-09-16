@@ -132,7 +132,7 @@ export function SignupFormStepThree({
                     name="revenueFile"
                     chooseLabel="Choisir"
                     cancelLabel="Annuler"
-                    accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt"
+                    accept=".pdf"
                     maxFileSize={1000000}
                     emptyTemplate={
                       <p className="m-0">
