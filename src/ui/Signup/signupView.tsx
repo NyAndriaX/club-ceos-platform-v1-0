@@ -12,7 +12,7 @@ const SignupView = () => {
   >({}, "formUserRegister");
   const [activeIndex, setActiveIndex] = useState<number>(0);
   return (
-    <main className="flex flex-col items-start gap-4 md:gap-20">
+    <main className="flex flex-col items-start gap-4 md:gap-20 px-4">
       <SignupFormStepper activeIndex={activeIndex} />
       <SignupForm
         formUserRegister={formUserRegister}
