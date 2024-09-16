@@ -32,6 +32,7 @@ export const SignupFormStepOne = ({
     const newValue = { ...formUserRegister, ...data };
     setFormUserRegister(newValue);
     setActiveIndex((prevValue) => prevValue + 1);
+    window.scrollTo(0, 0);
   };
   return (
     <div className="flex flex-col md:flex-row gap-16 items-start justify-between">

@@ -21,6 +21,7 @@ export function SignupFormStepThree({
   setFormUserRegister,
 }: Props) {
   const toast = useRef<Toast>(null);
+  const [isPending, setIsPending] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectFile, setSelectFile] = useState<File | null>(null);
 
@@ -55,6 +56,7 @@ export function SignupFormStepThree({
           throw new Error("Erreur lors de l'envoi des données.");
         }
         setActiveIndex((prevValue) => prevValue + 1);
+        window.scrollTo(0, 0);
       } catch (error) {
         toast.current?.show({
           severity: "error",
@@ -129,7 +131,6 @@ export function SignupFormStepThree({
                   <FileUpload
                     name="revenueFile"
                     chooseLabel="Choisir"
-                    uploadLabel="Télécharger"
                     cancelLabel="Annuler"
                     accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .txt"
                     maxFileSize={1000000}
@@ -142,7 +143,13 @@ export function SignupFormStepThree({
                       const file = e.files[0];
                       setFieldValue("revenueFile", file);
                       setSelectFile(file);
+                      setIsPending(true);
+                      setTimeout(() => {
+                        setIsPending(false);
+                      }, 2000);
                     }}
+                    auto={true}
+                    disabled={isPending}
                     className={`p-inputtext p-component ${
                       errors.revenueFile ? "border border-red-500" : ""
                     }`}

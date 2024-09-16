@@ -32,6 +32,7 @@ export const SignupFormStepTwo = ({
     const newValue = { ...formUserRegister, ...data };
     setFormUserRegister(newValue);
     setActiveIndex((prevValue) => prevValue + 1);
+    window.scrollTo(0, 0);
   };
 
   return (
