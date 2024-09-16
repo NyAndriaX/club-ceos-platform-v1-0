@@ -2,10 +2,12 @@ import React, { useMemo, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button } from "primereact/button";
 import { UserInput } from "@/typings";
+import PhoneInput from "react-phone-number-input";
 import { userSignupStepOneSchema } from "@/validators/user.validation";
 import { City, Country } from "country-state-city";
 import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
 import { Dropdown } from "primereact/dropdown";
+import "react-phone-number-input/style.css";
 
 type Props = {
   formUserRegister: Partial<UserInput>;
@@ -67,7 +69,7 @@ export const SignupFormStepOne = ({
             onSubmit(values);
           }}
         >
-          {({ errors, setFieldValue }) => (
+          {({ errors, setFieldValue, touched }) => (
             <Form className="flex flex-col gap-4">
               <div className="flex flex-col gap-2 items-start">
                 <h4 className="font-normal text-base text-gray-400">
@@ -83,7 +85,9 @@ export const SignupFormStepOne = ({
                       name="lastName"
                       type="text"
                       className={`p-inputtext p-component ${
-                        errors.lastName && "border border-red-500"
+                        touched.lastName &&
+                        errors.lastName &&
+                        "border border-red-500"
                       }`}
                     />
                     <ErrorMessage
@@ -101,7 +105,9 @@ export const SignupFormStepOne = ({
                       name="firstName"
                       type="text"
                       className={`p-inputtext p-component ${
-                        errors.firstName && "border border-red-500"
+                        touched.firstName &&
+                        errors.firstName &&
+                        "border border-red-500"
                       }`}
                     />
                     <ErrorMessage
@@ -125,7 +131,7 @@ export const SignupFormStepOne = ({
                     name="email"
                     type="text"
                     className={`p-inputtext p-component ${
-                      errors.email && "border border-red-500"
+                      touched.email && errors.email && "border border-red-500"
                     }`}
                   />
                   <ErrorMessage
@@ -156,7 +162,11 @@ export const SignupFormStepOne = ({
                           setFieldValue("city", "");
                         }}
                         placeholder="Sélectionner un pays"
-                        className={errors.country && `border border-red-500`}
+                        className={
+                          touched.country &&
+                          errors.country &&
+                          `border border-red-500`
+                        }
                       />
                     )}
                   </Field>
@@ -176,7 +186,9 @@ export const SignupFormStepOne = ({
                       name="postCode"
                       type="text"
                       className={`p-inputtext p-component ${
-                        errors.postCode && "border border-red-500"
+                        touched.postCode && errors.postCode
+                          ? "border border-red-500"
+                          : ""
                       }`}
                     />
                     <ErrorMessage
@@ -203,7 +215,11 @@ export const SignupFormStepOne = ({
                           onChange={(e) => setFieldValue("city", e.value)}
                           placeholder="Sélectionner une ville"
                           disabled={!selectedCountry}
-                          className={errors.city && `border border-red-500`}
+                          className={
+                            touched.city && errors.city
+                              ? `border border-red-500`
+                              : ""
+                          }
                         />
                       )}
                     </Field>
@@ -218,14 +234,24 @@ export const SignupFormStepOne = ({
                   <label htmlFor="phoneNumber">
                     Téléphone<span className="text-red-500">*</span>
                   </label>
-                  <Field
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    type="text"
-                    className={`p-inputtext p-component ${
-                      errors.phoneNumber && "border border-red-500"
-                    }`}
-                  />
+                  <Field name="phoneNumber">
+                    {({ field }: any) => (
+                      <PhoneInput
+                        international
+                        defaultCountry="FR"
+                        value={field.value}
+                        onChange={(value) => {
+                          setFieldValue("phoneNumber", value);
+                        }}
+                        className={`p-inputtext p-component ${
+                          touched.phoneNumber && errors.phoneNumber
+                            ? "border border-red-500"
+                            : ""
+                        } hover:border-2 hover:border-blue-400 focus:border-2 focus:border-blue-400`}
+                      />
+                    )}
+                  </Field>
+
                   <ErrorMessage
                     name="phoneNumber"
                     component="div"
@@ -248,7 +274,9 @@ export const SignupFormStepOne = ({
                     type="text"
                     placeholder="https://"
                     className={`p-inputtext p-component ${
-                      errors.linkedInUrl && "border border-red-500"
+                      touched.linkedInUrl && errors.linkedInUrl
+                        ? "border border-red-500"
+                        : ""
                     }`}
                   />
                   <ErrorMessage
@@ -271,7 +299,9 @@ export const SignupFormStepOne = ({
                     name="jobTitle"
                     type="text"
                     className={`p-inputtext p-component ${
-                      errors.jobTitle && "border border-red-500"
+                      touched.jobTitle && errors.jobTitle
+                        ? "border border-red-500"
+                        : ""
                     }`}
                   />
                   <ErrorMessage

@@ -6,6 +6,8 @@ import { City, Country } from "country-state-city";
 import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
 import { userSignupStepTwoSchema } from "@/validators/user.validation";
 import { Dropdown } from "primereact/dropdown";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 type Props = {
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -68,7 +70,7 @@ export const SignupFormStepTwo = ({
             onSubmit(values);
           }}
         >
-          {({ errors, setFieldValue }) => (
+          {({ errors, setFieldValue, touched }) => (
             <Form className="flex flex-col gap-4">
               <div className="flex flex-col gap-2 items-start">
                 <h4 className="font-normal text-base text-gray-400">
@@ -85,7 +87,9 @@ export const SignupFormStepTwo = ({
                       name="companyName"
                       type="text"
                       className={`p-inputtext p-component ${
-                        errors.companyName && "border border-red-500"
+                        touched.companyName && errors.companyName
+                          ? "border border-red-500"
+                          : ""
                       }`}
                     />
                     <ErrorMessage
@@ -103,7 +107,9 @@ export const SignupFormStepTwo = ({
                       name="commercialName"
                       type="text"
                       className={`p-inputtext p-component ${
-                        errors.commercialName && "border border-red-500"
+                        touched.commercialName && errors.commercialName
+                          ? "border border-red-500"
+                          : ""
                       }`}
                     />
                     <ErrorMessage
@@ -140,7 +146,9 @@ export const SignupFormStepTwo = ({
                         }}
                         placeholder="Sélectionner un pays"
                         className={
-                          errors.companyCountry && `border border-red-500`
+                          touched.companyCountry && errors.companyCountry
+                            ? `border border-red-500`
+                            : ""
                         }
                       />
                     )}
@@ -161,7 +169,9 @@ export const SignupFormStepTwo = ({
                       name="companyPostCode"
                       type="text"
                       className={`p-inputtext p-component ${
-                        errors.companyPostCode && "border border-red-500"
+                        touched.companyPostCode && errors.companyPostCode
+                          ? "border border-red-500"
+                          : ""
                       }`}
                     />
                     <ErrorMessage
@@ -193,7 +203,9 @@ export const SignupFormStepTwo = ({
                             placeholder="Sélectionner une ville"
                             disabled={!selectedCountry}
                             className={
-                              errors.companyCity && `border border-red-500`
+                              touched.companyCity && errors.companyCity
+                                ? `border border-red-500`
+                                : ""
                             }
                           />
                         )}
@@ -211,14 +223,24 @@ export const SignupFormStepTwo = ({
                   <label htmlFor="companyPhoneNumber">
                     Numéro de téléphone<span className="text-red-500">*</span>
                   </label>
-                  <Field
-                    id="companyPhoneNumber"
-                    name="companyPhoneNumber"
-                    type="text"
-                    className={`p-inputtext p-component ${
-                      errors.companyPhoneNumber && "border border-red-500"
-                    }`}
-                  />
+                  <Field name="companyPhoneNumber">
+                    {({ field }: any) => (
+                      <PhoneInput
+                        international
+                        defaultCountry="FR"
+                        value={field.value}
+                        onChange={(value) => {
+                          setFieldValue("phoneNumber", value);
+                        }}
+                        className={`p-inputtext p-component ${
+                          touched.companyPhoneNumber &&
+                          errors.companyPhoneNumber
+                            ? "border border-red-500"
+                            : ""
+                        } hover:border-2 hover:border-blue-400 focus:border-2 focus:border-blue-400`}
+                      />
+                    )}
+                  </Field>
                   <ErrorMessage
                     name="companyPhoneNumber"
                     component="div"
@@ -241,7 +263,9 @@ export const SignupFormStepTwo = ({
                     type="text"
                     placeholder="https://"
                     className={`p-inputtext p-component ${
-                      errors.companyWebsite && "border border-red-500"
+                      touched.companyWebsite && errors.companyWebsite
+                        ? "border border-red-500"
+                        : ""
                     }`}
                   />
                   <ErrorMessage
@@ -266,7 +290,9 @@ export const SignupFormStepTwo = ({
                     type="text"
                     placeholder="https://"
                     className={`p-inputtext p-component ${
-                      errors.companyLinkedInPage && "border border-red-500"
+                      touched.companyLinkedInPage && errors.companyLinkedInPage
+                        ? "border border-red-500"
+                        : ""
                     }`}
                   />
                   <ErrorMessage

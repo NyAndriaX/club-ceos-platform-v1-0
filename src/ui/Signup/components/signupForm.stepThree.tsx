@@ -99,7 +99,7 @@ export function SignupFormStepThree({
               onSubmit(values);
             }}
           >
-            {({ errors, setFieldValue }) => (
+            {({ errors, setFieldValue, touched }) => (
               <Form className="flex flex-col gap-4">
                 <div className="p-field">
                   <label htmlFor="revenue">
@@ -111,7 +111,9 @@ export function SignupFormStepThree({
                     name="revenue"
                     type="number"
                     className={`p-inputtext p-component ${
-                      errors.revenue ? "border border-red-500" : ""
+                      touched.revenue && errors.revenue
+                        ? "border border-red-500"
+                        : ""
                     }`}
                   />
                   <ErrorMessage
@@ -151,7 +153,9 @@ export function SignupFormStepThree({
                     auto={true}
                     disabled={isPending}
                     className={`p-inputtext p-component ${
-                      errors.revenueFile ? "border border-red-500" : ""
+                      touched.revenueFile && errors.revenueFile
+                        ? "border border-red-500"
+                        : ""
                     }`}
                   />
                   <ErrorMessage
