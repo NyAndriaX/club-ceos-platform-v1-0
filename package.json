@@ -21,6 +21,7 @@
     "@next-auth/prisma-adapter": "^1.0.7",
     "@next/env": "^14.2.5",
     "@prisma/client": "5.18.0",
+    "@stripe/stripe-js": "^4.4.0",
     "@types/react-lazyload": "^3.2.3",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",

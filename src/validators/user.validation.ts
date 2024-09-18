@@ -101,9 +101,6 @@ export const userSchema = userSignupStepOneSchema
     revenue: z.number({
       required_error: 'Le chiffre d\'affaires est requis.'
     }).min(1000, 'Le chiffre d\'affaires doit être supérieur à 1000.'),
-    paymentUrl: z.string({
-      required_error: 'L\'URL de paiement est requise.'
-    }).url('L\'URL de paiement est invalide.'),
     revenueFileUrl: z.string({
       required_error: 'Le fichier de revenu est requis.',
     }).min(1, 'Le fichier de revenu est requis.'),

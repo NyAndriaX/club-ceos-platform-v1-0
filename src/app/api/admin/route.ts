@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { handleError } from "../utils/request";
-import { handleGetUsersAwaitingApproval, handleGetApprovedUser, handleApproveAUser, handleUnapproveUser } from "./admin.handler";
+import { handleGetUsersAwaitingApproval, handleGetApprovedUser, handleApproveAUser, handleUnapproveUser } from "./handler";
 
 export async function POST(req: Request) {
 

@@ -1,6 +1,9 @@
 import { faker } from '@faker-js/faker';
 import type { Prisma, User, PrismaClient } from '@prisma/client';
 import { hashSync } from 'bcryptjs';
+import { Context, getContext } from '../context';
+
+const ctx: Context = getContext();
 
 const hashPassword = (password: string = 'password'): string => {
   return hashSync(password, 10);
@@ -28,9 +31,7 @@ const createUserData = (isAdmin: boolean = false, hasPaid: boolean = false, post
     revenue: parseFloat(faker.commerce.price()),
     revenueFileUrl: 'gs://juugap-d789f.appspot.com/revenueFiles/ClubdesCEO-CDC.pdf',
     isValidatedByAdmin: false,
-    paymentUrl: faker.internet.url(),
     password: hashPassword(),
-    hasPaid: hasPaid,
     role: isAdmin ? 'ADMIN' : 'MEMBER',
     createdAt: faker.date.past(),
     updatedAt: faker.date.recent()
@@ -45,7 +46,7 @@ export const createUsers = async (arg: { prismaClient: PrismaClient }): Promise<
     ...Array.from({ length: 5 }, () => createUserData())
   ];
 
-  await prismaClient.user.createMany({
+  await ctx.prisma.user.createMany({
     data: usersData,
     skipDuplicates: true,
   });

@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import { createPlans } from "./plan";
 import { createUsers } from "./user";
 
 const prismaClient = new PrismaClient();
 
-const main = async () =>{
+const main = async () => {
 
   console.log('=> Total seed duration');
 
@@ -16,13 +17,22 @@ const main = async () =>{
 
   /* ------------------------------------------------------------*/
 
+
+  /* ------------------------------------------------------------*/
+
+  const plans = await createPlans();
+
+  console.timeEnd('Plan seed duration');
+
+  /* ------------------------------------------------------------*/
+
   console.log('=> Total seed duration');
 }
 
 main()
-  .catch(error =>{
+  .catch(error => {
     console.log(error)
   })
-  .finally(async () =>{
+  .finally(async () => {
     await prismaClient.$disconnect()
   })

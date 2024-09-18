@@ -9,50 +9,56 @@ const { prisma } = getContext();
 
 export const AuthOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  secret: process.env.NEXTAUTH_URL,
+  secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
   },
   pages: {
-    signIn: "signin",
+    signIn: "/signin",
   },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "Identifiants",
       credentials: {
-        email: { label: "email", type: "email", placeholder: "johnDoe@gmail.com" },
-        password: { label: "password", type: "password" },
+        email: { label: "Email", type: "email", placeholder: "johnDoe@gmail.com" },
+        password: { label: "Mot de passe", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials) {
-          throw new Error("Une erreur est survenue lors de l'authentification. Veuillez réessayer.");
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("L'email et le mot de passe sont requis.");
         }
 
-        const existingUser = await userRepository.findUnique({
-          email: credentials.email,
+        const user = await userRepository.findUnique({
+          where: { email: credentials.email },
         });
 
-
-        if (!existingUser) {
-          throw new Error("Aucun utilisateur trouvé avec cette adresse e-mail. Veuillez vérifier vos informations.");
-        }
-        
-        if(!existingUser.isValidatedByAdmin){
-          throw new Error("Votre demande est en cours de validation par un administrateur. Veuillez patienter.");
+        if (!user) {
+          throw new Error("Aucun utilisateur trouvé avec cet email.");
         }
 
-        if(!existingUser.hasPaid){
-          throw new Error("Le paiement des frais d'inscription est requis pour accéder à cette plateforme.");
+        if (!user.isValidatedByAdmin) {
+          throw new Error("Votre compte est en attente de validation par un administrateur.");
         }
 
-        const passwordMatch = await compare(credentials.password, existingUser.password as string);
+        const isPasswordValid = await compare(credentials.password, user.password || "");
 
-        if (!passwordMatch) {
-          throw new Error("Le mot de passe que vous avez entré est incorrect. Veuillez réessayer.");
+        if (!isPasswordValid) {
+          throw new Error("Mot de passe invalide.");
         }
 
-        const { hasPaid, password, isValidatedByAdmin, ...userWithoutSensitiveInfo } = existingUser;
+        if (!user.subscriptionId) {
+          throw new Error("Vous devez être abonné pour accéder à ce service.");
+        }
 
+        const subscription = await prisma.subscription.findUnique({
+          where: { id: user.subscriptionId },
+        });
+
+        if (!subscription) {
+          throw new Error("Souscription invalide. Veuillez vous abonner pour accéder à ce service.");
+        }
+
+        const { password, ...userWithoutSensitiveInfo } = user;
         return userWithoutSensitiveInfo as any;
       },
     }),

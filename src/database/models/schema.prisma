@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
     provider = "prisma-client-js"
 }
@@ -13,14 +10,36 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum Role {
+    ADMIN
+    MEMBER
+}
+
+enum PlanType {
+    SMALL
+    LARGE
+}
+
+model Plan {
+    id            Int            @id @default(autoincrement())
+    name          String
+    type          PlanType
+    minRevenue    Float
+    maxRevenue    Float
+    link          String
+    description   String?
+    users         User[]
+    subscriptions Subscription[]
+}
+
 model User {
-    id                  Int     @id @default(autoincrement())
+    id                  Int           @id @default(autoincrement())
     lastName            String
     firstName           String
     postCode            String
     country             String
     city                String
-    email               String  @unique
+    email               String        @unique
     phoneNumber         String
     linkedInUrl         String
     jobTitle            String
@@ -32,50 +51,38 @@ model User {
     companyWebsite      String
     companyLinkedInPage String
     companyPhoneNumber  String
-    revenue             Decimal @db.Decimal(10, 2)
+    revenue             Float
     revenueFileUrl      String
-    isValidatedByAdmin  Boolean @default(false)
-    paymentUrl          String
+    isValidatedByAdmin  Boolean       @default(false)
     password            String?
-    isNew               Boolean @default(true)
-    hasPaid             Boolean @default(false)
+    isNew               Boolean       @default(true)
+    plan                Plan?         @relation(fields: [planId], references: [id])
+    customerId          String?       @unique
+    subscription        Subscription?
 
     role      Role     @default(MEMBER)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    // subscription Subscription[]
+
+    subscriptionId Int?
+    planId         Int?
+
+    @@index([email], map: "idx_user_email")
 }
 
-enum Role {
-    ADMIN
-    MEMBER
+model Subscription {
+    id     Int @id @default(autoincrement())
+    userId Int @unique
+    planId Int
+
+    startDate DateTime @default(now())
+    endDate   DateTime
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user User @relation(fields: [userId], references: [id])
+    plan Plan @relation(fields: [planId], references: [id])
+
+    @@index([userId, planId], map: "idx_subscription_user_plan")
 }
-
-// model Plan {
-//     id              Int            @id @default(autoincrement())
-//     name            String
-//     min_revenue     Decimal        @db.Decimal(10, 2)
-//     max_revenue     Decimal        @db.Decimal(10, 2)
-//     price           Decimal        @db.Decimal(10, 2)
-//     duration_months Int
-//     stripe_price_id String
-//     subscriptions   Subscription[]
-//     createdAt       DateTime       @default(now())
-// }
-
-// model Subscription {
-//     id                     Int       @id @default(autoincrement())
-//     userId                 Int
-//     planId                 Int
-//     stripe_subscription_id String?
-//     status                 String    @default("pending") // "active", "canceled", etc.
-//     start_date             DateTime?
-//     end_date               DateTime?
-//     createdAt              DateTime  @default(now())
-
-//     user User @relation(fields: [userId], references: [id])
-//     plan Plan @relation(fields: [planId], references: [id])
-
-//     @@index([userId])
-//     @@index([planId])
-// }

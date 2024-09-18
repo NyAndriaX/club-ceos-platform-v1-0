@@ -17,10 +17,12 @@ export type UserInput = {
   companyLinkedInPage: string;
   companyPhoneNumber: string;
   revenue: number;
+  planId?: number;
   isValidatedByAdmin?: boolean;
   isNew?: boolean;
-  paymentUrl: string;
-  revenueFileUrl: string
+  revenueFileUrl: string;
+  customerId?: string;
+  subscriptionId?: number;
 };
 
 
@@ -47,6 +49,6 @@ export type UserOutput = {
   isNew: boolean;
   revenueFileUrl: string;
   isValidatedByAdmin: boolean;
-  paymentUrl: string;
-  hasPaid: boolean;
+  customerId?: String;
+  subscriptionId?: number;
 }
