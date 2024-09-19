@@ -1,4 +1,5 @@
 import { User } from "@prisma/client";
+import { generateEncryptedKey } from "../utils/crypto";
 import { sendPaymentLink } from "@/services/paymail.service";
 import * as userRepository from '@/database/repository/user.repository';
 
@@ -32,7 +33,11 @@ const handleApproveAUser = async (userId: number): Promise<Omit<User, 'password'
 
   if (!user) return null;
 
-  const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pricing?userId=${user.id}`
+  const expirationTime = 7 * 24 * 60 * 60 * 1000;
+
+  const encryptedKey = await generateEncryptedKey({ userId: user.id, expirationTime: expirationTime })
+
+  const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pricing?key=${encryptedKey}`
 
   const response = await sendPaymentLink({ userEmail: user.email, paymentLink })
 

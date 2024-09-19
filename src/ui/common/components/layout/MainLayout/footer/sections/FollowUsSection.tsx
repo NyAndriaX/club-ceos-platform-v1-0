@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "primereact/button";
 import { Checkbox } from "primereact/checkbox";
 import { InputText } from "primereact/inputtext";
-import { Logo } from "../../../Logo/Logo";
+import { Logo } from "../../../../Logo/Logo";
 
 export function FollowUsSection() {
   return (

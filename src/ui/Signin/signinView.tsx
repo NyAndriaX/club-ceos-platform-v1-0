@@ -7,7 +7,7 @@ import { Logo } from "../common/components/Logo/Logo";
 
 const SigninView = () => {
   return (
-    <main className="flex flex-col items-center justify-center bg-blue-950 min-h-screen">
+    <main className="flex flex-col items-center justify-center min-h-screen">
       <Card
         header={
           <div className="border-b border-gray-300 py-6">

@@ -74,6 +74,7 @@ function MenuSection({ section }: MenuSectionProps) {
               icon="pi pi-lock"
               label="Accéder à l'espace membre"
               className="bg-fuchsia-500 border-nonde"
+              onClick={() => (window.location.href = "/signin")}
             />
           </SubMenuItem>
         </SubMenList>

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { TopBar } from "../../components/layout/AdminNavigation/TopBar";
-import { NavBar } from "../../components/layout/AdminNavigation/NavBar";
+import { TopBar } from "../../components/layout/AdminLayout/TopBar";
+import { NavBar } from "../../components/layout/AdminLayout/NavBar";
 
 type Props = {
   children: React.ReactNode;

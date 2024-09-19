@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const user: PrismaUser | null = token?.user as PrismaUser;
 
-  const isAuthRoute = ["/signin", "/signup"].includes(pathname);
+  const isAuthRoute = ["/signin", "/signup", '/pricing'].includes(pathname);
   const isAdminRoute = pathname.startsWith("/admin");
   const isMemberRoute = pathname.startsWith("/member");
 
@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    if ((pathname.startsWith("/api/member") && user.role !== "MEMBER") || (pathname.startsWith("/api/member") && user.role !== "ADMIN") ) {
+    if ((pathname.startsWith("/api/member") && user.role !== "MEMBER") || (pathname.startsWith("/api/member") && user.role !== "ADMIN")) {
       return new NextResponse(
         JSON.stringify({ success: false, message: "Accès refusé." }),
         { status: 403, headers: { "Content-Type": "application/json" } }
@@ -58,6 +58,7 @@ export const config = {
   matcher: [
     "/signin",
     "/signup",
+    '/pricing',
     "/admin/:path*",
     "/member/:path*",
     "/api/admin/:function",

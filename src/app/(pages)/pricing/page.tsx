@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Card } from "primereact/card";
 import { UserOutput } from "@/typings";
 import { Button } from "primereact/button";
+import { decryptKey } from "@/app/api/utils/crypto";
 
 interface PlanProps {
   index: number;
@@ -204,25 +205,54 @@ const pricingList: PricingProps[] = [
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_LARGE_PLAN_SUPERIEUR_20M!,
   },
 ];
-
 const Pricing = () => {
   const searchParams = useSearchParams();
-  const userId = searchParams.get("userId");
+  const key = searchParams.get("key");
   const [user, setUser] = useState<UserOutput | null>(null);
+  const [_, setIsKeyValid] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   useEffect(() => {
-    const fetchUser = async () => {
-      if (userId) {
-        const res = await fetch(`/api/user/${userId}`);
-        const data = await res.json();
-        setUser(data.user);
+    const validateKey = async () => {
+      if (!key) {
+        setErrorMessage("Aucune clé fournie.");
+        return;
+      }
+
+      try {
+        const decryptedData = await decryptKey(key);
+        if (!decryptedData) {
+          throw new Error("Erreur de décryptage de la clé.");
+        }
+
+        const currentTime = Date.now();
+        if (currentTime > decryptedData.expirationDate) {
+          throw new Error("La clé a expiré.");
+        }
+
+        const response = await fetch(`/api/user/${decryptedData.userId}`);
+        const { user: userWithResponse } = await response.json();
+
+        if (!userWithResponse) {
+          throw new Error("L'utilisateur n'existe pas.");
+        }
+        setUser(userWithResponse);
+        setIsKeyValid(true);
+        setErrorMessage(null);
+      } catch (error: unknown) {
+        setIsKeyValid(false);
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        } else {
+          setErrorMessage("Une erreur inconnue est survenue.");
+        }
       }
     };
-    fetchUser();
-  }, [userId]);
 
-  const revenue = useMemo<number>(() => {
-    return user?.revenue ?? 0;
-  }, [user]);
+    validateKey();
+  }, [key]);
+
+  const revenue = useMemo<number>(() => user?.revenue ?? 0, [user]);
 
   const availablePrice: PricingProps[] = useMemo(() => {
     const caPricingRules = [
@@ -235,37 +265,54 @@ const Pricing = () => {
     const rule = caPricingRules.find(
       ({ minCA, maxCA }) => revenue >= minCA && revenue <= maxCA
     );
-
-    if (rule) {
-      return pricingList.filter((plan) => rule.prices.includes(plan.price));
-    }
-
-    return [];
+    return rule
+      ? pricingList.filter((plan) => rule.prices.includes(plan.price))
+      : [];
   }, [revenue]);
 
   return (
-    <section className="container mx-4">
-      <div className="flex flex-row items-start gap-4">
-        {availablePrice.length > 0 ? (
-          <>
-            {availablePrice.map((availablePrice, index: number) => (
-              <PlanCard
-                index={index}
-                key={index}
-                user={user}
-                title={availablePrice.title}
-                price={availablePrice.price}
-                benefits={availablePrice.benefitList}
-                buttonText={availablePrice.buttonText}
-                description={availablePrice.description}
-                paymentLink={availablePrice.paymentLink}
-              />
-            ))}
-          </>
-        ) : (
-          <>Aucun offre disponible pour votre revenue</>
-        )}
-      </div>
+    <section className="px-4 w-full">
+      {errorMessage ? (
+        <div className="flex flex-row justify-center items-center w-full">
+          <Card className="bg-red-100 border border-red-500 text-red-700 rounded-lg shadow-md p-4">
+            <div className="flex items-center">
+              <span className="pi pi-exclamation-triangle mr-2 text-red-500"></span>
+              <span className="font-semibold">{errorMessage}</span>
+            </div>
+          </Card>
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-row items-start gap-4">
+            {availablePrice.length > 0 ? (
+              availablePrice.map((availablePrice, index) => (
+                <PlanCard
+                  key={index}
+                  index={index}
+                  user={user}
+                  title={availablePrice.title}
+                  price={availablePrice.price}
+                  benefits={availablePrice.benefitList}
+                  buttonText={availablePrice.buttonText}
+                  description={availablePrice.description}
+                  paymentLink={availablePrice.paymentLink}
+                />
+              ))
+            ) : (
+              <div className="flex flex-row justify-center items-center w-full">
+                <Card className="bg-yellow-100 border border-yellow-500 text-yellow-700 rounded-lg shadow-md p-4">
+                  <div className="flex items-center">
+                    <span className="pi pi-exclamation-triangle mr-2 text-yellow-500"></span>
+                    <span className="font-semibold">
+                      Aucune offre disponible pour votre revenue
+                    </span>
+                  </div>
+                </Card>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import { Logo } from "../../../Logo/Logo";
+import { Logo } from "../../../../Logo/Logo";
 import { Button } from "primereact/button";
 import { MenuOption } from "./MenuOption";
 import { NavLink } from "./NavLink";
@@ -14,11 +14,7 @@ export function NavBar() {
           </div>
         </div>
         <div>
-          <Button
-            label="Accessibilité"
-            outlined
-            onClick={() => (window.location.href = "/signin")}
-          />
+          <Button label="Accessibilité" outlined />
         </div>
       </div>
       {/* Second section */}

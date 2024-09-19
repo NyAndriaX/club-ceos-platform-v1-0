@@ -34,7 +34,7 @@ const SigninForm = () => {
         validate={validateWithZod(authSchema)}
         onSubmit={(values) => onSubmit(values)}
       >
-        {({ errors }) => (
+        {({ errors, touched }) => (
           <Form className="flex flex-col gap-8 items-start w-full">
             <div className="flex flex-col gap-4 items-start w-full">
               <div className="p-field">
@@ -46,7 +46,7 @@ const SigninForm = () => {
                   name="email"
                   type="email"
                   className={`p-inputtext p-component ${
-                    errors.email && "border border-red-500"
+                    touched.email && errors.email && "border border-red-500"
                   }`}
                 />
                 <ErrorMessage
@@ -64,7 +64,9 @@ const SigninForm = () => {
                   name="password"
                   type="password"
                   className={`p-inputtext p-component ${
-                    errors.password && "border border-red-500"
+                    touched.password &&
+                    errors.password &&
+                    "border border-red-500"
                   }`}
                 />
                 <ErrorMessage
