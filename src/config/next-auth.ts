@@ -3,7 +3,9 @@ import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { getContext } from "@/database/context";
 import { compare } from "bcryptjs";
+import { generateEncryptedKey } from "@/app/api/utils/crypto";
 import * as userRepository from "@/database/repository/user.repository";
+import { sendPaymentLink } from "@/services/paymail.service";
 import * as subscriptionRepository from "@/database/repository/subscription.repository";
 
 
@@ -59,6 +61,23 @@ export const AuthOptions: NextAuthOptions = {
 
         if (!subscription) {
           throw new Error("Souscription invalide. Veuillez vous abonner pour accéder à ce service.");
+        }
+
+        const currentDate = new Date();
+        if (subscription.endDate && new Date(subscription.endDate) < currentDate) {
+
+          const expirationTime = 7 * 24 * 60 * 60 * 1000;
+
+          const encryptedKey = await generateEncryptedKey({ userId: user.id, expirationTime: expirationTime })
+
+          const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pricing?key=${encryptedKey}`;
+
+          const response = await sendPaymentLink({ userEmail: user.email, paymentLink });
+
+          if (!response.OK) {
+            throw new Error('Échec de l\'envoi de l\'email')
+          }
+          throw new Error("Votre abonnement a expiré. Nous vous avons envoyé un email contenant le lien pour renouveler votre abonnement.");
         }
 
         const { password, ...userWithoutSensitiveInfo } = user;

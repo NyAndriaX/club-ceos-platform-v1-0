@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
-    "db:reset": "npx prisma migrate reset --force",
+    "db:reset":"npx prisma migrate dev --name init",
     "db:seed": "npx prisma db push && npx tsx ./src/database/seeders/index.ts"
   },
   "prisma": {

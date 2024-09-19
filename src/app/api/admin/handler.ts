@@ -39,6 +39,8 @@ const handleApproveAUser = async (userId: number): Promise<Omit<User, 'password'
 
   const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pricing?key=${encryptedKey}`
 
+  console.log(paymentLink);
+
   const response = await sendPaymentLink({ userEmail: user.email, paymentLink })
 
   if (!response.OK) {

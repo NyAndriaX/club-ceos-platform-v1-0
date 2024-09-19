@@ -27,7 +27,7 @@ const createOrUpdateSubscription = async (
   }
 
   let endDate = new Date();
-  endDate.setFullYear(endDate.getFullYear() + 1);
+  endDate.setFullYear(endDate.getMonth() + 1);
 
   const subscription = await subscriptionRepository.upsert({
     planId,

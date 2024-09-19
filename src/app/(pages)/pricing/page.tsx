@@ -286,9 +286,12 @@ const Pricing = () => {
         <>
           <div className="flex flex-row items-start gap-4">
             {availablePrice.length > 0 ? (
-              revenue >= 10001000 ? (
+              revenue >= 1000000 ? (
                 availablePrice
-                  .slice(1)
+                  .slice(
+                    revenue >= 10001000 ? 1 : 0,
+                    revenue >= 10001000 ? availablePrice.length : -1
+                  )
                   .map((availablePrice, index) => (
                     <PlanCard
                       key={index}

@@ -18,7 +18,7 @@ export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolea
   });
 
   try {
-    await transporter.sendMail({
+    const mail = await transporter.sendMail({
       from: `"Club Ceos Platform"`,
       to: userEmail,
       subject: "Finalisez Votre Inscription au Club Ceos",
@@ -37,7 +37,7 @@ export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolea
         </div>
       `,
     });
-
+    console.log(mail);
 
     return { OK: true };
   } catch (error) {
