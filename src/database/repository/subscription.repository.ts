@@ -16,3 +16,9 @@ export async function upsert(data: SubscriptionInput, userId: number): Promise<S
     }
   })
 }
+
+export async function findUnique(data: any): Promise<Subscription | null> {
+  return ctx.prisma.subscription.findUnique({
+    where: data
+  })
+}

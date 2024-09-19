@@ -265,6 +265,7 @@ const Pricing = () => {
     const rule = caPricingRules.find(
       ({ minCA, maxCA }) => revenue >= minCA && revenue <= maxCA
     );
+
     return rule
       ? pricingList.filter((plan) => rule.prices.includes(plan.price))
       : [];
@@ -285,19 +286,37 @@ const Pricing = () => {
         <>
           <div className="flex flex-row items-start gap-4">
             {availablePrice.length > 0 ? (
-              availablePrice.map((availablePrice, index) => (
-                <PlanCard
-                  key={index}
-                  index={index}
-                  user={user}
-                  title={availablePrice.title}
-                  price={availablePrice.price}
-                  benefits={availablePrice.benefitList}
-                  buttonText={availablePrice.buttonText}
-                  description={availablePrice.description}
-                  paymentLink={availablePrice.paymentLink}
-                />
-              ))
+              revenue >= 10001000 ? (
+                availablePrice
+                  .slice(1)
+                  .map((availablePrice, index) => (
+                    <PlanCard
+                      key={index}
+                      index={index}
+                      user={user}
+                      title={availablePrice.title}
+                      price={availablePrice.price}
+                      benefits={availablePrice.benefitList}
+                      buttonText={availablePrice.buttonText}
+                      description={availablePrice.description}
+                      paymentLink={availablePrice.paymentLink}
+                    />
+                  ))
+              ) : (
+                availablePrice.map((availablePrice, index) => (
+                  <PlanCard
+                    key={index}
+                    index={index}
+                    user={user}
+                    title={availablePrice.title}
+                    price={availablePrice.price}
+                    benefits={availablePrice.benefitList}
+                    buttonText={availablePrice.buttonText}
+                    description={availablePrice.description}
+                    paymentLink={availablePrice.paymentLink}
+                  />
+                ))
+              )
             ) : (
               <div className="flex flex-row justify-center items-center w-full">
                 <Card className="bg-yellow-100 border border-yellow-500 text-yellow-700 rounded-lg shadow-md p-4">

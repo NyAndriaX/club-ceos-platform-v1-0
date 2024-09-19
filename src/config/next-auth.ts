@@ -4,6 +4,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { getContext } from "@/database/context";
 import { compare } from "bcryptjs";
 import * as userRepository from "@/database/repository/user.repository";
+import * as subscriptionRepository from "@/database/repository/subscription.repository";
+
 
 const { prisma } = getContext();
 
@@ -50,12 +52,10 @@ export const AuthOptions: NextAuthOptions = {
         }
 
         if (!user.subscriptionId) {
-          throw new Error("Vous devez être abonné pour accéder à ce service.");
+          throw new Error("Pour accéder à ce service, vous devez être abonné. Veuillez vérifier votre boîte email pour trouver le lien de paiement.");
         }
 
-        const subscription = await prisma.subscription.findUnique({
-          where: { id: user.subscriptionId },
-        });
+        const subscription = await subscriptionRepository.findUnique({ id: user.subscriptionId })
 
         if (!subscription) {
           throw new Error("Souscription invalide. Veuillez vous abonner pour accéder à ce service.");

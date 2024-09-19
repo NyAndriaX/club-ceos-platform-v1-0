@@ -22,6 +22,7 @@ export type UserInput = {
   isNew?: boolean;
   revenueFileUrl: string;
   customerId?: string;
+  password?: string;
   subscriptionId?: number;
 };
 

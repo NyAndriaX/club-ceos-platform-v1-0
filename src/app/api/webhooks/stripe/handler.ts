@@ -1,5 +1,7 @@
 import Stripe from "stripe";
 import { stripe } from "@/config/stripe";
+import bcrypt from 'bcryptjs';
+import generatePassword from 'generate-password';
 import * as userRepository from "@/database/repository/user.repository";
 import * as subscriptionRepository from "@/database/repository/subscription.repository";
 
@@ -34,9 +36,20 @@ const createOrUpdateSubscription = async (
     userId,
   }, userId);
 
+  const newPassword = generatePassword.generate({
+    length: 8,
+    numbers: true,
+    symbols: true,
+    uppercase: true,
+    lowercase: true
+  });
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
   await userRepository.update({
     planId,
     subscriptionId: subscription!.id as number,
+    password: hashedPassword
   }, userId);
 };
 

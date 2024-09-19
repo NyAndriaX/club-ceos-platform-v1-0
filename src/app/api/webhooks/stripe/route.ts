@@ -16,7 +16,6 @@ export async function POST(req: Request): Promise<Response> {
 
   try {
     event = await stripe.webhooks.constructEventAsync(body, sig, WEBHOOK_SECRET);
-    console.log('router active');
     await handleCheckoutSessionCompleted(event);
 
   } catch (error: any) {
