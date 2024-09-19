@@ -28,12 +28,15 @@ export const AuthOptions: NextAuthOptions = {
           throw new Error("L'email et le mot de passe sont requis.");
         }
 
-        const user = await userRepository.findUnique({
-          where: { email: credentials.email },
-        });
+        const user = await userRepository.findUnique({ email: credentials.email });
 
         if (!user) {
           throw new Error("Aucun utilisateur trouvé avec cet email.");
+        }
+
+        if (user.role === 'ADMIN') {
+          const { password, ...userWithoutSensitiveInfo } = user;
+          return userWithoutSensitiveInfo as any;
         }
 
         if (!user.isValidatedByAdmin) {

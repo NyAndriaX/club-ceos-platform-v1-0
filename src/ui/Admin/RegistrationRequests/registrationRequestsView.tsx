@@ -9,7 +9,7 @@ export function RegistrationRequestsView() {
       <h1 className="text-lg md:text-2xl font-bold pb-2">
         Listes des demandes d&apos;inscription
       </h1>
-      <div className="flex flex-col gap-4 lg:gap-8 max-h-[80vh] overflow-y-auto lg:min-w-[70vw]">
+      <div className="flex flex-col gap-4 lg:gap-8 max-h-[80vh] overflow-y-auto lg:w-[70vw]">
         <ListUsersAwaitingApproval />
         <ListApprovedUser />
       </div>

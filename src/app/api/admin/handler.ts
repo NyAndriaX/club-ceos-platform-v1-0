@@ -1,4 +1,5 @@
 import { User } from "@prisma/client";
+import { sendPaymentLink } from "@/services/paymail.service";
 import * as userRepository from '@/database/repository/user.repository';
 
 const handleGetUsersAwaitingApproval = async (): Promise<Omit<User, 'password'>[] | null> => {
@@ -30,6 +31,14 @@ const handleApproveAUser = async (userId: number): Promise<Omit<User, 'password'
   const user = await userRepository.update({ isValidatedByAdmin: true }, userId);
 
   if (!user) return null;
+
+  const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pricing?userId=${user.id}`
+
+  const response = await sendPaymentLink({ userEmail: user.email, paymentLink })
+
+  if (!response.OK) {
+    throw new Error('Échec de l\'envoi de l\'email')
+  }
 
   const { password, ...userWithoutPassword } = user;
 

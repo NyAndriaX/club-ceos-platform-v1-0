@@ -42,7 +42,7 @@ export function ListApprovedUser() {
     }
 
     getApprovedUser();
-  }, [setUsersApprovedStorage]);
+  }, []);
 
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
