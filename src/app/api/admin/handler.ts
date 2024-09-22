@@ -4,7 +4,7 @@ import { sendPaymentLink } from "@/services/paymail.service";
 import * as userRepository from '@/database/repository/user.repository';
 
 const handleGetUsersAwaitingApproval = async (): Promise<Omit<User, 'password'>[] | null> => {
-  const users = await userRepository.findMany({ isValidatedByAdmin: false });
+  const users = await userRepository.findMany({ isValidatedByAdmin: false, role: 'MEMBER' });
 
   if (!users) return null;
 
