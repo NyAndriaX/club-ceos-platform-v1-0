@@ -230,7 +230,7 @@ export const SignupFormStepTwo = ({
                         defaultCountry="FR"
                         value={field.value}
                         onChange={(value) => {
-                          setFieldValue("phoneNumber", value);
+                          setFieldValue("companyPhoneNumber", value);
                         }}
                         className={`p-inputtext p-component ${
                           touched.companyPhoneNumber &&

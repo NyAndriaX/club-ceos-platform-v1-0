@@ -18,7 +18,7 @@ export async function sendPassword(params: PasswordmailType): Promise<{ OK: bool
 
   try {
     await transporter.sendMail({
-      from: `"Club Ceos Platform"`,
+      from: `"Club Ceos Platform" <${process.env.NEXT_PUBLIC_ADMIN_EMAIL_COMPTE_OUTLOOK}>`,
       to: userEmail,
       subject: "Votre Abonnement au Club Ceos est Confirmé",
       html: `

@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import { stripe } from "@/config/stripe";
 import bcrypt from 'bcryptjs';
+import { sendPassword } from "@/services/passwordmail.service";
 import generatePassword from 'generate-password';
 import * as userRepository from "@/database/repository/user.repository";
 import * as subscriptionRepository from "@/database/repository/subscription.repository";
@@ -27,31 +28,16 @@ const createOrUpdateSubscription = async (
   }
 
   let endDate = new Date();
-  endDate.setFullYear(endDate.getMonth() + 1);
+  endDate.setMonth(endDate.getMonth() + 1);
 
-  const subscription = await subscriptionRepository.upsert({
+  return await subscriptionRepository.upsert({
     planId,
     startDate: new Date(),
     endDate,
     userId,
   }, userId);
-
-  const newPassword = generatePassword.generate({
-    length: 8,
-    numbers: true,
-    symbols: true,
-    uppercase: true,
-    lowercase: true
-  });
-
-  const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-  await userRepository.update({
-    planId,
-    subscriptionId: subscription!.id as number,
-    password: hashedPassword
-  }, userId);
 };
+
 
 const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
   if (event.type !== "checkout.session.completed") {
@@ -87,7 +73,31 @@ const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
     const isSubscription = item.price?.type === "recurring";
 
     if (isSubscription && priceId) {
-      await createOrUpdateSubscription(priceId, user.id);
+      const subscription = await createOrUpdateSubscription(priceId, user.id);
+
+      const newPassword = generatePassword.generate({
+        length: 8,
+        numbers: true,
+        symbols: true,
+        uppercase: true,
+        lowercase: true
+      });
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      await userRepository.update({
+        planId: PLAN_MAPPINGS[priceId],
+        subscriptionId: subscription!.id as number,
+        password: hashedPassword
+      }, user.id);
+
+      const response = await sendPassword({ userEmail: user.email, password: newPassword })
+
+      if (!response.OK) {
+        throw new Error('Échec de l\'envoi de l\'email')
+      }
+
+
     } else {
       throw new Error("Produit non récurrent géré");
     }
