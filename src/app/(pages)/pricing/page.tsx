@@ -51,9 +51,9 @@ const PlanCard = ({
       }
       subTitle={<h1 className="text-blue-500 font-bold text-2xl">{title}</h1>}
     >
-      <div className="flex flex-col items-start gap-4">
-        <p className="text-sm">{description}</p>
-        <ul className="text-xs">
+      <div className="flex flex-col items-start gap-8">
+        <p className="text-base">{description}</p>
+        <ul className="text-sm">
           {benefits.map((benefit, index: number) => (
             <li key={index} className="flex flex-row items-center gap-2">
               <span className="pi pi-check text-sm text-green-500"></span>
@@ -272,7 +272,7 @@ const Pricing = () => {
   }, [revenue]);
 
   return (
-    <section className="px-4 w-full">
+    <section className="px-4 w-full py-12">
       {errorMessage ? (
         <div className="flex flex-row justify-center items-center w-full">
           <Card className="bg-red-100 border border-red-500 text-red-700 rounded-lg shadow-md p-4">
@@ -283,7 +283,15 @@ const Pricing = () => {
           </Card>
         </div>
       ) : (
-        <>
+        <div className="flex flex-col gap-16">
+          <div className="flex flex-col gap-4 items-center justify-center text-center">
+            <h1 className="text-4xl font-bold text-blue-950 leading-tight">
+              Choisissez l&apos;offre qui vous correspond le mieux
+            </h1>
+            <h2 className="text-sm font-medium text-blue-900 leading-snug">
+              Des solutions flexibles pour chaque étape de votre croissance
+            </h2>
+          </div>
           <div className="flex flex-row items-start gap-4">
             {availablePrice.length > 0 ? (
               revenue >= 1000000 ? (
@@ -333,7 +341,7 @@ const Pricing = () => {
               </div>
             )}
           </div>
-        </>
+        </div>
       )}
     </section>
   );
