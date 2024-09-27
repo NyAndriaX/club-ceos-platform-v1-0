@@ -23,7 +23,6 @@ export const ProfilView = () => {
         }
 
         const { user } = await response.json();
-        console.log(user);
         setUser(user);
       } catch (error) {
         setError((error as Error).message);

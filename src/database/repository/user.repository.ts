@@ -53,4 +53,3 @@ export async function updateMany(users: User[], data: Partial<UserInput>): Promi
     where: { id: { in: users.map(user => user.id) } }
   })
 }
-

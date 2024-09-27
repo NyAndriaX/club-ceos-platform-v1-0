@@ -43,6 +43,15 @@ export const NavBar: React.FC = () => {
       command: () => router.push("/member/users/edit"),
     },
     {
+      id: "2",
+      label: " Membres",
+      icon: "pi pi-id-card",
+      template: itemRenderer,
+      command: () => {
+        router.push("/member/members");
+      },
+    },
+    {
       id: "1",
       label: "Se déconnecter",
       icon: "pi pi-sign-out",
@@ -79,7 +88,7 @@ export const NavBar: React.FC = () => {
     >
       <PanelMenu
         model={items}
-        className={`flex flex-col gap-4 w-full mt-6 ${
+        className={`flex flex-col gap-2 w-full mt-6 ${
           isHomePage ? "px-4" : "px-2"
         }`}
       />
