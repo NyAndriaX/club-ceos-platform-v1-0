@@ -4,11 +4,12 @@ import { Button } from "primereact/button";
 import { MenuItem } from "primereact/menuitem";
 import { Card } from "primereact/card";
 import { signOut } from "next-auth/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Tooltip } from "primereact/tooltip";
 
 export const NavBar: React.FC = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const isHomePage = pathname === "/member/home";
 
   const itemRenderer = (item: MenuItem, options: any) => {
@@ -25,7 +26,7 @@ export const NavBar: React.FC = () => {
           ""
         )}
         <span
-          className={`navitem-${item.id}  ${item.icon}`}
+          className={`navitem-${item.id} ${item.icon}`}
           style={{ fontSize: isHomePage ? "1.2rem" : "1.3rem" }}
         ></span>
         {isHomePage ? <span className="text-base">{item.label}</span> : ""}
@@ -39,7 +40,7 @@ export const NavBar: React.FC = () => {
       label: "Mon compte",
       icon: "pi pi-user",
       template: (item, options) => itemRenderer(item, options),
-      command: () => (window.location.href = "/member/users/edit"),
+      command: () => router.push("/member/users/edit"),
     },
     {
       id: "1",
@@ -61,7 +62,7 @@ export const NavBar: React.FC = () => {
           severity="secondary"
           text
           className="flex flex-row gap-4 items-end justify-center text-2xl text-gray-800 font-semibold cursor-pointer"
-          onClick={() => (window.location.href = "/member/home")}
+          onClick={() => router.push("/member/home")}
         >
           {!isHomePage ? (
             <Tooltip target={`.title-card`} content="Communautés" />

@@ -59,4 +59,6 @@ export type UserOutput = {
   isValidatedByAdmin: boolean;
   customerId?: String;
   subscriptionId?: number;
+  createdAt: Date;
+  updatedAt: Date;
 }

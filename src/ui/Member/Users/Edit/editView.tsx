@@ -1,16 +1,24 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Avatar } from "primereact/avatar";
 import { useSession } from "next-auth/react";
 import EditForm from "./components/editForm";
 import { UserOutput } from "@/typings";
 
 const EditView = () => {
+  const router = useRouter();
   const { data: session } = useSession();
 
   const defaultProfileImage =
     "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png";
+
+  const handleAvatarClick = () => {
+    const nom = session?.user?.firstName ?? "defaultName";
+    const userId = session?.user?.id;
+    router.push(`/member/users/profil?nom=${nom}&userId=${userId}`);
+  };
 
   return (
     <main className="flex flex-row items-center justify-center">
@@ -21,6 +29,8 @@ const EditView = () => {
             image={session?.user?.profile ?? defaultProfileImage}
             shape="circle"
             size="large"
+            className="cursor-pointer"
+            onClick={handleAvatarClick}
           />
         </div>
 
