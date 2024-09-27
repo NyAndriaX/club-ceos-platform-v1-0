@@ -1,0 +1,29 @@
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.card-profile {
+    border-radius: 10px;
+    /* Arrondi des coins de la carte */
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+}
+
+.profile-image {
+    border-radius: 50%;
+    /* Arrondi de l'image */
+    margin-right: 10px;
+}
+
+.card-body {
+    margin: 10px 0;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+}
