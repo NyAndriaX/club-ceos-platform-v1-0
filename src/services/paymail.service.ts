@@ -18,7 +18,7 @@ export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolea
   });
 
   try {
-    const mail = await transporter.sendMail({
+    await transporter.sendMail({
       from: `"Club Ceos Platform" <${process.env.NEXT_PUBLIC_ADMIN_EMAIL_COMPTE_OUTLOOK}>`,
       to: userEmail,
       subject: "Finalisez Votre Inscription au Club Ceos",

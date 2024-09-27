@@ -41,6 +41,8 @@ model User {
     city                String
     email               String        @unique
     phoneNumber         String
+    profile             String?       @db.VarChar(255)
+    bio                 String?
     linkedInUrl         String
     jobTitle            String
     companyName         String
@@ -52,7 +54,7 @@ model User {
     companyLinkedInPage String
     companyPhoneNumber  String
     revenue             Float
-    revenueFileUrl      String
+    revenueFileUrl      String        @db.VarChar(255)
     isValidatedByAdmin  Boolean       @default(false)
     password            String?
     isNew               Boolean       @default(true)

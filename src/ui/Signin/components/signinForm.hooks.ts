@@ -3,13 +3,13 @@ import { signIn } from "next-auth/react";
 import { AuthInput } from "@/typings/auth";
 
 type UseSigninForm = {
-   onSubmit:(formData:AuthInput)=>void;
-   isLoading:boolean;
-   success:boolean;
-   error:string | null;
+  onSubmit: (formData: AuthInput) => void;
+  isLoading: boolean;
+  success: boolean;
+  error: string | null;
 }
 
-export const useSigninForm = ():UseSigninForm =>{
+export const useSigninForm = (): UseSigninForm => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
@@ -20,18 +20,18 @@ export const useSigninForm = ():UseSigninForm =>{
     setSuccess(false);
 
     try {
-      const result: any = await signIn('credentials',{
-        email:formData.email,
-        password:formData.password,
-        redirect:false
+      const result: any = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false
       });
 
 
-      if(!result.ok){
+      if (!result.ok) {
         setError(result.error);
       }
 
-      if(result.ok){
+      if (result.ok) {
         window.location.reload();
       }
 

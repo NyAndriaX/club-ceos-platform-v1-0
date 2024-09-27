@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",
-    "db:reset":"npx prisma migrate dev --name init",
+    "db:reset": "npx prisma migrate dev --name init",
     "db:seed": "npx prisma db push && npx tsx ./src/database/seeders/index.ts",
-    "stripe-listner":"stripe listen --forward-to localhost:3000/api/webhooks/stripe"
+    "stripe-listner": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
   },
   "prisma": {
     "schema": "src/database/models/schema.prisma"
@@ -24,6 +24,7 @@
     "@prisma/client": "5.18.0",
     "@stripe/stripe-js": "^4.4.0",
     "@types/react-lazyload": "^3.2.3",
+    "@types/uuid": "^10.0.0",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",

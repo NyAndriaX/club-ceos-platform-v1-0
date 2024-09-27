@@ -18,12 +18,17 @@ export type UserInput = {
   companyPhoneNumber: string;
   revenue: number;
   planId?: number;
+  bio?: string;
+  profile?: string | null;
   isValidatedByAdmin?: boolean;
   isNew?: boolean;
   revenueFileUrl: string;
   customerId?: string;
   password?: string;
+  newPassword?: string;
+  confirmPassword?: string;
   subscriptionId?: number;
+  currentPassword?: string;
 };
 
 
@@ -48,6 +53,8 @@ export type UserOutput = {
   companyPhoneNumber: string;
   revenue: number;
   isNew: boolean;
+  bio?: string;
+  profile?: string | null;
   revenueFileUrl: string;
   isValidatedByAdmin: boolean;
   customerId?: String;

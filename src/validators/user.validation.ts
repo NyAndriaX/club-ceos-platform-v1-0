@@ -105,3 +105,50 @@ export const userSchema = userSignupStepOneSchema
       required_error: 'Le fichier de revenu est requis.',
     }).min(1, 'Le fichier de revenu est requis.'),
   });
+
+export const editUserSchema = z.object({
+  lastName: z.string({
+    required_error: 'Le nom de famille est requis.'
+  }).min(1, 'Le nom de famille est requis.').max(50, 'Le nom de famille ne doit pas dépasser 50 caractères.'),
+
+  firstName: z.string({
+    required_error: 'Le prénom est requis.'
+  }).min(1, 'Le prénom est requis.').max(50, 'Le prénom ne doit pas dépasser 50 caractères.'),
+
+  jobTitle: z.string({
+    required_error: 'Le poste est requis.'
+  }).min(1, 'Le poste est requis.'),
+
+  email: z.string({
+    required_error: 'L\'adresse e-mail est requise.'
+  }).email('Veuillez entrer une adresse e-mail valide.'),
+
+  companyName: z.string({
+    required_error: 'Le nom de l\'entreprise est requis.'
+  }).min(1, 'Le nom de l\'entreprise est requis.'),
+
+  linkedInUrl: z.string({
+    required_error: 'Le lien LinkedIn est requis.'
+  }).url('Veuillez entrer un lien LinkedIn valide.'),
+
+  companyWebsite: z.string({
+    required_error: 'Le lien du site web de l\'entreprise est requis.'
+  }).url('Veuillez entrer un lien de site web valide.'),
+
+  bio: z.string({
+    required_error: 'La biographie est requise.'
+  }).min(10, 'La biographie doit contenir au moins 10 caractères.').optional().or(z.literal('')),
+
+  newPassword: z.string({
+  }).min(8, 'Le mot de passe doit contenir au moins 8 caractères.').optional().or(z.literal('')),
+
+  confirmPassword: z.string({
+  }).min(8, 'La confirmation du mot de passe doit contenir au moins 8 caractères.').optional().or(z.literal('')),
+
+  currentPassword: z.string({
+  }).min(8, 'Le mot de passe actuel doit contenir au moins 8 caractères.')
+})
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Les mots de passe ne correspondent pas.',
+  });

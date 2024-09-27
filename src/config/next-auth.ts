@@ -1,5 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { getContext } from "@/database/context";
 import { compare } from "bcryptjs";
@@ -11,7 +11,7 @@ import * as subscriptionRepository from "@/database/repository/subscription.repo
 
 const { prisma } = getContext();
 
-export const AuthOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   secret: process.env.NEXTAUTH_SECRET,
   session: {
@@ -86,9 +86,14 @@ export const AuthOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user) {
         token.user = user;
+      }
+
+      // ADDITION
+      if (trigger === 'update') {
+        token.user = session
       }
       return token;
     },
@@ -98,3 +103,16 @@ export const AuthOptions: NextAuthOptions = {
     },
   },
 };
+
+
+/**
+ * 
+ * helpers function to get the  session on the server without having to import the authOptions object every single time 
+ * @returns  the sessions object or null
+ */
+
+const getSession = async () => getServerSession();
+
+export {
+  authOptions, getSession
+}

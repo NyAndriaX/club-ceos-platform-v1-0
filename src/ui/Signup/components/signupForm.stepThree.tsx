@@ -8,6 +8,7 @@ import { userSignupStepThreeSchema } from "@/validators/user.validation";
 import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
 import { storage } from "@/config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 type Props = {
   formUserRegister: Partial<UserInput>;
@@ -29,7 +30,10 @@ export function SignupFormStepThree({
     if (selectFile) {
       setIsLoading(true);
       try {
-        const storageRef = ref(storage, `revenueFiles/${selectFile.name}`);
+        const storageRef = ref(
+          storage,
+          `revenueFiles/${selectFile.name + v4()}`
+        );
 
         await uploadBytes(storageRef, selectFile);
 
