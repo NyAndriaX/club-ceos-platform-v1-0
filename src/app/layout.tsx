@@ -18,6 +18,16 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <style>
+          {`
+            body {
+              zoom: 0.8;
+              height: 125vh;
+            }
+          `}
+        </style>
+      </head>
       <body suppressHydrationWarning>
         <PrimeReactProvider>{children}</PrimeReactProvider>
       </body>

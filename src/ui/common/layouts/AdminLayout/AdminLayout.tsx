@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { TopBar } from "../../components/layout/AdminLayout/TopBar";
 import { NavBar } from "../../components/layout/AdminLayout/NavBar";
 
 type Props = {
@@ -10,12 +9,11 @@ type Props = {
 
 export const AdminLayout = ({ children }: Props) => {
   return (
-    <div className="w-full h-screen flex flex-col">
-      <div className="flex flex-col h-full">
-        <TopBar />
-        <div className="flex flex-row h-full lg:ml-4 lg:my-4">
-          <NavBar />
-          <div className="flex flex-col lg:px-[1.67vw] flex-1">{children}</div>
+    <div className="w-full h-full flex flex-col">
+      <div className="flex flex-row h-full">
+        <NavBar />
+        <div className="flex flex-col lg:px-8 py-4 flex-1 h-full overflow-auto">
+          {children}
         </div>
       </div>
     </div>

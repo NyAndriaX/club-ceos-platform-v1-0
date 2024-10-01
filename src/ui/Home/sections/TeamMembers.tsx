@@ -4,7 +4,7 @@ import { AnimatedMembersList } from "../components/AnimatedMembersList";
 
 export function TeamMembers() {
   return (
-    <div className="flex flex-row items-center justify-between px-4 w-screen">
+    <div className="flex flex-row items-center justify-between px-4 w-full">
       <div>
         <h2 className="text-3xl font-bold tracking-tight text-blue-900 sm:text-4xl mb-8">
           Nos membres

@@ -6,7 +6,7 @@ import { FollowUsSection } from "./sections/FollowUsSection";
 
 export default function MainFooter() {
   return (
-    <footer className="flex flex-col w-screen mt-20">
+    <footer className="flex flex-col w-full mt-20">
       <LocationSection />
       <FollowUsSection />
     </footer>

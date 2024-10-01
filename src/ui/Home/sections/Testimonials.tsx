@@ -49,7 +49,7 @@ export function Testimonials() {
   }, []);
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 lg:py-8">
+    <div className="px-4 sm:px-6 lg:px-8 lg:py-8 w-full">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-center lg:gap-16">
         <div className="max-w-xl text-center sm:text-left rtl:text-right">
           <h2 className="text-3xl font-bold tracking-tight text-blue-900 sm:text-4xl">

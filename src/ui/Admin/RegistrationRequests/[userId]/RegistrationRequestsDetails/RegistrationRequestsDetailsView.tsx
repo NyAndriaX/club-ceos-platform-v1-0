@@ -1,9 +1,10 @@
 "use client";
 
+import React, { useState, useRef, useMemo } from "react";
+import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
 import { Button } from "primereact/button";
 import { useParams } from "next/navigation";
 import { UserOutput } from "@/typings";
-import React, { useState, useRef, useMemo } from "react";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { RegistrationRequestsFile } from "./components/RegistrationRequestsFile";
 import { useLocalStorage } from "primereact/hooks";
@@ -101,48 +102,47 @@ export function RegistrationRequestsDetailsView() {
 
   return (
     <>
-      <div className="flex flex-col mx-auto w-full gap-4 lg:px-8 ">
-        <div className="flex flex-row gap-4 items-center justify-between">
-          <h1 className="text-lg md:text-2xl font-bold pb-2">
-            Informations détaillées sur la demande d&apos;inscription
-          </h1>
-          {user && !user.isValidatedByAdmin && (
-            <div className="flex flex-row justify-between gap-2">
-              <Button
-                icon="pi pi-check"
-                rounded
-                outlined
-                disabled={isLoadingApproval || isLoadingRejection}
-                loading={isLoadingApproval}
-                severity="success"
-                tooltip="Valider la demande"
-                tooltipOptions={{ position: "top" }}
-                aria-label="Valider"
-                onClick={(e) => confirm(e, "valider")}
-              />
-              <Button
-                icon="pi pi-times"
-                rounded
-                outlined
-                disabled={isLoadingApproval || isLoadingRejection}
-                loading={isLoadingRejection}
-                severity="danger"
-                tooltip="Refuser la demande"
-                tooltipOptions={{ position: "top" }}
-                aria-label="Refuser"
-                onClick={(e) => confirm(e, "refuser")}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-4 lg:gap-8 max-h-[80vh] overflow-y-auto">
-          {user && <RegistrationRequestsFile user={user} />}
-          {user && <RegistrationRequestsAddress user={user} />}
-        </div>
-        <ConfirmPopup ref={popupRef} />
-      </div>
+      <AdminPage
+        title={
+          <div className="flex flex-row justify-between">
+            <h1>Informations détaillées sur la demande d&apos;inscription</h1>
+            {user && !user.isValidatedByAdmin && (
+              <div className="flex flex-row justify-between gap-2">
+                <Button
+                  icon="pi pi-check"
+                  rounded
+                  outlined
+                  disabled={isLoadingApproval || isLoadingRejection}
+                  loading={isLoadingApproval}
+                  severity="success"
+                  tooltip="Valider la demande"
+                  tooltipOptions={{ position: "top" }}
+                  aria-label="Valider"
+                  onClick={(e) => confirm(e, "valider")}
+                />
+                <Button
+                  icon="pi pi-times"
+                  rounded
+                  outlined
+                  disabled={isLoadingApproval || isLoadingRejection}
+                  loading={isLoadingRejection}
+                  severity="danger"
+                  tooltip="Refuser la demande"
+                  tooltipOptions={{ position: "top" }}
+                  aria-label="Refuser"
+                  onClick={(e) => confirm(e, "refuser")}
+                />
+              </div>
+            )}
+          </div>
+        }
+      >
+        {user && <RegistrationRequestsFile user={user} />}
+        {user && <RegistrationRequestsAddress user={user} />}
+      </AdminPage>
+      <ConfirmPopup ref={popupRef} />
       <Toast ref={toast} />
     </>
   );
 }
+// "Informations détaillées sur la demande d'inscription"

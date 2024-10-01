@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 
 export function Benefits() {
   return (
-    <div className="">
+    <div className="w-full">
       <h2 className="text-3xl font-bold tracking-tight text-blue-900 sm:text-4xl mb-8 text-center">
         Adhérer au club des CEOs c&apos;est:
       </h2>

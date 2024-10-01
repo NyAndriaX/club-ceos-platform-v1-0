@@ -92,7 +92,7 @@ export function RegistrationRequestsFile({ user }: Props) {
               />
             )}
             <div className="cursor-pointer" onClick={openDialog}>
-              <canvas ref={canvasRef} />
+              <canvas ref={canvasRef} className="w-80 h-80 object-fill" />
             </div>
             <p>Page {page}</p>
           </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { UserOutput } from "@/typings";
 import { Card } from "primereact/card";
@@ -8,6 +9,7 @@ import { useLocalStorage } from "primereact/hooks";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 export function ListUsersAwaitingApproval() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [usersAwaitingApprovals, setUsersAwaitingApprovals] = useState<
     UserOutput[] | []
@@ -18,7 +20,9 @@ export function ListUsersAwaitingApproval() {
   );
 
   const onCarouselClick = (userId: number) => {
-    window.location.href = `/admin/registration-requests/${userId}?action=usersAwaitingApproval`;
+    router.push(
+      `/admin/registration-requests/${userId}?action=usersAwaitingApproval`
+    );
   };
 
   useEffect(() => {
@@ -44,7 +48,7 @@ export function ListUsersAwaitingApproval() {
   const responsiveOptions = [
     {
       breakpoint: "1400px",
-      numVisible: 2,
+      numVisible: 4,
       numScroll: 1,
     },
     {
@@ -70,7 +74,7 @@ export function ListUsersAwaitingApproval() {
   ) => {
     return (
       <div
-        className="relative flex flex-col border surface-border border-round rounded-md m-2 text-center py-5 px-3 max-w-[300px] transition hover:bg-gray-100 cursor-pointer"
+        className="relative flex flex-col border border-gray-300 border-round rounded-md m-2 text-center py-5 px-3 max-w-[300px] transition hover:bg-gray-300 cursor-pointer"
         onClick={() => onCarouselClick(usersAwaitingApprovals.id)}
       >
         <div className="flex flex-col items-center justify-center mb-3">
@@ -98,7 +102,7 @@ export function ListUsersAwaitingApproval() {
     );
   };
   return (
-    <Card>
+    <Card className="shadow-sm">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <h2 className="text-base font-semibold">
@@ -121,6 +125,7 @@ export function ListUsersAwaitingApproval() {
             value={usersAwaitingApprovals ?? []}
             numScroll={1}
             numVisible={3}
+            className="flex flex-row gap-4 items-center"
             responsiveOptions={responsiveOptions}
             itemTemplate={(usersAwaitingApprovals) =>
               cardUsersTemplate(usersAwaitingApprovals, onCarouselClick)
