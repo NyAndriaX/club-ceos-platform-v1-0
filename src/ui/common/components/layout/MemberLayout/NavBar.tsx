@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { PanelMenu } from "primereact/panelmenu";
 import { Button } from "primereact/button";
@@ -15,7 +15,6 @@ export const NavBar: React.FC = () => {
   const router = useRouter();
   const [visible, setVisible] = useState<boolean>(false);
   const [positionLeft, setPositionLeft] = useState<number>(0);
-  const buttonRef = useRef<Button>(null);
 
   const isHomePage = pathname === "/member/home";
 
@@ -25,7 +24,6 @@ export const NavBar: React.FC = () => {
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setPositionLeft(rect.left + (isHomePage ? 262 : 84));
-
     setVisible(true);
   };
 
@@ -33,120 +31,26 @@ export const NavBar: React.FC = () => {
     await signOut({ callbackUrl: "/signin" });
   };
 
-    const reject = () => { };
+  const reject = () => {};
 
-    const itemRenderer = (item: MenuItem, options: any) => {
-        return (
-            <>
-                <Button
-                    size="small"
-                    severity="secondary"
-                    text
-                    className={`flex flex-row gap-4 w-full items-start text-gray-900 font-normal ${item.className}`}
-                >
-                    {!isHomePage ? (
-                        <Tooltip target={`.navitem-${item.id}`} content={item.label} />
-                    ) : (
-                        ""
-                    )}
-                    <span
-                        className={`navitem-${item.id} ${item.icon}`}
-                        style={{ fontSize: isHomePage ? "1.2rem" : "1.3rem" }}
-                    ></span>
-                    {isHomePage ? <span className="text-base">{item.label}</span> : ""}
-                </Button>
-            </>
-        );
-    };
-
-    const items: MenuItem[] = [
-        {
-            id: "0",
-            label: "Mon compte",
-            icon: "pi pi-user",
-            template: (item, options) => itemRenderer(item, options),
-            command: () => router.push("/member/users/edit"),
-        },
-        {
-            id: "4",
-            label: "Brouillons",
-            icon: "pi pi-pen-to-square",
-            template: itemRenderer,
-            command: () => {
-                router.push("/member/topics/drafts");
-            },
-        },
-        {
-            id: "2",
-            label: " Membres",
-            icon: "pi pi-id-card",
-            template: itemRenderer,
-            command: () => {
-                router.push("/member/members");
-            },
-        },
-        {
-            id: "3",
-            label: " Centre d'intérêt",
-            icon: "pi pi-bookmark",
-            template: itemRenderer,
-            command: () => {
-                router.push("/member/topics/interestingCenter");
-            },
-        },
-        {
-            id: "4",
-            label: " Espaces",
-            icon: "pi pi-list",
-            template: itemRenderer,
-            command: () => {
-                router.push("/member/members");
-            },
-        },
-        {
-            separator: true,
-        },
-        {
-            id: "8",
-            label: "Se déconnecter",
-            icon: "pi pi-sign-out",
-            className: "text-red-500",
-            template: itemRenderer,
-            command: () => {
-                confirmDialog({
-                    message: "Êtes-vous sûr de vouloir vous déconnecter ?",
-                    header: "Confirmation",
-                    icon: "pi pi-exclamation-triangle",
-                    defaultFocus: "accept",
-                    accept,
-                    reject,
-                });
-            },
-        },
-    ];
-
+  const itemRenderer = (item: MenuItem) => {
     return (
-      <>
-        <Button
-          size="small"
-          severity="secondary"
-          text
-          className={`flex flex-row gap-4 w-full items-start text-gray-900 font-normal ${item.className}`}
-          onClick={(e) => handleClick(e, item)}
-          ref={buttonRef}
-        >
-          {!isHomePage ? (
-            <Tooltip target={`.navitem-${item.id}`} content={item.label} />
-          ) : (
-            ""
-          )}
-          <span
-            className={`navitem-${item.id} ${item.icon}`}
-            style={{ fontSize: isHomePage ? "1.2rem" : "1.3rem" }}
-          ></span>
-          {isHomePage ? <span className="text-base">{item.label}</span> : ""}
-        </Button>
-      </>
+      <Button
+        size="small"
+        severity="secondary"
+        text
+        className={`flex flex-row gap-4 w-full items-start text-gray-900 font-normal ${item.className}`}
+        onClick={(e) => handleClick(e, item)}
+      >
+        {!isHomePage && (
+          <Tooltip target={`.navitem-${item.id}`} content={item.label} />
+        )}
+        <span
+          className={`navitem-${item.id} ${item.icon}`}
+          style={{ fontSize: isHomePage ? "1.2rem" : "1.3rem" }}
+        ></span>
+        {isHomePage && <span className="text-base">{item.label}</span>}
+      </Button>
     );
   };
 
@@ -155,7 +59,7 @@ export const NavBar: React.FC = () => {
       id: "0",
       label: "Mon compte",
       icon: "pi pi-user",
-      template: (item, options) => itemRenderer(item, options),
+      template: itemRenderer,
       command: () => {
         setVisible(false);
         router.push("/member/users/edit");
@@ -254,7 +158,6 @@ export const NavBar: React.FC = () => {
               ></span>
             </Link>
           </div>
-          <div className="flex flex-col gap-4 px-2"></div>
         </div>
       </Dialog>
 
@@ -270,10 +173,8 @@ export const NavBar: React.FC = () => {
               router.push("/member/home");
             }}
           >
-            {!isHomePage ? (
+            {!isHomePage && (
               <Tooltip target={`.title-card`} content="Communautés" />
-            ) : (
-              ""
             )}
             <span className="title-card rounded-full p-1 border border-black text-xs font-extrabold">
               Logo
@@ -281,7 +182,7 @@ export const NavBar: React.FC = () => {
             {isHomePage ? "Communautés" : ""}
           </Button>
         }
-        className="sticky top-0  h-full z-50 bg-white"
+        className="sticky top-0 h-full z-50 bg-white"
       >
         <PanelMenu
           model={items}
