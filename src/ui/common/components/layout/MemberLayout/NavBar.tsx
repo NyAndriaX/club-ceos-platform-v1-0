@@ -10,8 +10,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { Tooltip } from "primereact/tooltip";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
-const haveSubItem = ["Espaces"];
-
 export const NavBar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
