@@ -47,6 +47,7 @@
     "primeicons": "^7.0.0",
     "primereact": "^10.8.2",
     "prisma": "^5.18.0",
+    "quill": "^2.0.2",
     "react": "^18",
     "react-dom": "^18",
     "react-email": "^2.1.6",

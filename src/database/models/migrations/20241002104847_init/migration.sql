@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `topics` ADD COLUMN `status` ENUM('DRAFT', 'PUBLISHED') NOT NULL DEFAULT 'DRAFT';

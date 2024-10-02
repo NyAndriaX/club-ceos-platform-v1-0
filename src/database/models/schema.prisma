@@ -95,6 +95,37 @@ model Theme {
     description String?  @db.Text
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+    Topic       Topic[]
 
     @@map("themes")
+}
+
+enum TopicType {
+    COMMUNAUTE
+    EVENEMENT
+    GUIDE
+    QUESTION
+    MODELE
+    ARTICLES
+    ANNONCE
+}
+
+enum TopicStatus {
+    DRAFT
+    PUBLISHED
+}
+
+model Topic {
+    id        Int         @id @default(autoincrement())
+    title     String      @db.VarChar(255)
+    content   String      @db.Text
+    type      TopicType
+    status    TopicStatus @default(DRAFT)
+    themeId   Int
+    theme     Theme       @relation(fields: [themeId], references: [id])
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+
+    @@index([themeId], map: "idx_topic_theme")
+    @@map("topics")
 }

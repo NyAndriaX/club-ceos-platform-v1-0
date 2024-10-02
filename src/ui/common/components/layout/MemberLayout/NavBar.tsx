@@ -76,6 +76,9 @@ export const NavBar: React.FC = () => {
       },
     },
     {
+      separator: true,
+    },
+    {
       id: "5",
       label: "Centres d'intérêt ",
       icon: "pi pi-bookmark",
@@ -160,7 +163,8 @@ export const NavBar: React.FC = () => {
             </p>
             <Link
               className="flex font-normal flex-row gap-2 w-fit items-center border-b border-gray-900"
-              href={"/admin/home"}
+              href={"/member/topics/new"}
+              onClick={() => setVisible(false)}
             >
               <span>Nouveau sujet </span>
               <span
