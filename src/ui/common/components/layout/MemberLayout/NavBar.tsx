@@ -76,6 +76,16 @@ export const NavBar: React.FC = () => {
       },
     },
     {
+      id: "5",
+      label: "Centres d'intérêt ",
+      icon: "pi pi-bookmark",
+      template: itemRenderer,
+      command: () => {
+        setVisible(false);
+        router.push("/member/interest-center");
+      },
+    },
+    {
       id: "2",
       label: " Membres",
       icon: "pi pi-id-card",
@@ -94,6 +104,7 @@ export const NavBar: React.FC = () => {
         setVisible(!visible);
       },
     },
+
     {
       separator: true,
     },
