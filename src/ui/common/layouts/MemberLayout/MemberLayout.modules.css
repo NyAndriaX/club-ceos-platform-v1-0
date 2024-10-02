@@ -5,4 +5,5 @@
 
 .p-dialog-content{
     border-radius:0.25rem !important;
+    border-left: 1px solid #eaeaea;
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { TopicOutput } from "@/typings/topic";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { MemberPage } from "@/ui/common/components/layout/MemberLayout/MemberPage";
@@ -9,6 +10,31 @@ import { Column } from "primereact/column";
 
 export const DraftsView = () => {
   const router = useRouter();
+  const [isLoadingToFetchTopicsAsDrafts, setIsLoadingToFetchTopicsAsDrafts] =
+    useState<boolean>(false);
+  const [topicsAsDrafts, setTopicsAsDrafts] = useState<TopicOutput[] | []>([]);
+
+  useEffect(() => {
+    const fetchAllTopicsWithStatusDrafts = async () => {
+      setIsLoadingToFetchTopicsAsDrafts(true);
+      try {
+        const response = await fetch(`/api/topic/DRAFT`);
+        const { topics } = await response.json();
+        setTopicsAsDrafts(topics);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des sujets :", error);
+      } finally {
+        setIsLoadingToFetchTopicsAsDrafts(false);
+      }
+    };
+
+    fetchAllTopicsWithStatusDrafts();
+  }, []);
+
+  const contentTemplate = (rowData: TopicOutput) => {
+    return <div dangerouslySetInnerHTML={{ __html: rowData.content }} />;
+  };
+
   return (
     <MemberPage
       title={
@@ -22,12 +48,13 @@ export const DraftsView = () => {
         </div>
       }
     >
-      <div className="flex-col">
-        <DataTable>
-          <Column field="title" header="Titre" />
-          <Column field="description" header="Contenu" />
-        </DataTable>
-      </div>
+      <DataTable
+        value={topicsAsDrafts}
+        loading={isLoadingToFetchTopicsAsDrafts}
+      >
+        <Column field="title" header="Titre" />
+        <Column body={contentTemplate} header="Contenu" />
+      </DataTable>
     </MemberPage>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { PanelMenu } from "primereact/panelmenu";
 import { Button } from "primereact/button";
@@ -6,13 +6,26 @@ import { MenuItem } from "primereact/menuitem";
 import { Card } from "primereact/card";
 import { signOut } from "next-auth/react";
 import { Dialog } from "primereact/dialog";
+import { ThemeOutput } from "@/typings/theme";
+import { Badge } from "primereact/badge";
 import { usePathname, useRouter } from "next/navigation";
 import { Tooltip } from "primereact/tooltip";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
+const getRandomDarkColor = () => {
+  const hue = Math.floor(Math.random() * 360);
+  const saturation = Math.floor(Math.random() * 40) + 60;
+  const lightness = Math.floor(Math.random() * 30) + 40;
+
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+};
+
 export const NavBar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLoadingFetchAllThemes, setIsLoadingFetchAllThemes] =
+    useState<boolean>(false);
+  const [themes, setThemes] = useState<ThemeOutput[] | []>([]);
   const [visible, setVisible] = useState<boolean>(false);
   const [positionLeft, setPositionLeft] = useState<number>(0);
 
@@ -23,13 +36,29 @@ export const NavBar: React.FC = () => {
     item: MenuItem
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setPositionLeft(rect.left + (isHomePage ? 262 : 84));
+    setPositionLeft(rect.left + (isHomePage ? 262 : 83));
     setVisible(true);
   };
 
   const accept = async () => {
     await signOut({ callbackUrl: "/signin" });
   };
+
+  useEffect(() => {
+    const fetchAllThemes = async () => {
+      setIsLoadingFetchAllThemes(true);
+      try {
+        const response = await fetch("/api/theme");
+        const { themes } = await response.json();
+        setThemes(themes);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des thèmes :", error);
+      } finally {
+        setIsLoadingFetchAllThemes(false);
+      }
+    };
+    fetchAllThemes();
+  }, []);
 
   const reject = () => {};
 
@@ -155,23 +184,34 @@ export const NavBar: React.FC = () => {
         resizable={false}
         className={`absolute -top-3 z-50 shadow-sm max-h-[125vh] max-w-[300px]`}
       >
-        <div className="flex flex-col gap-4 items-start py-16 text-gray-900">
-          <h2 className="text-lg font-semibold">Espaces</h2>
-          <div className="flex flex-col gap-4 bg-gray-50 p-2 rounded-md">
-            <p className="text-sm font-semibold text-gray-500">
-              Participez à la communauté
-            </p>
-            <Link
-              className="flex font-normal flex-row gap-2 w-fit items-center border-b border-gray-900"
-              href={"/member/topics/new"}
-              onClick={() => setVisible(false)}
-            >
-              <span>Nouveau sujet </span>
-              <span
-                className="pi pi-arrow-right text-gray-500"
-                style={{ fontSize: "0.8rem" }}
-              ></span>
-            </Link>
+        <div className="flex flex-col gap-8 items-start py-16 text-gray-900">
+          <div className="flex flex-col gap-4 items-start">
+            <h2 className="text-lg font-semibold">Espaces</h2>
+            <div className="flex flex-col gap-4 bg-gray-50 p-2 rounded-md">
+              <p className="text-sm font-semibold text-gray-500">
+                Participez à la communauté
+              </p>
+              <Link
+                className="flex font-normal flex-row gap-2 w-fit items-center border-b border-gray-900"
+                href={"/member/topics/new"}
+                onClick={() => setVisible(false)}
+              >
+                <span>Nouveau sujet </span>
+                <span
+                  className="pi pi-arrow-right text-gray-500"
+                  style={{ fontSize: "0.8rem" }}
+                ></span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4 items-start">
+            {themes.map((theme, index: number) => (
+              <div key={index} className="flex flex-row items-center gap-2">
+                <Badge style={{ backgroundColor: getRandomDarkColor() }} />
+                <span>{theme.title}</span>
+              </div>
+            ))}
           </div>
         </div>
       </Dialog>

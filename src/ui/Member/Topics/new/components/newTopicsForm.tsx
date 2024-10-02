@@ -69,11 +69,10 @@ export const NewTopicsForm: React.FC = () => {
         ? setIsLoadingSaveAsDraft(true)
         : setIsLoadingPublishTopic(true);
       try {
-        const payload = { ...values, status };
-        const response = await fetch("/api/topic", {
+        const response = await fetch(`/api/topic/${status}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(values),
         });
 
         if (response.ok) {
@@ -113,7 +112,6 @@ export const NewTopicsForm: React.FC = () => {
           title: "",
           content: "",
           type: "ANNONCE",
-          status: "DRAFT" as TopicStatus,
           themeId: null,
         }}
         validate={validateWithZod(topicSchema)}

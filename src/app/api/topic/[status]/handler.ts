@@ -9,4 +9,13 @@ const handleCreate = async (data: TopicInput): Promise<TopicOutput | null> => {
   return topic
 }
 
-export { handleCreate }
+const handleGetAllTopics = async (data?: any): Promise<TopicOutput[] | []> => {
+  const topics = await topicRepository.findMany(data);
+
+  if (!topics) return []
+
+  return topics
+
+}
+
+export { handleCreate, handleGetAllTopics }
