@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { ThemeOutput } from "@/typings/theme";
 import { InputIcon } from "primereact/inputicon";
@@ -12,6 +12,9 @@ import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
 
 export const ThematicView = () => {
   const router = useRouter();
+  const [filters, setFilters] = useState<{ globalFilters: string }>({
+    globalFilters: "",
+  });
   const [themes, setThemes] = useState<ThemeOutput[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,6 +40,16 @@ export const ThematicView = () => {
     fetchAllThematics();
   }, []);
 
+  const filteredUsers = useCallback(() => {
+    return themes.filter((theme) => {
+      const themeMatch = theme.title
+        .toLowerCase()
+        .includes(filters.globalFilters.toLowerCase());
+
+      return themeMatch;
+    });
+  }, [filters, themes]);
+
   return (
     <AdminPage
       title={
@@ -59,6 +72,13 @@ export const ThematicView = () => {
             <InputText
               type="text"
               placeholder="Rechercher"
+              value={filters.globalFilters}
+              onChange={(e) => {
+                setFilters((prevFilters) => ({
+                  ...prevFilters,
+                  globalFilters: e.target.value,
+                }));
+              }}
               className="md:p-inputtext-md lg:p-inputtext-lg"
               aria-label="Rechercher une thématique"
             />
@@ -75,25 +95,33 @@ export const ThematicView = () => {
           <p className="text-red-500">{error}</p>
         ) : (
           <div className="flex flex-row gap-4">
-            {themes.map((theme) => (
-              <Card
-                title={
-                  <h3 className="text-sm font-semibold lowercase px-2 py-1 bg-gray-200 rounded-md w-fit">
-                    {theme.title}
-                  </h3>
-                }
-                footer={
-                  <div className="flex flex-col text-sm font-light w-fit">
-                    <span>465465</span>
-                    <span>sujets</span>
-                  </div>
-                }
-                key={theme.id}
-                className="w-[350px] border border-gray-300"
-              >
-                <p className="text-sm line-clamp-3">{theme.description}</p>
-              </Card>
-            ))}
+            {filteredUsers().length <= 0 ? (
+              <div className="text-center text-gray-500">
+                Aucun thématique ne correspond à vos critères de recherche.
+                Essayez d&apos;ajuster les filtres ou de rechercher un autre
+                nom.
+              </div>
+            ) : (
+              filteredUsers().map((theme) => (
+                <Card
+                  title={
+                    <h3 className="text-sm font-semibold lowercase px-2 py-1 bg-gray-200 rounded-md w-fit">
+                      {theme.title}
+                    </h3>
+                  }
+                  footer={
+                    <div className="flex flex-col text-sm font-light w-fit">
+                      <span>465465</span>
+                      <span>sujets</span>
+                    </div>
+                  }
+                  key={theme.id}
+                  className="w-[350px] border border-gray-300"
+                >
+                  <p className="text-sm line-clamp-3">{theme.description}</p>
+                </Card>
+              ))
+            )}
           </div>
         )}
       </main>

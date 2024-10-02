@@ -68,11 +68,13 @@ export const ProfilView = () => {
               <p className="text-gray-500 font-semibold">Inscription</p>
             </div>
           </div>
-          <div className="flex flex-row gap-16 items-start">
+          <div className="flex flex-row gap-4 justify-between items-start">
             <div className="flex flex-col">
               <h2 className="text-gray-500 font-semibold">A propos</h2>
               <p className="text-gray-900 font-light">
-                {user.bio ?? "Aucun bio n'est ecrit"}
+                {user.bio === "" || user.bio === null
+                  ? "Aucun bio n'est ecrit !"
+                  : user.bio}
               </p>
             </div>
             <div className="flex flex-col gap-4 bg-gray-50 p-6 rounded-md">

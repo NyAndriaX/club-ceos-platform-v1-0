@@ -2,3 +2,7 @@
     border: none !important;
     background-color: white;
 }
+
+.p-dialog-content{
+    border-radius:0.25rem !important;
+}

@@ -77,6 +77,9 @@ export const NavBar: React.FC = () => {
       },
     },
     {
+      separator: true,
+    },
+    {
       id: "8",
       label: "Se déconnecter",
       icon: "pi pi-sign-out",
