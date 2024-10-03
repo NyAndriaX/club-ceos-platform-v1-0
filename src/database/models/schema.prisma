@@ -100,14 +100,12 @@ model Theme {
     @@map("themes")
 }
 
-enum TopicType {
-    COMMUNAUTE
-    EVENEMENT
-    GUIDE
-    QUESTION
-    MODELE
-    ARTICLES
-    ANNONCE
+model TopicType {
+    id     Int     @id @default(autoincrement())
+    name   String  @db.VarChar(255)
+    topics Topic[]
+
+    @@map("topic_types")
 }
 
 enum TopicStatus {
@@ -119,7 +117,8 @@ model Topic {
     id        Int         @id @default(autoincrement())
     title     String      @db.VarChar(255)
     content   String      @db.Text
-    type      TopicType
+    typeId    Int
+    type      TopicType   @relation(fields: [typeId], references: [id])
     status    TopicStatus @default(DRAFT)
     themeId   Int
     theme     Theme       @relation(fields: [themeId], references: [id])
