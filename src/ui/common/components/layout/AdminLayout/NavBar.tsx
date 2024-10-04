@@ -73,7 +73,7 @@ export const NavBar: React.FC = () => {
       icon: "pi pi-info-circle",
       template: itemRenderer,
       command: () => {
-        router.push("/admin/label");
+        router.push("/admin/topic/type");
       },
     },
     {

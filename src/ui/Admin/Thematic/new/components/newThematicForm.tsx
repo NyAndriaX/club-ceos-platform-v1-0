@@ -7,6 +7,7 @@ import { Button } from "primereact/button";
 import { themeSchema } from "@/validators/theme.validator";
 import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
 import { InputTextarea } from "primereact/inputtextarea";
+import { classNames } from "primereact/utils";
 
 const NewThematicForm = () => {
   const toast = useRef<Toast>(null);
@@ -71,11 +72,9 @@ const NewThematicForm = () => {
                     id="title"
                     {...field}
                     placeholder="Saisissez un titre"
-                    className={`p-inputtext p-component w-full ${
-                      touched.title && errors.title
-                        ? "border border-red-500"
-                        : ""
-                    }`}
+                    className={classNames("p-inputtext p-component w-full", {
+                      "border border-red-500": touched.title && errors.title,
+                    })}
                   />
                 )}
               </Field>
@@ -92,11 +91,10 @@ const NewThematicForm = () => {
                     rows={5}
                     cols={30}
                     placeholder="Saisissez la description du thématique"
-                    className={`p-inputtext p-component w-full ${
-                      touched.description && errors.description
-                        ? "border border-red-500"
-                        : ""
-                    }`}
+                    className={classNames("p-inputtext p-component w-full", {
+                      "border border-red-500":
+                        touched.description && errors.description,
+                    })}
                   />
                 )}
               </Field>
@@ -110,16 +108,19 @@ const NewThematicForm = () => {
             <div className="flex flex-row items-center justify-start mt-4 gap-4 w-full">
               <Button
                 type="button"
+                icon="pi pi-times"
                 outlined
                 label="Annuler"
+                className="text-red-500 border-red-500 hover:bg-red-100 hover:border-red-500 hover:text-red-700"
                 disabled={isLoading}
                 onClick={() => console.log("Annuler")}
               />
               <Button
                 type="submit"
+                icon="pi pi-check"
                 loading={isLoading}
                 disabled={isLoading}
-                label="Enregistrer le thématique"
+                label="Enregistrer"
               />
             </div>
           </Form>

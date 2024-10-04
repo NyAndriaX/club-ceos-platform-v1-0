@@ -20,7 +20,7 @@ export const AdminPage: React.FC<PropsWithChildren<AdminPageProps>> = ({
       }`}
       {...props}
     >
-      <div className="flex flex-col gap-2 items-start">
+      <div className="flex flex-col gap-2 items-start w-full">
         <h1 className="text-lg md:text-2xl font-bold w-full">{title}</h1>
         {subtitle && (
           <p className="text-base font-light text-gray-500 w-2/3">{subtitle}</p>

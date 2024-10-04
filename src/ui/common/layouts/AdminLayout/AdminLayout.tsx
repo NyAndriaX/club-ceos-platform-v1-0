@@ -2,6 +2,7 @@
 
 import React from "react";
 import { NavBar } from "../../components/layout/AdminLayout/NavBar";
+import "./AdminLayout.modules.css";
 
 type Props = {
   children: React.ReactNode;

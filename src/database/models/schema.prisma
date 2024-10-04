@@ -114,16 +114,16 @@ enum TopicStatus {
 }
 
 model Topic {
-    id        Int         @id @default(autoincrement())
-    title     String      @db.VarChar(255)
-    content   String      @db.Text
-    typeId    Int
-    type      TopicType   @relation(fields: [typeId], references: [id])
-    status    TopicStatus @default(DRAFT)
-    themeId   Int
-    theme     Theme       @relation(fields: [themeId], references: [id])
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @updatedAt
+    id          Int         @id @default(autoincrement())
+    title       String      @db.VarChar(255)
+    content     String      @db.Text
+    topicTypeId Int?
+    type        TopicType?  @relation(fields: [topicTypeId], references: [id])
+    status      TopicStatus @default(DRAFT)
+    themeId     Int
+    theme       Theme       @relation(fields: [themeId], references: [id])
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
 
     @@index([themeId], map: "idx_topic_theme")
     @@map("topics")
