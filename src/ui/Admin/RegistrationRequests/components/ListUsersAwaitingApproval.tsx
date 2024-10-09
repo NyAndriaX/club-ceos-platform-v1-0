@@ -124,7 +124,7 @@ export function ListUsersAwaitingApproval() {
                         value={usersAwaitingApprovals ?? []}
                         numScroll={1}
                         numVisible={3}
-                        className="flex flex-row gap-4 items-center"
+                        className="flex flex-row gap-4 justify-between mx-auto items-center w-full"
                         responsiveOptions={responsiveOptions}
                         itemTemplate={(usersAwaitingApprovals) =>
                             cardUsersTemplate(usersAwaitingApprovals, onCarouselClick)

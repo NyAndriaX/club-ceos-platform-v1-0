@@ -21,3 +21,9 @@ export async function deleteByTopicTypeId(topicTypeId: number): Promise<TopicTyp
     where: { id: topicTypeId }
   })
 }
+
+export async function findTopicTypeById(topicTypeId: number): Promise<TopicTypeOutput | null> {
+  return ctx.prisma.topicType.findUnique({
+    where: { id: topicTypeId }
+  })
+}

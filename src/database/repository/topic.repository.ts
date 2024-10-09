@@ -17,3 +17,9 @@ export async function findMany(data?: any): Promise<TopicOutput[] | []> {
     },
   })
 }
+
+export async function findTopicById(topicId: number): Promise<TopicOutput | null> {
+  return ctx.prisma.topic.findUnique({
+    where: { id: topicId }
+  })
+}

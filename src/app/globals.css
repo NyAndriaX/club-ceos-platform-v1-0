@@ -13,9 +13,23 @@
   @tailwind utilities;
 }
 
+.p-icon-field {
+ @apply w-full
+}
+.p-carousel-content{
+    @apply w-full
+}
+
 body {
     @apply bg-slate-100;
     /* font-family: "Poppins", serif; */
+}
+
+.ql-toolbar{
+    @apply rounded-t-md
+}
+.ql-container{
+    @apply rounded-b-md
 }
 
 

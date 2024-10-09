@@ -7,30 +7,30 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "primeicons/primeicons.css";
 
 export const metadata: Metadata = {
-  title: "Club des ceos",
-  description: "Site destiner a des entreprises",
+    title: "Club des ceos",
+    description: "Site destiner a des entreprises",
 };
 
 export default async function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <head>
-        <style>
-          {`
+    return (
+        <html lang="en">
+            <head>
+                <style>
+                    {`
             body {
-              zoom: 0.8;
-              height: 125vh;
+              zoom: 0.9;
+              height: 110vh;
             }
           `}
-        </style>
-      </head>
-      <body suppressHydrationWarning>
-        <PrimeReactProvider>{children}</PrimeReactProvider>
-      </body>
-    </html>
-  );
+                </style>
+            </head>
+            <body suppressHydrationWarning>
+                <PrimeReactProvider>{children}</PrimeReactProvider>
+            </body>
+        </html>
+    );
 }

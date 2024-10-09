@@ -9,4 +9,12 @@ const handleDelete = async (topicTypeId: number): Promise<TopicTypeOutput> => {
   return topicType
 }
 
-export { handleDelete }
+const handleGetTopicType = async (topicTypeId: number): Promise<TopicTypeOutput | null> => {
+  const topicType = await topicTypeRepository.findTopicTypeById(topicTypeId);
+
+  if (!topicType) null;
+
+  return topicType
+}
+
+export { handleDelete, handleGetTopicType }

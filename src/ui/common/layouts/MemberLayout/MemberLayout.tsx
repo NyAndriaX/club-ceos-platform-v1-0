@@ -13,7 +13,7 @@ export const MemberLayout = ({ children }: Props) => {
         <div className="w-full h-full flex flex-col">
             <div className="flex flex-row h-full">
                 <NavBar />
-                <div className="flex flex-col lg:px-8 py-4 flex-1 overflow-auto">
+                <div className="flex flex-col mx-auto w-full overflow-auto">
                     {children}
                 </div>
             </div>

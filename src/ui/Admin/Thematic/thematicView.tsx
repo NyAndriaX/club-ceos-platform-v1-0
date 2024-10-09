@@ -9,6 +9,7 @@ import { InputText } from "primereact/inputtext";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export const ThematicView = () => {
     const router = useRouter();
@@ -86,13 +87,21 @@ export const ThematicView = () => {
                     </div>
                 </div>
                 {isFetchingThemes ? (
-                    <p>Chargement des thématiques...</p>
+                    <div className="flex flex-row items-center justify-center w-full">
+                        <ProgressSpinner
+                            style={{ width: '30px', height: '30px' }}
+                            strokeWidth="8"
+                            fill="var(--surface-ground)"
+                            animationDuration=".5s"
+                        />
+
+                    </div>
                 ) : error ? (
                     <p className="text-red-500">{error}</p>
                 ) : (
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-4 w-full">
                         {filteredThemes().length <= 0 ? (
-                            <div className="text-center text-gray-500">
+                            <div className="text-center text-gray-500 w-full">
                                 Aucun thématique ne correspond à vos critères de recherche.
                                 Essayez d&apos;ajuster les filtres ou de rechercher un autre
                                 nom.
@@ -101,7 +110,7 @@ export const ThematicView = () => {
                             filteredThemes().map((theme) => (
                                 <Card
                                     title={
-                                        <h3 className="text-sm font-semibold lowercase px-2 py-1 bg-gray-200 rounded-md w-fit">
+                                        <h3 className="text-sm font-semibold line-clamp-2 lowercase px-2 py-1 bg-gray-200 rounded-md w-fit">
                                             {theme.title}
                                         </h3>
                                     }

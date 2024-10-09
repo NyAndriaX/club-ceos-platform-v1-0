@@ -17,3 +17,9 @@ export async function findMany(data?: any): Promise<ThemeOutput[] | []> {
     },
   })
 }
+
+export async function findThemeById(themeId: number): Promise<ThemeOutput | null> {
+  return ctx.prisma.theme.findUnique({
+    where: { id: themeId }
+  })
+}
