@@ -135,13 +135,13 @@ export const ProfilView = () => {
                             <p className="text-gray-500 text-lg">Inscription</p>
                         </div>
                     </div>
-                } className="bg-white max-w-6xl" headerClassName="bg-white">
+                } className="bg-white w-full max-w-6xl" headerClassName="bg-white">
 
 
                     <div className="flex justify-between gap-4 items-start p-4">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 w-full">
                             <h2 className="text-gray-900 font-semibold">À propos</h2>
-                            <p className="text-gray-500 font-normal text-base">{user.bio || "Aucune bio n'est écrite !"}</p>
+                            <p className={`text-gray-500 font-normal w-full text-base ${!user.bio && 'text-center'}`}>{user.bio || "Aucune bio n'est écrite !"}</p>
                         </div>
                         <div className="flex flex-col gap-4 bg-gray-50 min-w-[250px] p-4 rounded-md">
                             <h2 className="text-gray-900 font-semibold">Informations</h2>

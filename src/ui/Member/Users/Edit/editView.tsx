@@ -35,7 +35,7 @@ const EditView = () => {
                 />
             </div>
         }
-            className="max-w-6xl">
+            className="w-full max-w-6xl">
             {!session ? (<ProgressSpinner style={{ width: '30px', height: '30px' }} strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
             ) : (
                 <EditForm user={session?.user as Partial<UserOutput>} />

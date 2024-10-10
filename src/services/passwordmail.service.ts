@@ -6,10 +6,7 @@ export async function sendPassword(params: PasswordmailType): Promise<{ OK: bool
   const transporter = nodemailer.createTransport({
     host: 'smtp-mail.outlook.com',
     port: 587,
-    tls: {
-      ciphers: 'SSLv3',
-      rejectUnauthorized: false,
-    },
+    secure: false,
     auth: {
       user: process.env.NEXT_PUBLIC_ADMIN_EMAIL_COMPTE_OUTLOOK!,
       pass: process.env.NEXT_PUBLIC_ADMIN_PASSWORD_COMPTE_OUTLOOK!,

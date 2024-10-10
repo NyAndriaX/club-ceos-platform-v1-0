@@ -5,12 +5,7 @@ export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolea
   const { userEmail, paymentLink } = params;
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
-    tls: {
-      ciphers: 'SSLv3',
-      rejectUnauthorized: false,
-    },
+    service: 'gmail',
     auth: {
       user: process.env.NEXT_PUBLIC_ADMIN_EMAIL_COMPTE_OUTLOOK!,
       pass: process.env.NEXT_PUBLIC_ADMIN_PASSWORD_COMPTE_OUTLOOK!,

@@ -63,9 +63,13 @@ export const MembersView = () => {
                 .toLowerCase()
                 .includes(filters.globalFilter.toLowerCase());
 
-            return nameMatch && filters.haveBio;
+            const haveBioMatch = filters.haveBio ? user.bio !== null : true;
+
+            return nameMatch && haveBioMatch;
         });
     }, [filters, users]);
+
+
 
     return (
         <MemberPage title="Annuaire des membres">
@@ -108,7 +112,7 @@ export const MembersView = () => {
                             Membres avec une biographie
                         </label>
                     </div>
-                    <div>
+                    <div className="flex flex-wrap gap-4 items-start">
                         {filteredUsers().length <= 0 ? (
                             <div className="text-center text-gray-500">
                                 Aucun membre ne correspond à vos critères de recherche. Essayez
