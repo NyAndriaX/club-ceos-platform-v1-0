@@ -4,9 +4,7 @@ import { PasswordmailType } from '@/typings/passwordmail';
 export async function sendPassword(params: PasswordmailType): Promise<{ OK: boolean; error?: string }> {
   const { userEmail, password } = params;
   const transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
-    secure: false,
+    service: 'gmail',
     auth: {
       user: process.env.NEXT_PUBLIC_ADMIN_EMAIL_COMPTE_OUTLOOK!,
       pass: process.env.NEXT_PUBLIC_ADMIN_PASSWORD_COMPTE_OUTLOOK!,
