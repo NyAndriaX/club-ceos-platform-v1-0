@@ -1,21 +1,21 @@
-import React from "react";
-import Image from "next/image";
-import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
+import React from 'react';
+import Image from 'next/image';
+import { useKeenSlider } from 'keen-slider/react';
+import 'keen-slider/keen-slider.min.css';
 
 interface PartnershipLogosDataProps {
   imgSrc: string;
 }
 
 const PartnershipLogosData: PartnershipLogosDataProps[] = [
-  { imgSrc: "/vercel.svg" },
-  { imgSrc: "/next.svg" },
-  { imgSrc: "/vercel.svg" },
-  { imgSrc: "/next.svg" },
-  { imgSrc: "/vercel.svg" },
-  { imgSrc: "/next.svg" },
-  { imgSrc: "/vercel.svg" },
-  { imgSrc: "/next.svg" },
+  { imgSrc: '/vercel.svg' },
+  { imgSrc: '/next.svg' },
+  { imgSrc: '/vercel.svg' },
+  { imgSrc: '/next.svg' },
+  { imgSrc: '/vercel.svg' },
+  { imgSrc: '/next.svg' },
+  { imgSrc: '/vercel.svg' },
+  { imgSrc: '/next.svg' },
 ];
 
 const animation = { duration: 20000, easing: (t: any) => t };
@@ -23,7 +23,7 @@ const animation = { duration: 20000, easing: (t: any) => t };
 export function PartnershipLogos() {
   const [sliderRef] = useKeenSlider({
     loop: true,
-    renderMode: "performance",
+    renderMode: 'performance',
     drag: false,
     slides: {
       perView: 6,

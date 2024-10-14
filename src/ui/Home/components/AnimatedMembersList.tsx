@@ -1,7 +1,7 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { CardMember } from "./CardMember";
-import { membersGroup, membersGroup1, membersGroup2 } from "../data-home";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CardMember } from './CardMember';
+import { membersGroup, membersGroup1, membersGroup2 } from '../data-home';
 
 const ANIMATION_DURATION = 50;
 
@@ -15,13 +15,13 @@ export function AnimatedMembersList() {
       <div className="w-1/3 relative h-96 overflow-hidden">
         <motion.div
           className="flex flex-col space-y-4"
-          animate={{ y: ["0%", "-50%"] }}
+          animate={{ y: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
             duration: ANIMATION_DURATION,
-            ease: "linear",
+            ease: 'linear',
           }}
-          style={{ transform: "translateY(0)" }}
+          style={{ transform: 'translateY(0)' }}
         >
           {items.map((item, index) => (
             <CardMember key={index} member={item} />
@@ -31,11 +31,11 @@ export function AnimatedMembersList() {
       <div className="w-1/3 relative h-96 overflow-hidden">
         <motion.div
           className="flex flex-col space-y-4"
-          animate={{ y: ["-50%", "0%"] }}
+          animate={{ y: ['-50%', '0%'] }}
           transition={{
             repeat: Infinity,
             duration: ANIMATION_DURATION,
-            ease: "linear",
+            ease: 'linear',
           }}
         >
           {items1.map((item, index) => (
@@ -46,13 +46,13 @@ export function AnimatedMembersList() {
       <div className="w-1/3 relative h-96 overflow-hidden">
         <motion.div
           className="flex flex-col space-y-4"
-          animate={{ y: ["0%", "-50%"] }}
+          animate={{ y: ['0%', '-50%'] }}
           transition={{
             repeat: Infinity,
             duration: ANIMATION_DURATION,
-            ease: "linear",
+            ease: 'linear',
           }}
-          style={{ transform: "translateY(0)" }}
+          style={{ transform: 'translateY(0)' }}
         >
           {items2.map((item, index) => (
             <CardMember key={index} member={item} />

@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import { handleError } from "../../utils/request";
-import { topicTypeSchema } from "@/validators/topic.validator";
-import { handleCreate, handleGetAllTopicTypes } from "./handler";
+import { NextResponse } from 'next/server';
+import { handleError } from '../../utils/request';
+import { topicTypeSchema } from '@/validators/topic.validator';
+import { handleCreate, handleGetAllTopicTypes } from './handler';
 
 export async function POST(req: Request) {
   try {
@@ -10,8 +10,7 @@ export async function POST(req: Request) {
 
     const topicType = await handleCreate(request);
 
-    return NextResponse.json({ topicType }, { status: 201 })
-
+    return NextResponse.json({ topicType }, { status: 201 });
   } catch (error) {
     return handleError(error);
   }
@@ -21,7 +20,7 @@ export async function GET(req: Request) {
   try {
     const topicTypes = await handleGetAllTopicTypes();
 
-    return NextResponse.json({ topicTypes }, { status: 201 })
+    return NextResponse.json({ topicTypes }, { status: 201 });
   } catch (error) {
     return handleError(error);
   }

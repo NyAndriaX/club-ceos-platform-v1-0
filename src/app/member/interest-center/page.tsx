@@ -1,9 +1,7 @@
-import { InterestCenterView } from "@/ui/Member/InterestCenter/interestCenterView"
+import { InterestCenterView } from '@/ui/Member/InterestCenter/interestCenterView';
 
 const InterestCenter = () => {
-    return (
-        <InterestCenterView />
-    )
-}
+  return <InterestCenterView />;
+};
 
-export default InterestCenter
+export default InterestCenter;

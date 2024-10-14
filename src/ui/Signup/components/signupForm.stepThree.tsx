@@ -1,14 +1,14 @@
-import React, { useState, useRef } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { FileUpload } from "primereact/fileupload";
-import { UserInput } from "@/typings";
-import { Button } from "primereact/button";
-import { Toast } from "primereact/toast";
-import { userSignupStepThreeSchema } from "@/validators/user.validation";
-import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
-import { storage } from "@/config/firebase";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 } from "uuid";
+import React, { useState, useRef } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { FileUpload } from 'primereact/fileupload';
+import { UserInput } from '@/typings';
+import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
+import { userSignupStepThreeSchema } from '@/validators/user.validation';
+import { validateWithZod } from '@/ui/common/utils/validation-with-zod';
+import { storage } from '@/config/firebase';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 type Props = {
   formUserRegister: Partial<UserInput>;
@@ -32,7 +32,7 @@ export function SignupFormStepThree({
       try {
         const storageRef = ref(
           storage,
-          `revenueFiles/${selectFile.name + v4()}`
+          `revenueFiles/${selectFile.name + v4()}`,
         );
 
         await uploadBytes(storageRef, selectFile);
@@ -44,28 +44,28 @@ export function SignupFormStepThree({
         const newValue = {
           ...formUserRegister,
           ...data,
-          paymentUrl: "https://example.com",
+          paymentUrl: 'https://example.com',
         };
 
         setFormUserRegister(newValue);
 
-        const response = await fetch("/api/user", {
-          method: "POST",
+        const response = await fetch('/api/user', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(newValue),
         });
         if (!response.ok) {
           throw new Error("Erreur lors de l'envoi des données.");
         }
-        setActiveIndex((prevValue) => prevValue + 1);
+        setActiveIndex(prevValue => prevValue + 1);
         window.scrollTo(0, 0);
       } catch (error) {
         toast.current?.show({
-          severity: "error",
-          summary: "Erreur",
-          detail: "Une erreur est survenue lors du téléchargement du fichier.",
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Une erreur est survenue lors du téléchargement du fichier.',
           life: 3000,
         });
       } finally {
@@ -99,7 +99,7 @@ export function SignupFormStepThree({
               revenueFile: null,
             }}
             validate={validateWithZod(userSignupStepThreeSchema)}
-            onSubmit={(values) => {
+            onSubmit={values => {
               onSubmit(values);
             }}
           >
@@ -107,7 +107,7 @@ export function SignupFormStepThree({
               <Form className="flex flex-col gap-4">
                 <div className="p-field">
                   <label htmlFor="revenue">
-                    Chiffre d&apos;affaires (k€){" "}
+                    Chiffre d&apos;affaires (k€){' '}
                     <span className="text-red-500">*</span>
                   </label>
                   <Field
@@ -116,8 +116,8 @@ export function SignupFormStepThree({
                     type="number"
                     className={`p-inputtext p-component ${
                       touched.revenue && errors.revenue
-                        ? "border border-red-500"
-                        : ""
+                        ? 'border border-red-500'
+                        : ''
                     }`}
                   />
                   <ErrorMessage
@@ -145,9 +145,9 @@ export function SignupFormStepThree({
                         Glissez-déposez des fichiers ici pour les télécharger.
                       </p>
                     }
-                    onSelect={(e) => {
+                    onSelect={e => {
                       const file = e.files[0];
-                      setFieldValue("revenueFile", file);
+                      setFieldValue('revenueFile', file);
                       setSelectFile(file);
                       setIsPending(true);
                       setTimeout(() => {
@@ -158,8 +158,8 @@ export function SignupFormStepThree({
                     disabled={isPending}
                     className={`p-inputtext p-component ${
                       touched.revenueFile && errors.revenueFile
-                        ? "border border-red-500"
-                        : ""
+                        ? 'border border-red-500'
+                        : ''
                     }`}
                   />
                   <ErrorMessage
@@ -175,7 +175,7 @@ export function SignupFormStepThree({
                     label="Retour"
                     outlined
                     disabled={isLoading}
-                    onClick={() => setActiveIndex((prevValue) => prevValue - 1)}
+                    onClick={() => setActiveIndex(prevValue => prevValue - 1)}
                   />
                   <Button
                     type="submit"

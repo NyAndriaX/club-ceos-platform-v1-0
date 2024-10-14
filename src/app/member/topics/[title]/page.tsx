@@ -1,7 +1,7 @@
-import { TopicDetailsView } from "@/ui/Member/Topics/[title]/topicDetailsView"
+import { TopicDetailsView } from '@/ui/Member/Topics/[title]/topicDetailsView';
 
 const TopicDetails = () => {
-    return <TopicDetailsView />
-}
+  return <TopicDetailsView />;
+};
 
-export default TopicDetails
+export default TopicDetails;

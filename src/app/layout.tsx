@@ -1,36 +1,27 @@
-import "./globals.css";
+import './globals.css';
 
-import React from "react";
-import type { Metadata } from "next";
-import { PrimeReactProvider } from "primereact/api";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-import "primeicons/primeicons.css";
+import React from 'react';
+import type { Metadata } from 'next';
+import { PrimeReactProvider } from 'primereact/api';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
+import 'primeicons/primeicons.css';
 
 export const metadata: Metadata = {
-    title: "Club des ceos",
-    description: "Site destiner a des entreprises",
+  title: 'Club des CEOs - Une plateforme pour les leaders',
+  description:
+    "Rejoignez notre plateforme pour les dirigeants et les chefs d'entreprise. Participez à des discussions, trouvez des mentors et développez votre réseau.",
 };
 
 export default async function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en">
-            <head>
-                <style>
-                    {`
-            body {
-              zoom: 0.9;
-              height: 110vh;
-            }
-          `}
-                </style>
-            </head>
-            <body suppressHydrationWarning>
-                <PrimeReactProvider>{children}</PrimeReactProvider>
-            </body>
-        </html>
-    );
+  return (
+    <html lang="en">
+      <body style={{ zoom: '0.9' }} suppressHydrationWarning>
+        <PrimeReactProvider>{children}</PrimeReactProvider>
+      </body>
+    </html>
+  );
 }

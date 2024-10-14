@@ -1,13 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Card } from "primereact/card";
-import { ProgressSpinner } from "primereact/progressspinner";
-import { UserOutput } from "@/typings";
-import { usePdf } from "@mikecousins/react-pdf";
-import { Button } from "primereact/button";
-import { Dialog } from "primereact/dialog";
-import { Toast } from "primereact/toast";
-import { ref, getDownloadURL } from "firebase/storage";
-import { storage } from "@/config/firebase";
+import React, { useRef, useState, useEffect } from 'react';
+import { Card } from 'primereact/card';
+import { ProgressSpinner } from 'primereact/progressspinner';
+import { UserOutput } from '@/typings';
+import { usePdf } from '@mikecousins/react-pdf';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { Toast } from 'primereact/toast';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '@/config/firebase';
 
 type Props = {
   user: UserOutput;
@@ -19,7 +19,7 @@ export function RegistrationRequestsFile({ user }: Props) {
   const [showDialog, setShowDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [fileUrl, setFileUrl] = useState<string>("");
+  const [fileUrl, setFileUrl] = useState<string>('');
 
   useEffect(() => {
     async function fetchPdfUrl() {
@@ -31,10 +31,10 @@ export function RegistrationRequestsFile({ user }: Props) {
           setFileUrl(url);
         } catch (error) {
           toast.current?.show({
-            severity: "error",
-            summary: "Erreur",
+            severity: 'error',
+            summary: 'Erreur',
             detail:
-              "Une erreur est survenue lors du téléchargement du fichier.",
+              'Une erreur est survenue lors du téléchargement du fichier.',
             life: 3000,
           });
         } finally {
@@ -47,7 +47,7 @@ export function RegistrationRequestsFile({ user }: Props) {
   }, [user.revenueFileUrl]);
 
   const { pdfDocument } = usePdf({
-    file: fileUrl || "",
+    file: fileUrl || '',
     page,
     canvasRef,
     scale: 0.4,
@@ -86,7 +86,7 @@ export function RegistrationRequestsFile({ user }: Props) {
           <div className="flex flex-col justify-center items-center border border-gray-300 rounded-md ">
             {loading && (
               <ProgressSpinner
-                style={{ width: "50px", height: "50px" }}
+                style={{ width: '50px', height: '50px' }}
                 strokeWidth="4"
                 fill="var(--surface-ground)"
               />
@@ -110,12 +110,12 @@ export function RegistrationRequestsFile({ user }: Props) {
       <Dialog
         header="Aperçu du document PDF"
         visible={showDialog}
-        style={{ width: "90vw" }}
+        style={{ width: '90vw' }}
         onHide={closeDialog}
       >
         <iframe
           src={fileUrl}
-          style={{ width: "100%", height: "80vh" }}
+          style={{ width: '100%', height: '80vh' }}
           frameBorder="0"
         />
       </Dialog>

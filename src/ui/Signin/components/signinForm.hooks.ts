@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { AuthInput } from "@/typings/auth";
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { AuthInput } from '@/typings/auth';
 
 type UseSigninForm = {
   onSubmit: (formData: AuthInput) => void;
   isLoading: boolean;
   success: boolean;
   error: string | null;
-}
+};
 
 export const useSigninForm = (): UseSigninForm => {
   const [error, setError] = useState<string | null>(null);
@@ -23,9 +23,8 @@ export const useSigninForm = (): UseSigninForm => {
       const result: any = await signIn('credentials', {
         email: formData.email,
         password: formData.password,
-        redirect: false
+        redirect: false,
       });
-
 
       if (!result.ok) {
         setError(result.error);
@@ -34,7 +33,6 @@ export const useSigninForm = (): UseSigninForm => {
       if (result.ok) {
         window.location.reload();
       }
-
     } catch (err: any) {
       setError(err.message || "Une erreur inattendue s'est produite.");
     } finally {
@@ -46,6 +44,6 @@ export const useSigninForm = (): UseSigninForm => {
     onSubmit,
     error,
     isLoading,
-    success
-  }
-}
+    success,
+  };
+};

@@ -23,12 +23,11 @@ export type TopicOutput = {
   updatedAt: Date;
 };
 
-
 export type TopicTypeInput = {
   name: string;
   description: string | null;
   coverImage: string;
-}
+};
 
 export type TopicTypeOutput = {
   id: number;
@@ -37,11 +36,11 @@ export type TopicTypeOutput = {
   coverImage: string | null;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
 export type ReplyInput = {
-  content: string
-}
+  content: string;
+};
 
 export type ReplyOutput = {
   id: number;
@@ -50,4 +49,4 @@ export type ReplyOutput = {
   topicId: number;
   createdAt: Date;
   updatedAt: Date;
-}
+};

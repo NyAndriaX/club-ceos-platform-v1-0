@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { ref, getDownloadURL } from "firebase/storage";
-import { Button } from "primereact/button";
-import { storage } from "@/config/firebase";
+import React, { useEffect, useState } from 'react';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { Button } from 'primereact/button';
+import { storage } from '@/config/firebase';
 
 export function Hero() {
-  const [videoUrl, setVideoUrl] = useState<string>("");
+  const [videoUrl, setVideoUrl] = useState<string>('');
 
   useEffect(() => {
     async function fetchVideoInFirebase() {
-      const videoRef = ref(storage, "Bg-Home.mp4");
+      const videoRef = ref(storage, 'Bg-Home.mp4');
       const url = await getDownloadURL(videoRef);
       setVideoUrl(url);
     }

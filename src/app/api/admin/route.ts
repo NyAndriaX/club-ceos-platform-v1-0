@@ -1,6 +1,11 @@
-import { NextResponse } from "next/server";
-import { handleError } from "../utils/request";
-import { handleGetUsersAwaitingApproval, handleGetApprovedUser, handleApproveAUser, handleUnapproveUser } from "./handler";
+import { NextResponse } from 'next/server';
+import { handleError } from '../utils/request';
+import {
+  handleGetUsersAwaitingApproval,
+  handleGetApprovedUser,
+  handleApproveAUser,
+  handleUnapproveUser,
+} from './handler';
 
 export async function GET(req: Request) {
   try {
@@ -14,24 +19,27 @@ export async function GET(req: Request) {
     }
 
     switch (action) {
-      case "getUsersAwaitingApproval":
+      case 'getUsersAwaitingApproval':
         const usersAwaitingApproval = await handleGetUsersAwaitingApproval();
-        return NextResponse.json({ users: usersAwaitingApproval }, { status: 200 });
+        return NextResponse.json(
+          { users: usersAwaitingApproval },
+          { status: 200 },
+        );
 
-      case "getApprovedUser":
+      case 'getApprovedUser':
         const approvedUsers = await handleGetApprovedUser();
         return NextResponse.json({ users: approvedUsers }, { status: 200 });
 
-      case "approveAUser":
+      case 'approveAUser':
         if (!userId) {
-          throw new Error('ID de l\'utilisateur manquant pour l\'approbation');
+          throw new Error("ID de l'utilisateur manquant pour l'approbation");
         }
         const AuthorizedUser = await handleApproveAUser(Number(userId));
         return NextResponse.json({ user: AuthorizedUser }, { status: 200 });
 
-      case "unapproveUser":
+      case 'unapproveUser':
         if (!userId) {
-          throw new Error('ID de l\'utilisateur manquant pour l\'approbation');
+          throw new Error("ID de l'utilisateur manquant pour l'approbation");
         }
         const UnauthorizedUser = await handleUnapproveUser(Number(userId));
         return NextResponse.json({ user: UnauthorizedUser }, { status: 200 });

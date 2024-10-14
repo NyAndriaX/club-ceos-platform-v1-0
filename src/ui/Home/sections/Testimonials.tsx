@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import "keen-slider/keen-slider.min.css";
-import KeenSlider from "keen-slider";
-import { Button } from "primereact/button";
-import { CardTestimonial } from "../components/CardTestimonial";
+import React, { useEffect, useRef } from 'react';
+import 'keen-slider/keen-slider.min.css';
+import KeenSlider from 'keen-slider';
+import { Button } from 'primereact/button';
+import { CardTestimonial } from '../components/CardTestimonial';
 
 type KeenSliderInstance = {
   prev: () => void;
@@ -27,14 +27,14 @@ export function Testimonials() {
       keenSliderRef.current = new KeenSlider(sliderRef.current, {
         loop: true,
         slides: {
-          origin: "center",
+          origin: 'center',
           perView: 1.25,
           spacing: 16,
         },
         breakpoints: {
-          "(min-width: 1024px)": {
+          '(min-width: 1024px)': {
             slides: {
-              origin: "auto",
+              origin: 'auto',
               perView: 1.5,
               spacing: 32,
             },

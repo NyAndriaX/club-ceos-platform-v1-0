@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from 'react';
 
 export const MainPage: React.FC<PropsWithChildren<{ title: string }>> = ({
   title,

@@ -1,6 +1,6 @@
-import { SideBar } from "./SideBar";
-import { Logo } from "../../../../Logo/Logo";
-import { Button } from "primereact/button";
+import { SideBar } from './SideBar';
+import { Logo } from '../../../../Logo/Logo';
+import { Button } from 'primereact/button';
 
 export function MobileNavBar() {
   return (

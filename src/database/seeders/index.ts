@@ -1,22 +1,20 @@
-import { PrismaClient } from "@prisma/client";
-import { createPlans } from "./plan";
-import { createUsers } from "./user";
+import { PrismaClient } from '@prisma/client';
+import { createPlans } from './plan';
+import { createUsers } from './user';
 
 const prismaClient = new PrismaClient();
 
 const main = async () => {
-
   console.log('=> Total seed duration');
 
   /* ------------------------------------------------------------*/
   const users = await createUsers({
-    prismaClient
+    prismaClient,
   });
 
-  console.timeEnd('User seed duration')
+  console.timeEnd('User seed duration');
 
   /* ------------------------------------------------------------*/
-
 
   /* ------------------------------------------------------------*/
 
@@ -27,12 +25,12 @@ const main = async () => {
   /* ------------------------------------------------------------*/
 
   console.log('=> Total seed duration');
-}
+};
 
 main()
   .catch(error => {
-    console.log(error)
+    console.log(error);
   })
   .finally(async () => {
-    await prismaClient.$disconnect()
-  })
+    await prismaClient.$disconnect();
+  });

@@ -7,7 +7,7 @@ export const useAuth = () => {
     await signIn('credentials', { redirect: false, email, password });
   };
   const logout = async () => {
-    await signOut({ callbackUrl: "/signin" });
+    await signOut({ callbackUrl: '/signin' });
   };
 
   return {

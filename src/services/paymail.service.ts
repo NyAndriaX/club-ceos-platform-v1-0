@@ -1,7 +1,9 @@
 import nodemailer from 'nodemailer';
 import { PaymailType } from '@/typings/paymail';
 
-export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolean; error?: string }> {
+export async function sendPaymentLink(
+  params: PaymailType,
+): Promise<{ OK: boolean; error?: string }> {
   const { userEmail, paymentLink } = params;
 
   const transporter = nodemailer.createTransport({
@@ -16,7 +18,7 @@ export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolea
     await transporter.sendMail({
       from: `"Club Ceos Platform" <${process.env.NEXT_PUBLIC_ADMIN_EMAIL_COMPTE_OUTLOOK}>`,
       to: userEmail,
-      subject: "Finalisez Votre Inscription au Club Ceos",
+      subject: 'Finalisez Votre Inscription au Club Ceos',
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9; border-radius: 8px;">
           <h1 style="color: #4CAF50;">Félicitations !</h1>
@@ -35,7 +37,7 @@ export async function sendPaymentLink(params: PaymailType): Promise<{ OK: boolea
 
     return { OK: true };
   } catch (error) {
-    console.error('Erreur lors de l\'envoi de l\'email:', error);
-    return { OK: false, error: 'Échec de l\'envoi de l\'email' };
+    console.error("Erreur lors de l'envoi de l'email:", error);
+    return { OK: false, error: "Échec de l'envoi de l'email" };
   }
 }

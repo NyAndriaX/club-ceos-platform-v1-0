@@ -1,7 +1,7 @@
 export type ThemeInput = {
   title: string;
   description?: string;
-}
+};
 
 export type ThemeOutput = {
   id: number;
@@ -9,4 +9,4 @@ export type ThemeOutput = {
   description: string | null;
   createdAt: Date;
   updatedAt: Date;
-}
+};

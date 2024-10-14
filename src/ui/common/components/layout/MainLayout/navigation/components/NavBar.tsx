@@ -1,7 +1,7 @@
-import { Logo } from "../../../../Logo/Logo";
-import { Button } from "primereact/button";
-import { MenuOption } from "./MenuOption";
-import { NavLink } from "./NavLink";
+import { Logo } from '../../../../Logo/Logo';
+import { Button } from 'primereact/button';
+import { MenuOption } from './MenuOption';
+import { NavLink } from './NavLink';
 
 export function NavBar() {
   return (
@@ -24,7 +24,7 @@ export function NavBar() {
         <Button
           outlined
           label="Adhérer"
-          onClick={() => (window.location.href = "/signup")}
+          onClick={() => (window.location.href = '/signup')}
         />
       </div>
     </div>

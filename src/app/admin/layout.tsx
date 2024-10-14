@@ -1,5 +1,5 @@
-import React from "react";
-import { AdminLayout } from "@/ui/common/layouts/AdminLayout/AdminLayout";
+import React from 'react';
+import { AdminLayout } from '@/ui/common/layouts/AdminLayout/AdminLayout';
 
 type Props = {
   children: React.ReactNode;

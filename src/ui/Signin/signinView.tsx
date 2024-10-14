@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import React, { useRef, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { Card } from "primereact/card";
-import { Toast } from "primereact/toast";
-import SigninForm from "./components/signinForm";
-import { Logo } from "../common/components/Logo/Logo";
+import React, { useRef, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Card } from 'primereact/card';
+import { Toast } from 'primereact/toast';
+import SigninForm from './components/signinForm';
+import { Logo } from '../common/components/Logo/Logo';
 
 const SigninView = () => {
   const toast = useRef<Toast>(null);
   const searchParams = useSearchParams();
-  const paymentSuccess = searchParams.get("paymentSuccess");
+  const paymentSuccess = searchParams.get('paymentSuccess');
 
   useEffect(() => {
-    if (paymentSuccess === "true") {
+    if (paymentSuccess === 'true') {
       toast.current?.show({
-        severity: "success",
-        summary: "Félicitations!",
-        detail: "Votre paiement a été effectué avec succès.",
+        severity: 'success',
+        summary: 'Félicitations!',
+        detail: 'Votre paiement a été effectué avec succès.',
         life: 3000,
       });
     }

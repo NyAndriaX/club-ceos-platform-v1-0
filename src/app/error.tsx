@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "primereact/button";
-import Link from "next/link";
+import { Button } from 'primereact/button';
+import Link from 'next/link';
 
 export default function Error() {
   return (
@@ -11,7 +11,7 @@ export default function Error() {
           Désolé, quelque chose s&apos;est mal passé !
         </h4>
         <Button outlined size="small">
-          <Link href={"/"}>Retour</Link>
+          <Link href={'/'}>Retour</Link>
         </Button>
       </div>
     </div>

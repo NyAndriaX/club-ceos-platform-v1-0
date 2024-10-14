@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
-import { ListApprovedUser } from "./components/ListApprovedUser";
-import { ListUsersAwaitingApproval } from "./components/ListUsersAwaitingApproval";
+import React from 'react';
+import { AdminPage } from '@/ui/common/components/layout/AdminLayout/AdminPage';
+import { ListApprovedUser } from './components/ListApprovedUser';
+import { ListUsersAwaitingApproval } from './components/ListUsersAwaitingApproval';
 
 export function RegistrationRequestsView() {
   return (

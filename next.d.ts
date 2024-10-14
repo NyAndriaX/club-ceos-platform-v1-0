@@ -1,4 +1,3 @@
-
 import { Server } from 'socket.io';
 
 declare module 'next' {

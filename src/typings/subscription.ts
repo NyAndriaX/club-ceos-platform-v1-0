@@ -1,4 +1,4 @@
-import { User, Plan } from "@prisma/client";
+import { User, Plan } from '@prisma/client';
 
 export type SubscriptionInput = {
   userId: number;
@@ -6,7 +6,6 @@ export type SubscriptionInput = {
   startDate?: Date;
   endDate: Date;
 };
-
 
 export type SubscriptionOutput = {
   id: number;
@@ -17,5 +16,5 @@ export type SubscriptionOutput = {
   createdAt: Date;
   updatedAt: Date;
   user: User;
-  plan: Plan
+  plan: Plan;
 };

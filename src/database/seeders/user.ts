@@ -9,7 +9,11 @@ const hashPassword = (password: string = 'password'): string => {
   return hashSync(password, 10);
 };
 
-const createUserData = (isAdmin: boolean = false, hasPaid: boolean = false, postCode: string = "14141"): Prisma.UserCreateInput => {
+const createUserData = (
+  isAdmin: boolean = false,
+  hasPaid: boolean = false,
+  postCode: string = '14141',
+): Prisma.UserCreateInput => {
   return {
     lastName: faker.person.lastName(),
     firstName: faker.person.firstName(),
@@ -29,21 +33,23 @@ const createUserData = (isAdmin: boolean = false, hasPaid: boolean = false, post
     companyLinkedInPage: faker.internet.url(),
     companyPhoneNumber: faker.phone.number(),
     revenue: parseFloat(faker.commerce.price()),
-    revenueFileUrl: 'gs://juugap-d789f.appspot.com/revenueFiles/ClubdesCEO-CDC.pdf',
+    revenueFileUrl:
+      'gs://juugap-d789f.appspot.com/revenueFiles/ClubdesCEO-CDC.pdf',
     isValidatedByAdmin: false,
     password: hashPassword(),
     role: isAdmin ? 'ADMIN' : 'MEMBER',
     createdAt: faker.date.past(),
-    updatedAt: faker.date.recent()
+    updatedAt: faker.date.recent(),
   };
 };
 
-
-export const createUsers = async (arg: { prismaClient: PrismaClient }): Promise<User[]> => {
+export const createUsers = async (arg: {
+  prismaClient: PrismaClient;
+}): Promise<User[]> => {
   const { prismaClient } = arg;
   const usersData = [
     createUserData(true),
-    ...Array.from({ length: 5 }, () => createUserData())
+    ...Array.from({ length: 5 }, () => createUserData()),
   ];
 
   await ctx.prisma.user.createMany({
@@ -53,8 +59,8 @@ export const createUsers = async (arg: { prismaClient: PrismaClient }): Promise<
 
   const users = await prismaClient.user.findMany({
     where: {
-      email: { in: usersData.map(user => user.email) }
-    }
+      email: { in: usersData.map(user => user.email) },
+    },
   });
 
   return users;

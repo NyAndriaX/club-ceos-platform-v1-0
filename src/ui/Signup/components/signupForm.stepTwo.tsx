@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from "react";
-import { UserInput } from "@/typings";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Button } from "primereact/button";
-import { City, Country } from "country-state-city";
-import { validateWithZod } from "@/ui/common/utils/validation-with-zod";
-import { userSignupStepTwoSchema } from "@/validators/user.validation";
-import { Dropdown } from "primereact/dropdown";
-import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
+import React, { useMemo, useState } from 'react';
+import { UserInput } from '@/typings';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Button } from 'primereact/button';
+import { City, Country } from 'country-state-city';
+import { validateWithZod } from '@/ui/common/utils/validation-with-zod';
+import { userSignupStepTwoSchema } from '@/validators/user.validation';
+import { Dropdown } from 'primereact/dropdown';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 type Props = {
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
@@ -21,7 +21,7 @@ export const SignupFormStepTwo = ({
   setFormUserRegister,
 }: Props) => {
   const [selectedCountry, setSelectedCountry] = useState<string>(
-    formUserRegister.companyCountry || ""
+    formUserRegister.companyCountry || '',
   );
 
   const countries = useMemo(() => Country.getAllCountries(), []);
@@ -33,7 +33,7 @@ export const SignupFormStepTwo = ({
   const onSubmit = async (data: Partial<UserInput>) => {
     const newValue = { ...formUserRegister, ...data };
     setFormUserRegister(newValue);
-    setActiveIndex((prevValue) => prevValue + 1);
+    setActiveIndex(prevValue => prevValue + 1);
     window.scrollTo(0, 0);
   };
 
@@ -56,17 +56,17 @@ export const SignupFormStepTwo = ({
       <div className="w-full md:flex-1">
         <Formik
           initialValues={{
-            companyName: formUserRegister.companyName || "",
-            commercialName: formUserRegister.commercialName || "",
-            companyPostCode: formUserRegister.companyPostCode || "",
-            companyCity: formUserRegister.companyCity || "",
-            companyCountry: formUserRegister.companyCountry || "",
-            companyWebsite: formUserRegister.companyWebsite || "",
-            companyLinkedInPage: formUserRegister.companyLinkedInPage || "",
-            companyPhoneNumber: formUserRegister.companyPhoneNumber || "",
+            companyName: formUserRegister.companyName || '',
+            commercialName: formUserRegister.commercialName || '',
+            companyPostCode: formUserRegister.companyPostCode || '',
+            companyCity: formUserRegister.companyCity || '',
+            companyCountry: formUserRegister.companyCountry || '',
+            companyWebsite: formUserRegister.companyWebsite || '',
+            companyLinkedInPage: formUserRegister.companyLinkedInPage || '',
+            companyPhoneNumber: formUserRegister.companyPhoneNumber || '',
           }}
           validate={validateWithZod(userSignupStepTwoSchema)}
-          onSubmit={(values) => {
+          onSubmit={values => {
             onSubmit(values);
           }}
         >
@@ -88,8 +88,8 @@ export const SignupFormStepTwo = ({
                       type="text"
                       className={`p-inputtext p-component ${
                         touched.companyName && errors.companyName
-                          ? "border border-red-500"
-                          : ""
+                          ? 'border border-red-500'
+                          : ''
                       }`}
                     />
                     <ErrorMessage
@@ -108,8 +108,8 @@ export const SignupFormStepTwo = ({
                       type="text"
                       className={`p-inputtext p-component ${
                         touched.commercialName && errors.commercialName
-                          ? "border border-red-500"
-                          : ""
+                          ? 'border border-red-500'
+                          : ''
                       }`}
                     />
                     <ErrorMessage
@@ -135,20 +135,20 @@ export const SignupFormStepTwo = ({
                         filter
                         optionLabel="label"
                         value={field.value}
-                        options={countries.map((country) => ({
+                        options={countries.map(country => ({
                           label: country.name,
                           value: country.isoCode,
                         }))}
-                        onChange={(e) => {
-                          setFieldValue("companyCountry", e.value);
+                        onChange={e => {
+                          setFieldValue('companyCountry', e.value);
                           setSelectedCountry(e.value);
-                          setFieldValue("companyCity", "");
+                          setFieldValue('companyCity', '');
                         }}
                         placeholder="Sélectionner un pays"
                         className={
                           touched.companyCountry && errors.companyCountry
                             ? `border border-red-500`
-                            : ""
+                            : ''
                         }
                       />
                     )}
@@ -170,8 +170,8 @@ export const SignupFormStepTwo = ({
                       type="text"
                       className={`p-inputtext p-component ${
                         touched.companyPostCode && errors.companyPostCode
-                          ? "border border-red-500"
-                          : ""
+                          ? 'border border-red-500'
+                          : ''
                       }`}
                     />
                     <ErrorMessage
@@ -193,19 +193,19 @@ export const SignupFormStepTwo = ({
                             value={field.value}
                             filter
                             optionLabel="label"
-                            options={cities?.map((city) => ({
+                            options={cities?.map(city => ({
                               label: city.name,
                               value: city.name,
                             }))}
-                            onChange={(e) =>
-                              setFieldValue("companyCity", e.value)
+                            onChange={e =>
+                              setFieldValue('companyCity', e.value)
                             }
                             placeholder="Sélectionner une ville"
                             disabled={!selectedCountry}
                             className={
                               touched.companyCity && errors.companyCity
                                 ? `border border-red-500`
-                                : ""
+                                : ''
                             }
                           />
                         )}
@@ -229,14 +229,14 @@ export const SignupFormStepTwo = ({
                         international
                         defaultCountry="FR"
                         value={field.value}
-                        onChange={(value) => {
-                          setFieldValue("companyPhoneNumber", value);
+                        onChange={value => {
+                          setFieldValue('companyPhoneNumber', value);
                         }}
                         className={`p-inputtext p-component ${
                           touched.companyPhoneNumber &&
                           errors.companyPhoneNumber
-                            ? "border border-red-500"
-                            : ""
+                            ? 'border border-red-500'
+                            : ''
                         } hover:border-2 hover:border-blue-400 focus:border-2 focus:border-blue-400`}
                       />
                     )}
@@ -264,8 +264,8 @@ export const SignupFormStepTwo = ({
                     placeholder="https://"
                     className={`p-inputtext p-component ${
                       touched.companyWebsite && errors.companyWebsite
-                        ? "border border-red-500"
-                        : ""
+                        ? 'border border-red-500'
+                        : ''
                     }`}
                   />
                   <ErrorMessage
@@ -291,8 +291,8 @@ export const SignupFormStepTwo = ({
                     placeholder="https://"
                     className={`p-inputtext p-component ${
                       touched.companyLinkedInPage && errors.companyLinkedInPage
-                        ? "border border-red-500"
-                        : ""
+                        ? 'border border-red-500'
+                        : ''
                     }`}
                   />
                   <ErrorMessage
@@ -308,7 +308,7 @@ export const SignupFormStepTwo = ({
                   type="button"
                   label="Retour"
                   outlined
-                  onClick={() => setActiveIndex((prevValue) => prevValue - 1)}
+                  onClick={() => setActiveIndex(prevValue => prevValue - 1)}
                 />
                 <Button type="submit" label="Suivant" />
               </div>

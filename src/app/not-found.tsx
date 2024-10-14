@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { Button } from "primereact/button";
-import Link from "next/link";
+import { Button } from 'primereact/button';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
@@ -16,7 +16,7 @@ export default function NotFound() {
             peut-être été supprimé.
           </span>
           <Button size="small" outlined>
-            <Link href={"/"}>Retour</Link>
+            <Link href={'/'}>Retour</Link>
           </Button>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import ColorThief from "color-thief-browser";
+import { useEffect, useState } from 'react';
+import ColorThief from 'color-thief-browser';
 
 const useDominantColor = (imageUrl: string) => {
   const [dominantColor, setDominantColor] = useState<string | null>(null);
@@ -7,9 +7,9 @@ const useDominantColor = (imageUrl: string) => {
   useEffect(() => {
     if (!imageUrl) return;
 
-    const image = document.createElement("img") as HTMLImageElement;
+    const image = document.createElement('img') as HTMLImageElement;
     image.src = imageUrl;
-    image.crossOrigin = "*";
+    image.crossOrigin = '*';
 
     image.onload = () => {
       const colorThief = new ColorThief();
@@ -18,7 +18,7 @@ const useDominantColor = (imageUrl: string) => {
       setDominantColor(`rgb(${color[0]},${color[1]},${color[2]})`);
     };
 
-    image.onerror = (error) => {
+    image.onerror = error => {
       console.error("Erreur lors du chargement de l'image :", error);
     };
 

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Hero } from "./sections/Hero";
-import { PartnershipLogos } from "./sections/PartnershipLogos";
-import { TeamMembers } from "./sections/TeamMembers";
-import { Benefits } from "./sections/Benefits";
-import { Testimonials } from "./sections/Testimonials";
+import React from 'react';
+import { Hero } from './sections/Hero';
+import { PartnershipLogos } from './sections/PartnershipLogos';
+import { TeamMembers } from './sections/TeamMembers';
+import { Benefits } from './sections/Benefits';
+import { Testimonials } from './sections/Testimonials';
 
 const HomeView: React.FC = () => {
   return (

@@ -1,9 +1,9 @@
-.p-panelmenu-header-content{
-    border: none !important;
-    background-color: white;
+.p-panelmenu-header-content {
+  border: none !important;
+  background-color: white;
 }
 
-.p-dialog-content{
-    border-radius:0.25rem !important;
-    border-left: 1px solid #eaeaea;
+.p-dialog-content {
+  border-radius: 0.25rem !important;
+  border-left: 1px solid #eaeaea;
 }

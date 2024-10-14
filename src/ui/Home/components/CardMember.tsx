@@ -1,7 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import { Button } from "primereact/button";
-import { MemberState } from "../data-home";
+import React from 'react';
+import Image from 'next/image';
+import { Button } from 'primereact/button';
+import { MemberState } from '../data-home';
 
 type Props = {
   member: MemberState;

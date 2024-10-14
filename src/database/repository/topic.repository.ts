@@ -1,12 +1,12 @@
-import { TopicInput, TopicOutput } from "@/typings/topic";
-import { Context, getContext } from "../context";
+import { TopicInput, TopicOutput } from '@/typings/topic';
+import { Context, getContext } from '../context';
 
 const ctx: Context = getContext();
 
 export async function save(data: TopicInput): Promise<TopicOutput> {
   return ctx.prisma.topic.create({
-    data
-  })
+    data,
+  });
 }
 
 export async function findMany(data?: any): Promise<TopicOutput[] | []> {
@@ -15,11 +15,13 @@ export async function findMany(data?: any): Promise<TopicOutput[] | []> {
     orderBy: {
       createdAt: 'desc',
     },
-  })
+  });
 }
 
-export async function findTopicById(topicId: number): Promise<TopicOutput | null> {
+export async function findTopicById(
+  topicId: number,
+): Promise<TopicOutput | null> {
   return ctx.prisma.topic.findUnique({
-    where: { id: topicId }
-  })
+    where: { id: topicId },
+  });
 }

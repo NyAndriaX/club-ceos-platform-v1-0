@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useState, useRef, useMemo } from "react";
-import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
-import { Button } from "primereact/button";
-import { useParams } from "next/navigation";
-import { UserOutput } from "@/typings";
-import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
-import { RegistrationRequestsFile } from "./components/RegistrationRequestsFile";
-import { useLocalStorage } from "primereact/hooks";
-import { Toast } from "primereact/toast";
-import { RegistrationRequestsAddress } from "./components/RegistrationRequestsAddress";
+import React, { useState, useRef, useMemo } from 'react';
+import { AdminPage } from '@/ui/common/components/layout/AdminLayout/AdminPage';
+import { Button } from 'primereact/button';
+import { useParams } from 'next/navigation';
+import { UserOutput } from '@/typings';
+import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
+import { RegistrationRequestsFile } from './components/RegistrationRequestsFile';
+import { useLocalStorage } from 'primereact/hooks';
+import { Toast } from 'primereact/toast';
+import { RegistrationRequestsAddress } from './components/RegistrationRequestsAddress';
 
 export function RegistrationRequestsDetailsView() {
   const popupRef = useRef<any>(null);
@@ -19,55 +19,55 @@ export function RegistrationRequestsDetailsView() {
   const [isLoadingRejection, setIsLoadingRejection] = useState(false);
 
   const action = useMemo<string>(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const queryParams = new URLSearchParams(window.location.search);
-      return queryParams.get("action") || "";
+      return queryParams.get('action') || '';
     }
-    return "";
+    return '';
   }, []);
 
   const [users, setUsers] = useLocalStorage<UserOutput[]>([], action);
 
   const user = useMemo<UserOutput | undefined>(() => {
     if (!userId || users.length === 0) return undefined;
-    return users.find((user) => user.id === parseInt(userId, 10));
+    return users.find(user => user.id === parseInt(userId, 10));
   }, [users, userId]);
 
   const confirm = (
     event: React.MouseEvent<HTMLButtonElement>,
-    action: string
+    action: string,
   ) => {
     confirmPopup({
       target: event.currentTarget as HTMLElement,
       message: `Êtes-vous sûr de vouloir ${action} cette demande ?`,
-      icon: "pi pi-exclamation-triangle",
-      acceptLabel: "Oui",
-      rejectLabel: "Non",
-      acceptClassName: "p-button-success",
-      rejectClassName: "p-button-danger",
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Oui',
+      rejectLabel: 'Non',
+      acceptClassName: 'p-button-success',
+      rejectClassName: 'p-button-danger',
       accept: async () => {
-        if (action === "valider") {
+        if (action === 'valider') {
           setIsLoadingApproval(true);
           try {
             await fetch(`/api/admin?action=approveAUser&userId=${userId}`);
             setUsers(
-              users.map((user) => {
+              users.map(user => {
                 if (user.id === parseInt(userId, 10)) {
                   return { ...user, isValidatedByAdmin: true };
                 }
                 return user;
-              })
+              }),
             );
             toast.current?.show({
-              severity: "success",
-              summary: "Succès",
-              detail: "La demande a été validée avec succès.",
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'La demande a été validée avec succès.',
             });
           } catch (error) {
             toast.current?.show({
-              severity: "error",
-              summary: "Erreur",
-              detail: "Erreur lors de la validation.",
+              severity: 'error',
+              summary: 'Erreur',
+              detail: 'Erreur lors de la validation.',
             });
           } finally {
             setIsLoadingApproval(false);
@@ -76,18 +76,18 @@ export function RegistrationRequestsDetailsView() {
           setIsLoadingRejection(true);
           try {
             await fetch(`/api/admin?action=unapproveUser&userId=${userId}`);
-            setUsers(users.filter((user) => user.id !== parseInt(userId, 10)));
+            setUsers(users.filter(user => user.id !== parseInt(userId, 10)));
             toast.current?.show({
-              severity: "success",
-              summary: "Succès",
-              detail: "La demande a été refusée.",
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'La demande a été refusée.',
             });
-            window.location.href = "/admin/registration-requests";
+            window.location.href = '/admin/registration-requests';
           } catch (error) {
             toast.current?.show({
-              severity: "error",
-              summary: "Erreur",
-              detail: "Erreur lors du refus de la demande.",
+              severity: 'error',
+              summary: 'Erreur',
+              detail: 'Erreur lors du refus de la demande.',
             });
           } finally {
             setIsLoadingRejection(false);
@@ -116,9 +116,9 @@ export function RegistrationRequestsDetailsView() {
                   loading={isLoadingApproval}
                   severity="success"
                   tooltip="Valider la demande"
-                  tooltipOptions={{ position: "top" }}
+                  tooltipOptions={{ position: 'top' }}
                   aria-label="Valider"
-                  onClick={(e) => confirm(e, "valider")}
+                  onClick={e => confirm(e, 'valider')}
                 />
                 <Button
                   icon="pi pi-times"
@@ -128,9 +128,9 @@ export function RegistrationRequestsDetailsView() {
                   loading={isLoadingRejection}
                   severity="danger"
                   tooltip="Refuser la demande"
-                  tooltipOptions={{ position: "top" }}
+                  tooltipOptions={{ position: 'top' }}
                   aria-label="Refuser"
-                  onClick={(e) => confirm(e, "refuser")}
+                  onClick={e => confirm(e, 'refuser')}
                 />
               </div>
             )}

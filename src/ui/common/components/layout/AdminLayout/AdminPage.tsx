@@ -1,7 +1,7 @@
-import React, { PropsWithChildren, ReactNode } from "react";
+import React, { PropsWithChildren, ReactNode } from 'react';
 
 interface AdminPageProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
   title: string | ReactNode;
   subtitle?: string | ReactNode;
 }
@@ -16,7 +16,7 @@ export const AdminPage: React.FC<PropsWithChildren<AdminPageProps>> = ({
   return (
     <div
       className={`flex flex-col mx-auto gap-4 lg:px-8 lg:py-4 h-full items-start  ${
-        className ?? "w-full"
+        className ?? 'w-full'
       }`}
       {...props}
     >

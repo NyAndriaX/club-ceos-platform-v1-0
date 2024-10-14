@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import { MobileNavBar } from "./components/MobileNavBar";
-import { NavBar } from "./components/NavBar";
-import { useWindow } from "@/hooks/useWindow";
-import "./MainNavigation.modules.css";
+import React from 'react';
+import { MobileNavBar } from './components/MobileNavBar';
+import { NavBar } from './components/NavBar';
+import { useWindow } from '@/hooks/useWindow';
+import './MainNavigation.modules.css';
 
 export default function MainNavigation() {
   const { isDesktop } = useWindow();

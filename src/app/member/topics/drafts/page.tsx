@@ -1,4 +1,4 @@
-import { DraftsView } from "@/ui/Member/Topics/Drafts/draftsView";
+import { DraftsView } from '@/ui/Member/Topics/Drafts/draftsView';
 
 const Drafts = () => {
   return <DraftsView />;

@@ -1,4 +1,4 @@
-import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
+import { AdminPage } from '@/ui/common/components/layout/AdminLayout/AdminPage';
 
 export const HomeView = () => {
   return (

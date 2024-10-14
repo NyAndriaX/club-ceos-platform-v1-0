@@ -1,7 +1,7 @@
-import React from "react";
-import { getSession } from "next-auth/react";
-import SessionProviderClient from "@/ui/common/components/SessionProviderClient";
-import { MemberLayout } from "@/ui/common/layouts/MemberLayout/MemberLayout";
+import React from 'react';
+import { getSession } from 'next-auth/react';
+import SessionProviderClient from '@/ui/common/components/SessionProviderClient';
+import { MemberLayout } from '@/ui/common/layouts/MemberLayout/MemberLayout';
 
 type Props = {
   children: React.ReactNode;

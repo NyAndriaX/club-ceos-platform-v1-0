@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import NewThematicForm from "./components/newThematicForm";
-import { AdminPage } from "@/ui/common/components/layout/AdminLayout/AdminPage";
+import React from 'react';
+import NewThematicForm from './components/newThematicForm';
+import { AdminPage } from '@/ui/common/components/layout/AdminLayout/AdminPage';
 
 export const NewThematicView = () => {
   return (

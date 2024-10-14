@@ -1,6 +1,6 @@
-import React from "react";
-import MainNavigation from "../../components/layout/MainLayout/navigation/MainNavigation";
-import MainFooter from "../../components/layout/MainLayout/footer/MainFooter";
+import React from 'react';
+import MainNavigation from '../../components/layout/MainLayout/navigation/MainNavigation';
+import MainFooter from '../../components/layout/MainLayout/footer/MainFooter';
 
 type Props = {
   children: React.ReactNode;

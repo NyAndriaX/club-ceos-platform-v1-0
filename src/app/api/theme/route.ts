@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
-import { handleCreate, handleGetAllThemes } from "./handler";
-import { handleError } from "../utils/request";
-import { themeSchema } from "@/validators/theme.validator";
+import { NextResponse } from 'next/server';
+import { handleCreate, handleGetAllThemes } from './handler';
+import { handleError } from '../utils/request';
+import { themeSchema } from '@/validators/theme.validator';
 
 export async function POST(req: Request) {
   try {
@@ -11,9 +11,9 @@ export async function POST(req: Request) {
 
     const theme = await handleCreate(request);
 
-    return NextResponse.json({ theme }, { status: 201 })
+    return NextResponse.json({ theme }, { status: 201 });
   } catch (error) {
-    return handleError(error)
+    return handleError(error);
   }
 }
 
@@ -21,8 +21,8 @@ export async function GET(req: Request) {
   try {
     const themes = await handleGetAllThemes();
 
-    return NextResponse.json({ themes }, { status: 201 })
+    return NextResponse.json({ themes }, { status: 201 });
   } catch (error) {
-    return handleError(error)
+    return handleError(error);
   }
 }

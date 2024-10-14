@@ -1,7 +1,7 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-},
+  },
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -19,7 +19,6 @@
   },
   "editor.detectIndentation": false,
   "editor.wordWrap": "on",
-"editor.formatOnSave": true,
-// "WillLuke.nextjs.addTypesOnSave": true,
-"WillLuke.nextjs.hasPrompted": true,
+  "editor.formatOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
 }

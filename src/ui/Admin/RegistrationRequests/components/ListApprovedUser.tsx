@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { DataTable, DataTableFilterMeta } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { FilterMatchMode } from "primereact/api";
-import { InputText } from "primereact/inputtext";
-import { Card } from "primereact/card";
-import { InputIcon } from "primereact/inputicon";
-import { IconField } from "primereact/iconfield";
-import { Badge } from "primereact/badge";
-import { useLocalStorage } from "primereact/hooks";
-import { UserOutput } from "@/typings";
+import React, { useEffect, useState } from 'react';
+import { DataTable, DataTableFilterMeta } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { FilterMatchMode } from 'primereact/api';
+import { InputText } from 'primereact/inputtext';
+import { Card } from 'primereact/card';
+import { InputIcon } from 'primereact/inputicon';
+import { IconField } from 'primereact/iconfield';
+import { Badge } from 'primereact/badge';
+import { useLocalStorage } from 'primereact/hooks';
+import { UserOutput } from '@/typings';
 
 export function ListApprovedUser() {
-  const [globalFilterValue, setGlobalFilterValue] = useState<string>("");
+  const [globalFilterValue, setGlobalFilterValue] = useState<string>('');
   const [filters, setFilters] = useState<DataTableFilterMeta>({
-    global: { value: "", matchMode: FilterMatchMode.CONTAINS },
+    global: { value: '', matchMode: FilterMatchMode.CONTAINS },
     id: { value: null, matchMode: FilterMatchMode.CONTAINS },
     lastName: { value: null, matchMode: FilterMatchMode.CONTAINS },
     firstName: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -23,14 +23,14 @@ export function ListApprovedUser() {
   const [usersApproved, setUsersApproved] = useState<UserOutput[] | []>([]);
   const [, setUsersApprovedStorage] = useLocalStorage<UserOutput[] | []>(
     [],
-    "usersApproved"
+    'usersApproved',
   );
 
   useEffect(() => {
     async function getApprovedUser() {
       setIsLoading(true);
       try {
-        const response = await fetch("/api/admin?action=getApprovedUser");
+        const response = await fetch('/api/admin?action=getApprovedUser');
         const { users } = await response.json();
         setUsersApproved(users);
         setUsersApprovedStorage(users);
@@ -46,7 +46,7 @@ export function ListApprovedUser() {
 
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setFilters((prevFilters) => ({
+    setFilters(prevFilters => ({
       ...prevFilters,
       global: { ...prevFilters.global, value },
     }));
@@ -90,10 +90,10 @@ export function ListApprovedUser() {
           dataKey="id"
           className="w-full"
           header={renderHeader()}
-          onRowClick={(e) =>
+          onRowClick={e =>
             (window.location.href = `/admin/registration-requests/${e.data.id}?action=usersApproved`)
           }
-          tableStyle={{ minWidth: "50rem" }}
+          tableStyle={{ minWidth: '50rem' }}
           filters={filters}
           filterDisplay="menu"
         >
@@ -119,10 +119,10 @@ export function ListApprovedUser() {
             field="hasPaid"
             header="Payé"
             align="right"
-            body={(rowData) => (
+            body={rowData => (
               <Badge
-                value={rowData.hasPaid ? "oui" : "non"}
-                severity={rowData.hasPaid ? "success" : "danger"}
+                value={rowData.hasPaid ? 'oui' : 'non'}
+                severity={rowData.hasPaid ? 'success' : 'danger'}
               />
             )}
           />
@@ -133,7 +133,7 @@ export function ListApprovedUser() {
             filterPlaceholder="Rechercher Chiffre d'affaire"
             headerClassName="flex flex-row justify-end"
             align="right"
-            body={(rowData) => <p>{rowData.revenue} €</p>}
+            body={rowData => <p>{rowData.revenue} €</p>}
           />
         </DataTable>
       </div>

@@ -31,7 +31,6 @@ export type UserInput = {
   currentPassword?: string;
 };
 
-
 export type UserOutput = {
   id: number;
   lastName: string;
@@ -61,4 +60,4 @@ export type UserOutput = {
   subscriptionId?: number;
   createdAt: Date;
   updatedAt: Date;
-}
+};

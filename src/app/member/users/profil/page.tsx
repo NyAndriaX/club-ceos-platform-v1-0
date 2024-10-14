@@ -1,4 +1,4 @@
-import { ProfilView } from "@/ui/Member/Users/Profil/profilView";
+import { ProfilView } from '@/ui/Member/Users/Profil/profilView';
 
 const Profil = () => {
   return <ProfilView />;

@@ -1,7 +1,7 @@
-import { NewTopicTypeTypeView } from "@/ui/Admin/Topic/Type/new/newTopicTypeView"
+import { NewTopicTypeTypeView } from '@/ui/Admin/Topic/Type/new/newTopicTypeView';
 
 const NewTopicType = () => {
-    return <NewTopicTypeTypeView />
-}
+  return <NewTopicTypeTypeView />;
+};
 
-export default NewTopicType
+export default NewTopicType;

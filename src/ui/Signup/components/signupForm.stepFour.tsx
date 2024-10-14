@@ -1,11 +1,11 @@
-import React from "react";
-import { Toast } from "primereact/toast";
+import React from 'react';
+import { Toast } from 'primereact/toast';
 
 export function SignupFormStepFour() {
   const toast = React.useRef<Toast>(null);
 
   React.useEffect(() => {
-    localStorage.removeItem("formUserRegister");
+    localStorage.removeItem('formUserRegister');
   }, []);
 
   return (

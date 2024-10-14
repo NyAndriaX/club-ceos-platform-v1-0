@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { RegistrationRequestsView } from "@/ui/Admin/RegistrationRequests/registrationRequestsView";
+import { RegistrationRequestsView } from '@/ui/Admin/RegistrationRequests/registrationRequestsView';
 
 const RegistrationRequests = () => {
   return <RegistrationRequestsView />;

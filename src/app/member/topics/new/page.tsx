@@ -1,4 +1,4 @@
-import { NewTopicsView } from "@/ui/Member/Topics/new/newTopicsView";
+import { NewTopicsView } from '@/ui/Member/Topics/new/newTopicsView';
 
 const NewTopics = () => {
   return <NewTopicsView />;

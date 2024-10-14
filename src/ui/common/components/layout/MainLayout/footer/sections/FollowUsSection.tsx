@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "primereact/button";
-import { Checkbox } from "primereact/checkbox";
-import { InputText } from "primereact/inputtext";
-import { Logo } from "../../../../Logo/Logo";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from 'primereact/button';
+import { Checkbox } from 'primereact/checkbox';
+import { InputText } from 'primereact/inputtext';
+import { Logo } from '../../../../Logo/Logo';
 
 export function FollowUsSection() {
   return (
@@ -58,7 +58,7 @@ export function FollowUsSection() {
               Mentions légales
             </h2>
             <ul className="flex flex-col gap-1 text-gray-300">
-              {["CGV", "Mentions légales"].map((item) => (
+              {['CGV', 'Mentions légales'].map(item => (
                 <li key={item} className="text-sm cursor-pointer">
                   {item}
                 </li>
@@ -66,7 +66,7 @@ export function FollowUsSection() {
             </ul>
             <ul className="flex flex-col gap-1">
               <li className="text-base text-gray-50 mb-1">Partenaires</li>
-              {["Mécènes", "Partenaires"].map((item) => (
+              {['Mécènes', 'Partenaires'].map(item => (
                 <li key={item} className="text-sm text-gray-300 cursor-pointer">
                   {item}
                 </li>
@@ -74,7 +74,7 @@ export function FollowUsSection() {
             </ul>
             <ul className="flex flex-col gap-1">
               <li className="text-base text-gray-50 mb-1">Coin presse</li>
-              {["Demande interview", "Relation Presse"].map((item) => (
+              {['Demande interview', 'Relation Presse'].map(item => (
                 <li key={item} className="text-sm text-gray-300 cursor-pointer">
                   {item}
                 </li>
@@ -102,7 +102,7 @@ export function FollowUsSection() {
             <Image src="/book.png" alt="ebook" width={100} height={100} />
             <form className="flex flex-col w-full gap-4">
               <div className="flex flex-col items-start gap-2 w-full">
-                <label style={{ color: "white" }} className="text-sm w-1/5">
+                <label style={{ color: 'white' }} className="text-sm w-1/5">
                   E-mail
                 </label>
                 <InputText
@@ -113,7 +113,7 @@ export function FollowUsSection() {
               </div>
               <div className="flex align-items-center space-x-2">
                 <Checkbox checked={false} />
-                <label style={{ color: "white" }} className="text-sm">
+                <label style={{ color: 'white' }} className="text-sm">
                   J&apos;accepte d&apos;être recontacté à des fins commerciales
                 </label>
               </div>

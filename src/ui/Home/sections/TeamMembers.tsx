@@ -1,6 +1,6 @@
-import React from "react";
-import { Button } from "primereact/button";
-import { AnimatedMembersList } from "../components/AnimatedMembersList";
+import React from 'react';
+import { Button } from 'primereact/button';
+import { AnimatedMembersList } from '../components/AnimatedMembersList';
 
 export function TeamMembers() {
   return (
@@ -10,7 +10,7 @@ export function TeamMembers() {
           Nos membres
         </h2>
         <h3 className="text-gray-700 pb-8">
-          Rejoins notre collectiif grandissant de{" "}
+          Rejoins notre collectiif grandissant de{' '}
           <span className="text-fuchsia-500">+100</span> Entrepreneur(e)s
           Bootstrap
         </h3>

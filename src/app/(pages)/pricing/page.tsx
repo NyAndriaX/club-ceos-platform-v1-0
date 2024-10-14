@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React, { useMemo, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { Card } from "primereact/card";
-import { UserOutput } from "@/typings";
-import { Button } from "primereact/button";
-import { decryptKey } from "@/app/api/utils/crypto";
+import React, { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { Card } from 'primereact/card';
+import { UserOutput } from '@/typings';
+import { Button } from 'primereact/button';
+import { decryptKey } from '@/app/api/utils/crypto';
 
 interface PlanProps {
   index: number;
@@ -30,13 +30,13 @@ const PlanCard = ({
 }: PlanProps) => {
   return (
     <Card
-      className={`max-w-96 ${index % 2 === 1 ? "bg-blue-900 text-white" : ""}`}
+      className={`max-w-96 ${index % 2 === 1 ? 'bg-blue-900 text-white' : ''}`}
       key={index}
       title={
         <div className="flex flex-col gap-1">
           <h1
             className={`${
-              index % 2 === 1 ? "text-white" : "text-blue-900"
+              index % 2 === 1 ? 'text-white' : 'text-blue-900'
             } font-extrabold text-4xl`}
           >
             € {price}
@@ -67,7 +67,7 @@ const PlanCard = ({
           onClick={() =>
             window.open(
               `${paymentLink}?prefilled_email=${user?.email}`,
-              "_blank"
+              '_blank',
             )
           }
         />
@@ -93,121 +93,121 @@ interface PricingProps {
 
 const pricingList: PricingProps[] = [
   {
-    title: "Petit Forfait",
+    title: 'Petit Forfait',
     popular: PopularPlanType.PasPopulaire,
     price: 1990,
     description:
       "Pour les entreprises avec un chiffre d'affaires entre 100K€ et 500K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support basique",
+      'Support basique',
       "Jusqu'à 10 membres de l'équipe",
-      "Stockage limité",
+      'Stockage limité',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_SMALL_PLAN_100K_500K!,
   },
   {
-    title: "Gros Forfait",
+    title: 'Gros Forfait',
     popular: PopularPlanType.Populaire,
     price: 4990,
     description:
       "Pour les entreprises avec un chiffre d'affaires entre 100K€ et 500K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support prioritaire",
+      'Support prioritaire',
       "Jusqu'à 20 membres de l'équipe",
-      "Stockage étendu",
+      'Stockage étendu',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_LARGE_PLAN_100K_500K!,
   },
   {
-    title: "Petit Forfait",
+    title: 'Petit Forfait',
     popular: PopularPlanType.PasPopulaire,
     price: 3990,
     description:
       "Pour les entreprises avec un chiffre d'affaires entre 501K€ et 999K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support basique",
+      'Support basique',
       "Jusqu'à 15 membres de l'équipe",
-      "Stockage limité",
+      'Stockage limité',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_SMALL_PLAN_501K_999K!,
   },
   {
-    title: "Gros Forfait",
+    title: 'Gros Forfait',
     popular: PopularPlanType.Populaire,
     price: 6990,
     description:
       "Pour les entreprises avec un chiffre d'affaires entre 501K€ et 999K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support prioritaire",
+      'Support prioritaire',
       "Jusqu'à 25 membres de l'équipe",
-      "Stockage étendu",
+      'Stockage étendu',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_LARGE_PLAN_501K_999K!,
   },
   {
-    title: "Petit Forfait",
+    title: 'Petit Forfait',
     popular: PopularPlanType.PasPopulaire,
     price: 9900,
     description:
       "Pour les entreprises avec un chiffre d'affaires entre 1000K€ et 9000K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support basique",
+      'Support basique',
       "Jusqu'à 30 membres de l'équipe",
-      "Stockage limité",
+      'Stockage limité',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_SMALL_PLAN_1000K_9000K!,
   },
   {
-    title: "Gros Forfait",
+    title: 'Gros Forfait',
     popular: PopularPlanType.Populaire,
     price: 12990,
     description:
       "Pour les entreprises avec un chiffre d'affaires entre 1000K€ et 9000K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support prioritaire",
+      'Support prioritaire',
       "Jusqu'à 40 membres de l'équipe",
-      "Stockage étendu",
+      'Stockage étendu',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_LARGE_PLAN_1000K_9000K!,
   },
   {
-    title: "Petit Forfait",
+    title: 'Petit Forfait',
     popular: PopularPlanType.PasPopulaire,
     price: 9900,
     description:
       "Pour les entreprises avec un chiffre d'affaires supérieur à 10 000K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support basique",
+      'Support basique',
       "Jusqu'à 50 membres de l'équipe",
-      "Stockage étendu",
+      'Stockage étendu',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_SMALL_PLAN_10M_20M!,
   },
   {
-    title: "Gros Forfait",
+    title: 'Gros Forfait',
     popular: PopularPlanType.Populaire,
     price: 14990,
     description:
       "Pour les entreprises avec un chiffre d'affaires supérieur à 10 000K€.",
-    buttonText: "Choisir ce forfait",
+    buttonText: 'Choisir ce forfait',
     benefitList: [
-      "Support premium",
+      'Support premium',
       "Jusqu'à 60 membres de l'équipe",
-      "Stockage illimité",
+      'Stockage illimité',
     ],
     paymentLink: process.env.NEXT_PUBLIC_STRIPE_LARGE_PLAN_SUPERIEUR_20M!,
   },
 ];
 const Pricing = () => {
   const searchParams = useSearchParams();
-  const key = searchParams.get("key");
+  const key = searchParams.get('key');
   const [user, setUser] = useState<UserOutput | null>(null);
   const [_, setIsKeyValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -215,19 +215,19 @@ const Pricing = () => {
   useEffect(() => {
     const validateKey = async () => {
       if (!key) {
-        setErrorMessage("Aucune clé fournie.");
+        setErrorMessage('Aucune clé fournie.');
         return;
       }
 
       try {
         const decryptedData = await decryptKey(key);
         if (!decryptedData) {
-          throw new Error("Erreur de décryptage de la clé.");
+          throw new Error('Erreur de décryptage de la clé.');
         }
 
         const currentTime = Date.now();
         if (currentTime > decryptedData.expirationDate) {
-          throw new Error("La clé a expiré.");
+          throw new Error('La clé a expiré.');
         }
 
         const response = await fetch(`/api/user/${decryptedData.userId}`);
@@ -244,7 +244,7 @@ const Pricing = () => {
         if (error instanceof Error) {
           setErrorMessage(error.message);
         } else {
-          setErrorMessage("Une erreur inconnue est survenue.");
+          setErrorMessage('Une erreur inconnue est survenue.');
         }
       }
     };
@@ -263,11 +263,11 @@ const Pricing = () => {
     ];
 
     const rule = caPricingRules.find(
-      ({ minCA, maxCA }) => revenue >= minCA && revenue <= maxCA
+      ({ minCA, maxCA }) => revenue >= minCA && revenue <= maxCA,
     );
 
     return rule
-      ? pricingList.filter((plan) => rule.prices.includes(plan.price))
+      ? pricingList.filter(plan => rule.prices.includes(plan.price))
       : [];
   }, [revenue]);
 
@@ -298,7 +298,7 @@ const Pricing = () => {
                 availablePrice
                   .slice(
                     revenue >= 10001000 ? 1 : 0,
-                    revenue >= 10001000 ? availablePrice.length : -1
+                    revenue >= 10001000 ? availablePrice.length : -1,
                   )
                   .map((availablePrice, index) => (
                     <PlanCard
