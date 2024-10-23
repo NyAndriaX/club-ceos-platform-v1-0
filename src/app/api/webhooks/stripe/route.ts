@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import { stripe } from '@/config/stripe';
+import { stripe } from '@/app/stripe/stripe'
 import { handleCheckoutSessionCompleted } from './handler';
 
 const WEBHOOK_SECRET: string = process.env.NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET!;

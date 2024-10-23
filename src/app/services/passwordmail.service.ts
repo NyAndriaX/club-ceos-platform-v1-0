@@ -1,8 +1,7 @@
 import nodemailer from 'nodemailer';
-import { PasswordmailType } from '@/typings/passwordmail';
 
 export async function sendPassword(
-  params: PasswordmailType,
+  params: { userEmail: string, password: string },
 ): Promise<{ OK: boolean; error?: string }> {
   const { userEmail, password } = params;
   const transporter = nodemailer.createTransport({

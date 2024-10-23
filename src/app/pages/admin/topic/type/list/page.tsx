@@ -5,7 +5,7 @@ import { useWindow } from '@/app/hooks/useWindow';
 import AdminPage from '../../../AdminPage';
 import { useRouter } from 'next/navigation';
 import { Button } from 'primereact/button';
-import { TopicTypeOutput } from '@/typings/topic';
+import { TopicType } from '@prisma/client';
 import { InputText } from 'primereact/inputtext';
 import Image from 'next/image';
 import { Toast } from 'primereact/toast';
@@ -22,12 +22,13 @@ const TopicTypeListPage: React.FC = () => {
   const [filters, setFilters] = useState<{ globalFilters: string }>({
     globalFilters: '',
   });
-  const [topicTypes, setTopicTypes] = useState<TopicTypeOutput[]>([]);
+  const [topicTypes, setTopicTypes] = useState<TopicType[]>([]);
   const [isFetchingTopicTypes, setIsFetchingTopicTypes] =
     useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [topicTypeToDelete, setTopicTypeToDelete] =
-    useState<TopicTypeOutput | null>(null);
+  const [topicTypeToDelete, setTopicTypeToDelete] = useState<TopicType | null>(
+    null,
+  );
 
   useEffect(() => {
     const fetchAllTopicTypes = async () => {
@@ -65,7 +66,7 @@ const TopicTypeListPage: React.FC = () => {
 
   const confirmDelete = (
     e: React.MouseEvent<HTMLButtonElement>,
-    topicType: TopicTypeOutput,
+    topicType: TopicType,
   ) => {
     setTopicTypeToDelete(topicType);
     confirmPopup({
@@ -108,7 +109,7 @@ const TopicTypeListPage: React.FC = () => {
     }
   };
 
-  const renderTopicTypeCard = (topicType: TopicTypeOutput) => {
+  const renderTopicTypeCard = (topicType: TopicType) => {
     return (
       <Card
         key={topicType.id}

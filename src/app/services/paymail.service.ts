@@ -1,8 +1,7 @@
 import nodemailer from 'nodemailer';
-import { PaymailType } from '@/typings/paymail';
 
 export async function sendPaymentLink(
-  params: PaymailType,
+  params: { userEmail: string, paymentLink: string },
 ): Promise<{ OK: boolean; error?: string }> {
   const { userEmail, paymentLink } = params;
 

@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Card } from 'primereact/card';
-import { UserOutput } from '@/typings';
+import { User } from '@prisma/client';
 import { Button } from 'primereact/button';
 import { decryptKey } from '@/app/api/utils/crypto';
 
@@ -11,7 +11,7 @@ interface PlanProps {
   index: number;
   price: number;
   title: string;
-  user: UserOutput | null;
+  user: User | null;
   description: string;
   benefits: string[];
   buttonText: string;
@@ -213,7 +213,7 @@ const pricingList: PricingProps[] = [
 const SubscriptionPage = () => {
   const searchParams = useSearchParams();
   const key = searchParams.get('key');
-  const [user, setUser] = useState<UserOutput | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [_, setIsKeyValid] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
