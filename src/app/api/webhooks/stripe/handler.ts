@@ -1,10 +1,11 @@
 import Stripe from 'stripe';
-import { stripe } from '@/config/stripe';
 import bcrypt from 'bcryptjs';
+import { stripe } from '@/app/stripe/stripe';
+import { PrismaClient } from '@prisma/client';
 import { sendPassword } from '@/app/services/passwordmail.service';
 import generatePassword from 'generate-password';
-import * as userRepository from '@/database/repository/user.repository';
-import * as subscriptionRepository from '@/database/repository/subscription.repository';
+
+const prisma: PrismaClient = new PrismaClient();
 
 const PLAN_MAPPINGS = {
   [process.env.NEXT_PUBLIC_STRIPE_SMALL_PLAN_100k_500k_PRICE_ID!]: 1,
@@ -27,15 +28,21 @@ const createOrUpdateSubscription = async (priceId: string, userId: number) => {
   let endDate = new Date();
   endDate.setMonth(endDate.getMonth() + 1);
 
-  return await subscriptionRepository.upsert(
-    {
+  return await prisma.subscription.upsert({
+    where: { id: userId },
+    create: {
       planId,
       startDate: new Date(),
       endDate,
       userId,
     },
-    userId,
-  );
+    update: {
+      planId,
+      startDate: new Date(),
+      endDate,
+      userId,
+    },
+  })
 };
 
 const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
@@ -56,15 +63,18 @@ const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
     throw new Error('Détails du client non disponibles');
   }
 
-  const user = await userRepository.findUnique({
-    email: customerDetails.email,
-  });
+  const user = await prisma.user.findUnique({
+    where: { email: customerDetails.email }
+  })
   if (!user) {
     throw new Error('Utilisateur non trouvé');
   }
 
   if (!user.customerId) {
-    await userRepository.update({ customerId }, user.id as number);
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { customerId: customerId }
+    })
   }
 
   const lineItems = session.line_items?.data || [];
@@ -86,14 +96,16 @@ const handleCheckoutSessionCompleted = async (event: Stripe.Event) => {
 
       const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-      await userRepository.update(
-        {
+      await prisma.user.update({
+        where: {
+          id: user.id
+        },
+        data: {
           planId: PLAN_MAPPINGS[priceId],
           subscriptionId: subscription!.id as number,
           password: hashedPassword,
-        },
-        user.id,
-      );
+        }
+      })
 
       const response = await sendPassword({
         userEmail: user.email,
