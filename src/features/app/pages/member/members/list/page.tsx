@@ -54,7 +54,7 @@ const MembersListPage: React.FC = () => {
   }, []);
 
   const handleCardClick = (user: Partial<User>) => {
-    router.push(`/member/users/profil?nom=${user.firstName}&userId=${user.id}`);
+    router.push(`/member/user/profile?nom=${user.firstName}&userId=${user.id}`);
   };
 
   const filteredUsers = useCallback(() => {

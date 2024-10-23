@@ -49,7 +49,7 @@ const TopicDraftsPage: React.FC = () => {
             size="small"
             icon="pi pi-plus"
             rounded={isMobile ? true : false}
-            onClick={() => router.push('/member/topics/new')}
+            onClick={() => router.push('/member/topic')}
             label={isMobile ? undefined : 'Créer un nouveau sujet'}
             outlined
           />
