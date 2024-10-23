@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { handleError } from '../../utils/request';
-import { topicTypeSchema } from '@/validators/topic.validator';
+import { topicTypeSchema } from '@/app/validators/topic.validator';
 import { handleCreate, handleGetAllTopicTypes } from './handler';
 
 export async function POST(req: Request) {

@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE `User` ADD COLUMN `bio` VARCHAR(191) NULL,
-    ADD COLUMN `profile` VARCHAR(191) NULL;

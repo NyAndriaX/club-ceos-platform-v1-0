@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { handleCreate, handleGetAllUsers } from './handler';
 import { handleError } from '../utils/request';
-import { userSchema } from '@/validators/user.validation';
+import { userSchema } from '@/app/validators/user.validator';
 
 export async function POST(req: Request) {
   try {

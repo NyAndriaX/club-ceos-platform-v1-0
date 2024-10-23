@@ -1,16 +1,17 @@
-import { TopicInput, TopicOutput } from '@/typings/topic';
-import * as topicRepository from '@/database/repository/topic.repository';
+import { Prisma, PrismaClient, Topic } from '@prisma/client';
 
-const handleCreate = async (data: TopicInput): Promise<TopicOutput | null> => {
-  const topic = await topicRepository.save(data);
+const prisma: PrismaClient = new PrismaClient();
+
+const handleCreate = async (data: Prisma.TopicCreateInput): Promise<Topic | null> => {
+  const topic = await prisma.topic.create({ data })
 
   if (!topic) return null;
 
   return topic;
 };
 
-const handleGetAllTopics = async (data?: any): Promise<TopicOutput[] | []> => {
-  const topics = await topicRepository.findMany(data);
+const handleGetAllTopics = async (data?: any): Promise<Topic[] | []> => {
+  const topics = await prisma.topic.findMany({ where: data })
 
   if (!topics) return [];
 

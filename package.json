@@ -10,13 +10,13 @@
     "format": "prettier --write .",
     "db:generate": "prisma generate",
     "db:reset": "npx prisma migrate dev --name init",
-    "db:seed": "npx prisma db push && npx tsx ./src/database/seeders/index.ts",
+    "db:seed": "npx prisma db push && npx tsx ./src/prisma/seeders/index.ts",
     "stripe-listener": "stripe listen --forward-to localhost:3000/api/webhooks/stripe",
     "test": "jest",
     "prepare": "husky install"
   },
   "prisma": {
-    "schema": "src/database/models/schema.prisma"
+    "schema": "src/prisma/schema.prisma"
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.0",

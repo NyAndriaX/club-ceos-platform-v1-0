@@ -8,16 +8,16 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const user: PrismaUser | null = token?.user as PrismaUser;
 
-  const isAuthRoute = ['/signin', '/signup', '/pricing'].includes(pathname);
+  const isAuthRoute = ['/pages/unrestricted/login', '/pages/unrestricted/signup', '/pages/unresctricted/subscription'].includes(pathname);
   const isAdminRoute = pathname.startsWith('/admin');
   const isMemberRoute = pathname.startsWith('/member');
 
   if (token) {
     if (isAuthRoute) {
       if (user.role === 'ADMIN') {
-        return NextResponse.redirect(new URL('/admin/home', request.nextUrl));
+        return NextResponse.redirect(new URL('/pages/admin/home', request.nextUrl));
       } else if (user.role === 'MEMBER') {
-        return NextResponse.redirect(new URL('/member/home', request.nextUrl));
+        return NextResponse.redirect(new URL('/pages/member/home', request.nextUrl));
       }
     }
 
@@ -68,9 +68,9 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/signin',
-    '/signup',
-    '/pricing',
+    '/pages/unrestricted/login',
+    '/pages/unrestricted/signup',
+    '/pages/unresctricted/subscription',
     '/admin/:path*',
     '/member/:path*',
     '/api/admin/:function',

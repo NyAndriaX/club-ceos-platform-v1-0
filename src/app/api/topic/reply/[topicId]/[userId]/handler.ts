@@ -1,10 +1,11 @@
-import { Reply, Prisma } from '@prisma/client';
-import * as topicReplyRepository from '@/database/repository/topicReply.repository';
+import { Reply, Prisma, PrismaClient } from '@prisma/client';
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleCreate = async (
   data: Prisma.ReplyCreateInput,
 ): Promise<Reply | null> => {
-  const topicReply = await topicReplyRepository.save(data);
+  const topicReply = await prisma.reply.create({ data })
 
   if (!topicReply) return null;
 

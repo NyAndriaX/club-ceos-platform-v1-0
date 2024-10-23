@@ -2,7 +2,7 @@ import { Prisma } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { handleCreate } from './handler';
 import { handleError } from '@/app/api/utils/request';
-import { replySchema } from '@/validators/topic.validator';
+import { replySchema } from '@/app/validators/topic.validator';
 
 export async function POST(
   req: Request,

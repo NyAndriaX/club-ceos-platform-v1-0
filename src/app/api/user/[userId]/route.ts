@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { UserInput } from '@/typings';
-import { editUserSchema } from '@/validators/user.validation';
+import { User } from '@prisma/client';
+import { editUserSchema } from '@/app/validators/user.validator';
 import { handleGetUser, handlePutUser } from './handler';
 import { handleError } from '../../utils/request';
 
@@ -31,7 +31,7 @@ export async function PUT(
 
     const user = await handlePutUser(
       parseInt(userId) as number,
-      body as Partial<UserInput>,
+      body as (Partial<User> & { currentPassword: string, confirmPassword: string, newPassword: string }),
     );
 
     return NextResponse.json({ user }, { status: 201 });

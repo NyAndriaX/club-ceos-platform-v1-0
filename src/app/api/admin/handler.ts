@@ -1,19 +1,24 @@
-import { User } from '@prisma/client';
+import { User, PrismaClient } from '@prisma/client';
 import { generateEncryptedKey } from '../utils/crypto';
-import { sendPaymentLink } from '@/services/paymail.service';
-import * as userRepository from '@/database/repository/user.repository';
+import { sendPaymentLink } from '@/app/services/paymail.service';
+
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleGetUsersAwaitingApproval = async (): Promise<
   Omit<User, 'password'>[] | null
 > => {
-  const users = await userRepository.findMany({
-    isValidatedByAdmin: false,
-    role: 'MEMBER',
+  const users = await prisma.user.findMany({
+    where: {
+      isValidatedByAdmin: false,
+      role: 'MEMBER',
+    }
+
   });
 
   if (!users) return null;
 
-  await userRepository.updateMany(users, { isNew: false });
+  await prisma.user.updateMany({ where: { id: { in: users.map(user => user.id) } }, data: { isNew: false } })
 
   const usersWithoutPassword = users.map(
     ({ password, ...userWithoutPassword }) => userWithoutPassword,
@@ -25,11 +30,11 @@ const handleGetUsersAwaitingApproval = async (): Promise<
 const handleGetApprovedUser = async (): Promise<
   Omit<User, 'password'>[] | null
 > => {
-  const users = await userRepository.findMany({ isValidatedByAdmin: true });
+  const users = await prisma.user.findMany({ where: { isValidatedByAdmin: true } })
 
   if (!users) return null;
 
-  await userRepository.updateMany(users, { isNew: false });
+  await prisma.user.updateMany({ where: { id: { in: users.map(user => user.id) } }, data: { isNew: false } })
 
   const usersWithoutPassword = users.map(
     ({ password, ...userWithoutPassword }) => userWithoutPassword,
@@ -41,10 +46,7 @@ const handleGetApprovedUser = async (): Promise<
 const handleApproveAUser = async (
   userId: number,
 ): Promise<Omit<User, 'password'> | null> => {
-  const user = await userRepository.update(
-    { isValidatedByAdmin: true },
-    userId,
-  );
+  const user = await prisma.user.update({ where: { id: userId }, data: { isValidatedByAdmin: true } })
 
   if (!user) return null;
 
@@ -74,7 +76,8 @@ const handleApproveAUser = async (
 const handleUnapproveUser = async (
   userId: number,
 ): Promise<Omit<User, 'password'> | null> => {
-  const user = await userRepository.deleteByUserId(userId);
+  const user = await prisma.user.findUnique({ where: { id: userId } })
+
   if (!user) return null;
 
   const { password, ...userWithoutPassword } = user;

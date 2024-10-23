@@ -1,11 +1,14 @@
-import { Reply } from '@prisma/client';
-import * as topicReplyRepository from '@/database/repository/topicReply.repository';
+import { Reply, PrismaClient } from '@prisma/client';
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleGetAllTopicReplies = async (data: {
   topicId: number;
 }): Promise<Reply[] | []> => {
-  const topicReplies =
-    await topicReplyRepository.findReplyTopicManyByTopicId(data);
+  const topicReplies = await prisma.reply.findMany({
+    where: { topicId: data.topicId }
+  });
+
 
   if (!topicReplies) return [];
 

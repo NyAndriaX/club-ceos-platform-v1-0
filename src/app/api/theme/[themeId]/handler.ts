@@ -1,8 +1,9 @@
-import { ThemeOutput } from '@/typings/theme';
-import * as themeRepository from '@/database/repository/theme.repository';
+import { Theme, PrismaClient } from '@prisma/client';
 
-const handleGetTheme = async (themeId: number): Promise<ThemeOutput | null> => {
-  const theme = await themeRepository.findThemeById(themeId);
+const prisma: PrismaClient = new PrismaClient();
+
+const handleGetTheme = async (themeId: number): Promise<Theme | null> => {
+  const theme = await prisma.theme.findUnique({ where: { id: themeId } })
 
   if (!theme) return null;
 

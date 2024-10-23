@@ -1,18 +1,21 @@
-import { TopicTypeInput, TopicTypeOutput } from '@/typings/topic';
-import * as topicTypeRepository from '@/database/repository/topicType.repository';
+import { Prisma, PrismaClient, TopicType } from "@prisma/client";
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleCreate = async (
-  data: TopicTypeInput,
-): Promise<TopicTypeOutput | null> => {
-  const topicType = await topicTypeRepository.save(data);
+  data: Prisma.TopicTypeCreateInput,
+): Promise<TopicType | null> => {
+  const topicType = await prisma.topicType.create({ data })
+
   if (!topicType) return null;
+
   return topicType;
 };
 
 const handleGetAllTopicTypes = async (
   data?: any,
-): Promise<TopicTypeOutput[] | []> => {
-  const topicTypes = await topicTypeRepository.findMany();
+): Promise<TopicType[] | []> => {
+  const topicTypes = await prisma.topicType.findMany();
 
   if (!topicTypes) return [];
 

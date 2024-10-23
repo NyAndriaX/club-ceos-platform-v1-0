@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { handleCreate, handleGetAllThemes } from './handler';
 import { handleError } from '../utils/request';
-import { themeSchema } from '@/validators/theme.validator';
+import { themeSchema } from '@/app/validators/theme.validator';
 
 export async function POST(req: Request) {
   try {

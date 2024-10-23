@@ -1,11 +1,10 @@
-import { PrismaClient } from '@prisma/client';
-import { TopicOutput } from '@/typings/topic';
+import { PrismaClient, Topic } from '@prisma/client';
 
 const prisma: PrismaClient = new PrismaClient();
 
 const handleGetTopicById = async (
   topicId: number,
-): Promise<TopicOutput | null> => {
+): Promise<Topic | null> => {
   const topic = await prisma.topic.findUnique({
     where: { id: topicId },
     include: {

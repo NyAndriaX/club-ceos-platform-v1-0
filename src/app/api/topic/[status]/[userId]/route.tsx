@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { TopicStatus } from '@prisma/client';
+import { Prisma, TopicStatus } from '@prisma/client';
 import { handleError } from '@/app/api/utils/request';
 import { handleCreate, handleGetAllTopics } from './handler';
-import { topicSchema } from '@/validators/topic.validator';
+import { topicSchema } from '@/app/validators/topic.validator';
 
 export async function POST(
   req: Request,
@@ -14,13 +14,17 @@ export async function POST(
 
     const request = topicSchema.parse(body);
 
-    const valueTopic = {
+    const valueTopic: Partial<Prisma.TopicCreateInput> = {
       ...request,
       status: status,
-      userId: parseInt(userId) as number,
+      author: {
+        connect: {
+          id: parseInt(userId),
+        },
+      },
     };
 
-    const topic = await handleCreate(valueTopic);
+    const topic = await handleCreate(valueTopic as Prisma.TopicCreateInput);
 
     return NextResponse.json({ topic }, { status: 201 });
   } catch (error) {

@@ -1,5 +1,4 @@
 import { User } from '@prisma/client';
-import { UserInput } from '@/typings';
 import bcrypt from 'bcryptjs';
 import { compare } from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
@@ -30,7 +29,7 @@ const handleGetUser = async (
 
 const handlePutUser = async (
   userId: number,
-  data: Partial<UserInput>,
+  data: (Partial<User> & { currentPassword: string, confirmPassword: string, newPassword: string }),
 ): Promise<Omit<User, 'password'> | null> => {
   const user = await prisma.user.findUnique({
     where: { id: userId }

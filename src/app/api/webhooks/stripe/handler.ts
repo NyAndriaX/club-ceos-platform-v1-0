@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 import { stripe } from '@/config/stripe';
 import bcrypt from 'bcryptjs';
-import { sendPassword } from '@/services/passwordmail.service';
+import { sendPassword } from '@/app/services/passwordmail.service';
 import generatePassword from 'generate-password';
 import * as userRepository from '@/database/repository/user.repository';
 import * as subscriptionRepository from '@/database/repository/subscription.repository';

@@ -1,15 +1,18 @@
 import { User } from '@prisma/client';
-import { UserInput } from '@/typings';
-import * as userRepository from '@/database/repository/user.repository';
+import { PrismaClient, Prisma } from '@prisma/client';
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleCreate = async (
-  data: UserInput,
+  data: Prisma.UserCreateInput,
 ): Promise<Omit<User, 'password'> | null> => {
-  const existingEmail = await userRepository.findUnique({ email: data.email });
+  const existingEmail = await prisma.user.findUnique({ where: { email: data.email } })
 
   if (existingEmail) throw new Error('Cet email est déjà utilisé');
 
-  const user = await userRepository.save(data);
+  const user = await prisma.user.create(
+    { data }
+  )
 
   if (!user) return null;
 
@@ -21,18 +24,21 @@ const handleCreate = async (
 const handleGetAllUsers = async (): Promise<
   Omit<User, 'password'>[] | null
 > => {
-  const users = await userRepository.findMany({
-    isValidatedByAdmin: true,
-    role: 'MEMBER',
-    subscriptionId: {
-      not: null,
-    },
-    customerId: {
-      not: null,
-    },
-    planId: {
-      not: null,
-    },
+  const users = await prisma.user.findMany({
+    where: {
+      isValidatedByAdmin: true,
+      role: 'MEMBER',
+      subscriptionId: {
+        not: null,
+      },
+      customerId: {
+        not: null,
+      },
+      planId: {
+        not: null,
+      },
+    }
+
   });
 
   if (!users) return [];
