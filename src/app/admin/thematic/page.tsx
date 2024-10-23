@@ -1,7 +1,7 @@
-import { ThematicView } from '@/ui/Admin/Thematic/thematicView';
+import ThematicListPage from '@/features/app/pages/admin/thematic/list/page';
 
 const Thematic = () => {
-  return <ThematicView />;
+  return <ThematicListPage />;
 };
 
 export default Thematic;

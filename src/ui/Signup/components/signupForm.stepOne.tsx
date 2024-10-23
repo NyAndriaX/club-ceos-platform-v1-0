@@ -5,7 +5,7 @@ import { UserInput } from '@/typings';
 import PhoneInput from 'react-phone-number-input';
 import { userSignupStepOneSchema } from '@/validators/user.validation';
 import { City, Country } from 'country-state-city';
-import { validateWithZod } from '@/ui/common/utils/validation-with-zod';
+import { validate } from '@/features/app/utils/validation';
 import { Dropdown } from 'primereact/dropdown';
 import 'react-phone-number-input/style.css';
 
@@ -39,10 +39,10 @@ export const SignupFormStepOne = ({
   return (
     <div className="flex flex-col md:flex-row gap-16 items-start justify-between">
       <div className="w-full md:flex-1 flex flex-col gap-4 pr-8">
-        <h2 className="text-2xl md:text-4xl text-center font-bold text-blue-900">
+        <h2 className="text-xl md:text-2xl text-center font-bold text-blue-900">
           Informations personnelles
         </h2>
-        <p className="font-extralight text-sm text-gray-700 text-justify">
+        <p className="text-sm text-gray-500 text-justify">
           Cette section contient vos informations personnelles, telles que votre
           nom, votre adresse, et d&apos;autres détails importants.
           <span className="text-blue-900">
@@ -64,7 +64,7 @@ export const SignupFormStepOne = ({
             jobTitle: formUserRegister.jobTitle || '',
             postCode: formUserRegister.postCode || '',
           }}
-          validate={validateWithZod(userSignupStepOneSchema)}
+          validate={validate(userSignupStepOneSchema)}
           onSubmit={values => {
             onSubmit(values);
           }}

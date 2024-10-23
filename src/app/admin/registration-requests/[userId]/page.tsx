@@ -1,7 +1,7 @@
-import { RegistrationRequestsDetailsView } from '@/ui/Admin/RegistrationRequests/[userId]/RegistrationRequestsDetails/RegistrationRequestsDetailsView';
+import RegistrationRequestsDetailsPage from '@/features/app/pages/admin/registration-requests/[userId]/page';
 
 const RegistrationRequestsDetails = () => {
-  return <RegistrationRequestsDetailsView />;
+  return <RegistrationRequestsDetailsPage />;
 };
 
 export default RegistrationRequestsDetails;

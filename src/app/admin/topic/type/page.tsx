@@ -1,7 +1,7 @@
-import { TopicTypeView } from '@/ui/Admin/Topic/Type/topicTypeView';
+import TopicTypeListPage from '@/features/app/pages/admin/topic/type/list/page';
 
 const TopicType = () => {
-  return <TopicTypeView />;
+  return <TopicTypeListPage />;
 };
 
 export default TopicType;

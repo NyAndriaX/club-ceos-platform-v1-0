@@ -3,7 +3,7 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { Button } from 'primereact/button';
 import { storage } from '@/config/firebase';
 
-export function Hero() {
+export const HeroSection: React.FC = () => {
   const [videoUrl, setVideoUrl] = useState<string>('');
 
   useEffect(() => {
@@ -32,13 +32,18 @@ export function Hero() {
         </video>
       )}
       <div className="relative z-10 flex flex-col gap-4 items-center justify-center h-full w-full">
-        <p className="text-white max-w-[768px] font-semibold text-2xl md:text-5xl text-center">
+        <p className="text-white max-w-[768px] font-semibold text-xl md:text-2xl text-center">
           L&apos;elite des dirigeants, à portée de main. Rejoignez le réseau qui
           soutient votre succès.
         </p>
-        <Button label="Saisir votre invitation privée" rounded outlined />
+        <Button
+          size="small"
+          label="Saisir votre invitation privée"
+          rounded
+          outlined
+        />
       </div>
-      <div className="absolute inset-0 bg-blue-900 opacity-40"></div>
+      <div className="absolute inset-0 bg-blue-900 opacity-40" />
     </section>
   );
-}
+};

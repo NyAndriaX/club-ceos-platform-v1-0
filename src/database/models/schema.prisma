@@ -30,6 +30,8 @@ model Plan {
     description   String?
     users         User[]
     subscriptions Subscription[]
+
+    @@map("plans")
 }
 
 model User {
@@ -74,6 +76,7 @@ model User {
     Vote   Vote[]
 
     @@index([email], map: "idx_user_email")
+    @@map("users")
 }
 
 model Subscription {
@@ -91,6 +94,7 @@ model Subscription {
     plan Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
 
     @@index([userId, planId], map: "idx_subscription_user_plan")
+    @@map("subscriptions")
 }
 
 model Theme {
@@ -132,11 +136,11 @@ model Topic {
     theme       Theme       @relation(fields: [themeId], references: [id], onDelete: Cascade)
     coverImage  String?     @db.Text
     userId      Int?
-    author      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+    author      User?       @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    Reply     Reply[]
+    reply     Reply[]
 
     @@index([themeId], map: "idx_topic_theme")
     @@map("topics")
@@ -158,6 +162,7 @@ model Reply {
 
     @@index([topicId], map: "idx_reply_topic")
     @@index([userId], map: "idx_reply_user")
+    @@map("replies")
 }
 
 model Vote {
@@ -172,4 +177,5 @@ model Vote {
 
     @@unique([replyId, userId])
     @@index([replyId], map: "idx_vote_reply")
+    @@map("votes")
 }

@@ -1,7 +1,7 @@
-import { NewThematicView } from '@/ui/Admin/Thematic/new/newThematicView';
+import ThematicFormPage from '@/features/app/pages/admin/thematic/page';
 
 const NewThematic = () => {
-  return <NewThematicView />;
+  return <ThematicFormPage />;
 };
 
 export default NewThematic;

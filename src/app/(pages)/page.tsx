@@ -1,6 +1,6 @@
 import React from 'react';
-import HomeView from '@/ui/Home/homeView';
+import HomePageFeatures from '@/features/app/pages/unrestricted/home/page';
 
 export default function HomePage() {
-  return <HomeView />;
+  return <HomePageFeatures />;
 }

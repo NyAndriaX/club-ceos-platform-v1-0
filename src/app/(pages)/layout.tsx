@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainLayout } from '@/ui/common/layouts/MainLayout/MainLayout';
+import MainLayout from '@/features/app/pages/unrestricted/layout';
 
 type Props = {
   children: React.ReactNode;

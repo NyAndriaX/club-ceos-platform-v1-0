@@ -1,10 +1,24 @@
+import { PrismaClient } from '@prisma/client';
 import { TopicOutput } from '@/typings/topic';
-import * as topicRepository from '@/database/repository/topic.repository';
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleGetTopicById = async (
   topicId: number,
 ): Promise<TopicOutput | null> => {
-  const topic = await topicRepository.findTopicById(topicId);
+  const topic = await prisma.topic.findUnique({
+    where: { id: topicId },
+    include: {
+      author: true,
+      theme: true,
+      type: true,
+      reply: {
+        include: {
+          author: true
+        }
+      }
+    }
+  })
 
   if (!topic) return null;
 

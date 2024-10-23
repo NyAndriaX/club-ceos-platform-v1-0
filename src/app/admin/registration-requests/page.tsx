@@ -1,8 +1,8 @@
 'use client';
 
-import { RegistrationRequestsView } from '@/ui/Admin/RegistrationRequests/registrationRequestsView';
+import RegistrationRequestsPage from '@/features/app/pages/admin/registration-requests/page';
 
 const RegistrationRequests = () => {
-  return <RegistrationRequestsView />;
+  return <RegistrationRequestsPage />;
 };
 export default RegistrationRequests;

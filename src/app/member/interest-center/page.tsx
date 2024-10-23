@@ -1,7 +1,7 @@
-import { InterestCenterView } from '@/ui/Member/InterestCenter/interestCenterView';
+import InterestCenterPage from '@/features/app/pages/member/interest-center/page';
 
 const InterestCenter = () => {
-  return <InterestCenterView />;
+  return <InterestCenterPage />;
 };
 
 export default InterestCenter;

@@ -1,7 +1,7 @@
-import { HomeView } from '@/ui/Admin/Home/homeView';
+import HomePage from '@/features/app/pages/admin/home/page';
 
 const Home = () => {
-  return <HomeView />;
+  return <HomePage />;
 };
 
 export default Home;

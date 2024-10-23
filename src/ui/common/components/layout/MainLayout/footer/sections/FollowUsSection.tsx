@@ -8,14 +8,11 @@ import { Logo } from '../../../../Logo/Logo';
 export function FollowUsSection() {
   return (
     <div className="flex flex-col gap-8 bg-blue-950 text-white pt-16 pb-4 px-4">
-      <h1 className="text-2xl font-bold">Club des CEO</h1>
+      <h1 className="text-xl md:text-2xl font-bold">Club des CEO</h1>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {/* __________________Section: Contact and Social__________________*/}
         <section id="contact_ceo" className="flex flex-col gap-4 p-4">
           <div className="flex flex-row gap-8 justify-between md:justify-start items-center">
-            <div>
-              <Logo />
-            </div>
+            <div className="logo" />
             <h2 className="font-bold text-base">Nous suivre</h2>
           </div>
           <iframe
@@ -35,24 +32,22 @@ export function FollowUsSection() {
             <h3 className="text-base">Nous suivre</h3>
             <div className="flex flex-row gap-4 items-center justify-center md:justify-start">
               <Link href="/">
-                <i className="pi pi-google text-xl"></i>
+                <i className="pi pi-google text-lg"></i>
               </Link>
               <Link href="/">
-                <i className="pi pi-facebook text-xl"></i>
+                <i className="pi pi-facebook text-lg"></i>
               </Link>
               <Link href="/">
-                <i className="pi pi-github text-xl"></i>
+                <i className="pi pi-github text-lg"></i>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* __________________Section Information__________________ */}
         <section
           id="legal"
           className="flex flex-col text-center md:text-start p-4 gap-4"
         >
-          {/* Legal Information */}
           <div className="flex flex-col gap-4">
             <h2 className="font-bold text-gray-50 text-base">
               Mentions légales

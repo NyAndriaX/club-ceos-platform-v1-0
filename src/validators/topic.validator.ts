@@ -31,8 +31,7 @@ export const topicSchema = z.object({
   themeId: z
     .number({
       required_error: 'Le champ "Thème" est requis.',
-    })
-    .positive({ message: 'Veuillez sélectionner un thème valide.' }),
+    }),
 });
 
 export const topicTypeSchema = z.object({

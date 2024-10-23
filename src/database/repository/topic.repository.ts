@@ -15,6 +15,10 @@ export async function findMany(data?: any): Promise<TopicOutput[] | []> {
     orderBy: {
       createdAt: 'desc',
     },
+    include: {
+      author: true,
+      theme: true,
+    }
   });
 }
 
@@ -23,5 +27,9 @@ export async function findTopicById(
 ): Promise<TopicOutput | null> {
   return ctx.prisma.topic.findUnique({
     where: { id: topicId },
+    include: {
+      author: true,
+      theme: true
+    }
   });
 }

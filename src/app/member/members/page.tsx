@@ -1,7 +1,7 @@
-import { MembersView } from "@/ui/Member/Members/membersView";
+import MembersListPage from '@/features/app/pages/member/members/list/page';
 
 const Members = () => {
-  return <MembersView />;
+  return <MembersListPage />;
 };
 
 export default Members;

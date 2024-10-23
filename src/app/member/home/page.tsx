@@ -1,7 +1,7 @@
-import HomeView from '@/ui/Member/Home/homeView';
+import HomePage from '@/features/app/pages/member/home/page';
 
 const Home = () => {
-  return <HomeView />;
+  return <HomePage />;
 };
 
 export default Home;

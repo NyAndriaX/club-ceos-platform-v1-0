@@ -13,6 +13,14 @@ export async function save(data: UserInput): Promise<User> {
 export async function findUserById(userId: number): Promise<User | null> {
   return ctx.prisma.user.findUnique({
     where: { id: userId },
+    include: {
+      topics: {
+        include: {
+          theme: true,
+          type: true,
+        }
+      }
+    }
   });
 }
 
@@ -35,6 +43,9 @@ export async function deleteByUserId(userId: number): Promise<User> {
 export async function findUnique(data: any): Promise<User | null> {
   return ctx.prisma.user.findUnique({
     where: data,
+    include: {
+      topics: true
+    }
   });
 }
 

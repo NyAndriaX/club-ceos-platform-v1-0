@@ -2,12 +2,24 @@ import { User } from '@prisma/client';
 import { UserInput } from '@/typings';
 import bcrypt from 'bcryptjs';
 import { compare } from 'bcryptjs';
-import * as userRepository from '@/database/repository/user.repository';
+import { PrismaClient } from '@prisma/client';
+
+const prisma: PrismaClient = new PrismaClient();
 
 const handleGetUser = async (
   userId: number,
 ): Promise<Omit<User, 'password'> | null> => {
-  const user = await userRepository.findUserById(userId);
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      topics: {
+        include: {
+          theme: true,
+          type: true
+        }
+      }
+    }
+  })
 
   if (!user) throw new Error('Utilisateur non trouvé');
 
@@ -20,7 +32,10 @@ const handlePutUser = async (
   userId: number,
   data: Partial<UserInput>,
 ): Promise<Omit<User, 'password'> | null> => {
-  const user = await userRepository.findUserById(userId);
+  const user = await prisma.user.findUnique({
+    where: { id: userId }
+  })
+
   if (!user) throw new Error('Utilisateur non trouvé.');
 
   const isPasswordValid = await compare(
@@ -35,7 +50,10 @@ const handlePutUser = async (
     newValue.password = await bcrypt.hash(newPassword, 10);
   }
 
-  const updatedUser = await userRepository.update(newValue, userId);
+  const updatedUser = await prisma.user.update({
+    where: { id: userId },
+    data: newValue
+  })
 
   const { password, ...userWithoutPassword } = updatedUser;
 

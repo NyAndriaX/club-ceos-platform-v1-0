@@ -1,13 +1,12 @@
-import './globals.css';
+import "../features/app/styles/globals.css";
 
-import React from 'react';
-import type { Metadata } from 'next';
-import { PrimeReactProvider } from 'primereact/api';
-import 'primereact/resources/themes/lara-light-cyan/theme.css';
-import 'primeicons/primeicons.css';
+import React from "react";
+import { PrimeReactProvider } from "primereact/api";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "primeicons/primeicons.css";
 
-export const metadata: Metadata = {
-  title: 'Club des CEOs - Une plateforme pour les leaders',
+export const metadata = {
+  title: "Club des CEOs - Une plateforme pour les leaders",
   description:
     "Rejoignez notre plateforme pour les dirigeants et les chefs d'entreprise. Participez à des discussions, trouvez des mentors et développez votre réseau.",
 };
@@ -19,7 +18,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body style={{ zoom: '0.9' }} suppressHydrationWarning>
+      <body className="h-screen w-screen overflow-hidden">
         <PrimeReactProvider>{children}</PrimeReactProvider>
       </body>
     </html>

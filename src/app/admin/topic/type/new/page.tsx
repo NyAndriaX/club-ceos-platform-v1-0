@@ -1,7 +1,7 @@
-import { NewTopicTypeTypeView } from '@/ui/Admin/Topic/Type/new/newTopicTypeView';
+import TopicTypeFormPage from '@/features/app/pages/admin/topic/type/page';
 
 const NewTopicType = () => {
-  return <NewTopicTypeTypeView />;
+  return <TopicTypeFormPage />;
 };
 
 export default NewTopicType;

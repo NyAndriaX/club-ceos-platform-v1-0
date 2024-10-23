@@ -1,7 +1,7 @@
-import SignupView from '@/ui/Signup/signupView';
+import SignupPage from '@/features/app/pages/unrestricted/signup/page';
 
 const Signup = () => {
-  return <SignupView />;
+  return <SignupPage />;
 };
 
 export default Signup;

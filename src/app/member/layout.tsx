@@ -1,19 +1,12 @@
-import React from 'react';
-import { getSession } from 'next-auth/react';
-import SessionProviderClient from '@/ui/common/components/SessionProviderClient';
-import { MemberLayout } from '@/ui/common/layouts/MemberLayout/MemberLayout';
+import React from "react";
+import MemberLayout from "@/features/app/pages/member/layout";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Layout = async ({ children }: Props) => {
-  const session = await getSession();
-  return (
-    <SessionProviderClient session={session}>
-      <MemberLayout>{children}</MemberLayout>
-    </SessionProviderClient>
-  );
+  return <MemberLayout>{children}</MemberLayout>;
 };
 
 export default Layout;
