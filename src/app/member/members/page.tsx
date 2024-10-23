@@ -1,4 +1,4 @@
-import { MembersView } from '@/ui/Member/Members/membersView';
+import { MembersView } from "@/ui/Member/Members/membersView";
 
 const Members = () => {
   return <MembersView />;

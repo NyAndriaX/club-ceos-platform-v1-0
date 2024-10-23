@@ -1,0 +1,175 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+enum Role {
+    ADMIN
+    MEMBER
+}
+
+enum PlanType {
+    SMALL
+    LARGE
+}
+
+model Plan {
+    id            Int            @id @default(autoincrement())
+    name          String
+    type          PlanType
+    minRevenue    Float
+    maxRevenue    Float
+    link          String
+    description   String?
+    users         User[]
+    subscriptions Subscription[]
+}
+
+model User {
+    id                  Int           @id @default(autoincrement())
+    lastName            String
+    firstName           String
+    postCode            String
+    country             String
+    city                String
+    email               String        @unique
+    phoneNumber         String
+    profile             String?       @db.Text
+    bio                 String?       @db.Text
+    linkedInUrl         String
+    jobTitle            String
+    companyName         String
+    commercialName      String
+    companyCountry      String
+    companyCity         String
+    companyPostCode     String
+    companyWebsite      String
+    companyLinkedInPage String
+    companyPhoneNumber  String
+    revenue             Float
+    revenueFileUrl      String        @db.Text
+    isValidatedByAdmin  Boolean       @default(false)
+    password            String?
+    isNew               Boolean       @default(true)
+    plan                Plan?         @relation(fields: [planId], references: [id], onDelete: Cascade)
+    customerId          String?       @unique
+    subscription        Subscription?
+
+    role      Role     @default(MEMBER)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    subscriptionId Int?
+    planId         Int?
+
+    topics Topic[]
+    Reply  Reply[]
+    Vote   Vote[]
+
+    @@index([email], map: "idx_user_email")
+}
+
+model Subscription {
+    id     Int @id @default(autoincrement())
+    userId Int @unique
+    planId Int
+
+    startDate DateTime @default(now())
+    endDate   DateTime
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+    plan Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
+
+    @@index([userId, planId], map: "idx_subscription_user_plan")
+}
+
+model Theme {
+    id          Int      @id @default(autoincrement())
+    title       String   @db.VarChar(255)
+    description String?  @db.Text
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    Topic       Topic[]
+
+    @@map("themes")
+}
+
+model TopicType {
+    id          Int      @id @default(autoincrement())
+    name        String   @db.VarChar(255)
+    coverImage  String   @db.Text
+    description String?  @db.Text
+    topics      Topic[]
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@map("topic_types")
+}
+
+enum TopicStatus {
+    DRAFT
+    PUBLISHED
+}
+
+model Topic {
+    id          Int         @id @default(autoincrement())
+    title       String      @db.VarChar(255)
+    content     String      @db.Text
+    topicTypeId Int?
+    type        TopicType?  @relation(fields: [topicTypeId], references: [id], onDelete: SetNull)
+    status      TopicStatus @default(DRAFT)
+    themeId     Int
+    theme       Theme       @relation(fields: [themeId], references: [id], onDelete: Cascade)
+    coverImage  String?     @db.Text
+    userId      Int?
+    author      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Reply     Reply[]
+
+    @@index([themeId], map: "idx_topic_theme")
+    @@map("topics")
+}
+
+model Reply {
+    id      Int    @id @default(autoincrement())
+    content String @db.Text
+    topicId Int
+    userId  Int
+    votes   Int    @default(0)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    topic     Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+    author    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    votesList Vote[]
+
+    @@index([topicId], map: "idx_reply_topic")
+    @@index([userId], map: "idx_reply_user")
+}
+
+model Vote {
+    id      Int @id @default(autoincrement())
+    replyId Int
+    userId  Int
+
+    createdAt DateTime @default(now())
+
+    reply Reply @relation(fields: [replyId], references: [id], onDelete: Cascade)
+    voter User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([replyId, userId])
+    @@index([replyId], map: "idx_vote_reply")
+}

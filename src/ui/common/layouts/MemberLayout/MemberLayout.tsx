@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { NavBar } from '../../components/layout/MemberLayout/NavBar';
-import './MemberLayout.modules.css';
+import React from "react";
+import { NavBar } from "../../components/layout/MemberLayout/NavBar";
+import "./MemberLayout.modules.css";
 
 type Props = {
   children: React.ReactNode;

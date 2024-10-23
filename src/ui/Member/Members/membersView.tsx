@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState, useCallback } from 'react';
-import { Card } from 'primereact/card';
-import { UserOutput } from '@/typings';
-import { MemberPage } from '@/ui/common/components/layout/MemberLayout/MemberPage';
-import { useRouter } from 'next/navigation';
-import { Avatar } from 'primereact/avatar';
-import { Checkbox } from 'primereact/checkbox';
-import { IconField } from 'primereact/iconfield';
-import { InputIcon } from 'primereact/inputicon';
-import { InputText } from 'primereact/inputtext';
-import { ProgressSpinner } from 'primereact/progressspinner';
+import React, { useEffect, useState, useCallback } from "react";
+import { Card } from "primereact/card";
+import { UserOutput } from "@/typings";
+import { MemberPage } from "@/ui/common/components/layout/MemberLayout/MemberPage";
+import { useRouter } from "next/navigation";
+import { Avatar } from "primereact/avatar";
+import { Checkbox } from "primereact/checkbox";
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
+import { InputText } from "primereact/inputtext";
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export const MembersView = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ export const MembersView = () => {
     haveBio: boolean;
     globalFilter: string;
   }>({
-    globalFilter: '',
+    globalFilter: "",
     haveBio: true,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,16 +27,16 @@ export const MembersView = () => {
   const [count, setCount] = useState<number>(0);
 
   const defaultProfileImage =
-    'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png';
+    "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png";
 
   useEffect(() => {
     async function fetchAllUsers() {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/user');
+        const response = await fetch("/api/user");
 
         if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des utilisateurs.');
+          throw new Error("Erreur lors de la récupération des utilisateurs.");
         }
 
         const { users } = await response.json();
@@ -58,7 +58,7 @@ export const MembersView = () => {
   };
 
   const filteredUsers = useCallback(() => {
-    return users.filter(user => {
+    return users.filter((user) => {
       const nameMatch = `${user.firstName} ${user.lastName}`
         .toLowerCase()
         .includes(filters.globalFilter.toLowerCase());
@@ -78,8 +78,8 @@ export const MembersView = () => {
             placeholder={`Rechercher parmis les ${count} membres de la communauté`}
             className="p-inputtext w-full"
             value={filters.globalFilter}
-            onChange={e =>
-              setFilters(prev => ({
+            onChange={(e) =>
+              setFilters((prev) => ({
                 ...prev,
                 globalFilter: e.target.value,
               }))
@@ -90,7 +90,7 @@ export const MembersView = () => {
       {isLoading && (
         <div className="flex flex-row items-center justify-center w-full">
           <ProgressSpinner
-            style={{ width: '30px', height: '30px' }}
+            style={{ width: "30px", height: "30px" }}
             strokeWidth="8"
             fill="var(--surface-ground)"
             animationDuration=".5s"
@@ -106,7 +106,7 @@ export const MembersView = () => {
               name="haveBio"
               checked={filters.haveBio}
               onChange={() =>
-                setFilters(prev => ({ ...prev, haveBio: !filters.haveBio }))
+                setFilters((prev) => ({ ...prev, haveBio: !filters.haveBio }))
               }
             />
             <label htmlFor="haveBio" className="ml-2">
