@@ -169,7 +169,7 @@ const TopicTypeListPage: React.FC = () => {
               label={
                 !isMobile ? 'Créer un nouveau type de thématiques' : undefined
               }
-              onClick={() => router.push('/admin/topic/type/new')}
+              onClick={() => router.push('/pages/admin/topic/type')}
               className="w-fit h-fit"
             />
           </div>
