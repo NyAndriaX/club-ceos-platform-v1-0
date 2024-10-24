@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request });
   const user: PrismaUser | null = token?.user as PrismaUser;
 
-  const isAuthRoute = ['/pages/unrestricted/login', '/pages/unrestricted/signup', '/pages/unresctricted/subscription'].includes(pathname);
+  const isAuthRoute = ['/pages/unrestricted/home', '/pages/unrestricted/login', '/pages/unrestricted/signup', '/pages/unresctricted/subscription'].includes(pathname);
   const isAdminRoute = pathname.startsWith('/admin');
   const isMemberRoute = pathname.startsWith('/member');
 
