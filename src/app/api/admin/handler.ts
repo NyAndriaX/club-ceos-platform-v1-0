@@ -57,7 +57,7 @@ const handleApproveAUser = async (
     expirationTime: expirationTime,
   });
 
-  const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pricing?key=${encryptedKey}`;
+  const paymentLink = `${process.env.NEXT_PUBLIC_SITE_URL!}/pages/unrestricted/subscription?key=${encryptedKey}`;
 
   const response = await sendPaymentLink({
     userEmail: user.email,
