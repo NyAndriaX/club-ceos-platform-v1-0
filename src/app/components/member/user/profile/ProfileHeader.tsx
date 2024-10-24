@@ -25,14 +25,14 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
         />
         <div className="flex flex-col gap-2 items-start">
           <div className="flex flex-col gap-1">
-            <p className="text-xl md:text-2xl text-gray-900 font-semibold">
+            <p className="text-lg md:text-xl text-gray-900 font-semibold">
               {user?.lastName} {user?.firstName}
             </p>
             <p className="text-gray-500 text-sm font-light">{user?.email}</p>
           </div>
           {isMobile && (
             <div className="flex flex-col gap-1 w-full  text-start md:text-right">
-              <p className="text-xl text-gray-900 font-normal">
+              <p className="text-lg md:text-xl text-gray-900 font-normal">
                 {dayjs(user?.createdAt).format('DD/MM/YYYY')}
               </p>
               <p className="text-sm text-gray-500 font-semibold">Inscription</p>

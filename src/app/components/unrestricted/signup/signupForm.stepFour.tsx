@@ -15,7 +15,7 @@ export function SignupFormStepFour() {
         <div className="flex items-center justify-center mb-4">
           <i className="pi pi-check-circle text-green-500 text-5xl"></i>
         </div>
-        <p>
+        <p className="text-sm">
           Votre inscription a été réalisée avec succès ! Nous avons bien reçu
           toutes les informations. L&apos;administrateur va maintenant les
           examiner et vous contactera dans les plus brefs délais avec un retour

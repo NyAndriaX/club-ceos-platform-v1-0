@@ -63,7 +63,7 @@ const ThematicListPage: React.FC = () => {
             outlined
             rounded={!isMobile ? false : true}
             label={!isMobile ? 'Créer un nouveau thématique' : undefined}
-            onClick={() => router.push('/admin/thematic/new')}
+            onClick={() => router.push('/pages/admin/thematic')}
             className="w-fit h-fit"
           />
         </div>
