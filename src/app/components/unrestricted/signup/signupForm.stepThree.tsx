@@ -153,7 +153,7 @@ export function SignupFormStepThree({
                     }}
                     auto={true}
                     disabled={isPending}
-                    className={`p-inputtext p-component ${
+                    className={`w-auto text-xs p-1 ${
                       touched.revenueFile && errors.revenueFile
                         ? 'border border-red-500'
                         : ''

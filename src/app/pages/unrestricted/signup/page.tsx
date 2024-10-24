@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { User } from '@prisma/client';
 import { useLocalStorage } from 'primereact/hooks';
 import { SignupFormStepper } from '@/app/components/unrestricted/signup/signupForm.stepper';
@@ -12,9 +12,6 @@ const SignupPage: React.FC = () => {
   >({}, 'formUserRegister');
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <div className="flex flex-col items-start gap-4 md:gap-20 px-4">
       <SignupFormStepper activeIndex={activeIndex} />

@@ -7,8 +7,8 @@ interface ProfileDetailsProps {
 
 const renderProfileDetail = (label: string, value: string | undefined) => (
   <div>
-    <p className="text-gray-900 text-base font-semibold">{label}</p>
-    <p className="text-gray-500 text-sm">{value}</p>
+    <p className="text-gray-900 text-sm font-semibold">{label}</p>
+    <p className="text-gray-500 text-xs">{value}</p>
   </div>
 );
 

@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import MemberPage from '../../MemberPage';
 import { Toast } from 'primereact/toast';
+import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -141,14 +142,53 @@ const TopicDetailsPage = () => {
   const defaultProfileImage =
     'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png';
 
+  const accept = async () => {
+    try {
+      const response = await fetch(`/api/topic/unique/${topicId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la suppression du sujet');
+      }
+
+      toastRef.current?.show({
+        severity: 'info',
+        summary: 'Confirmation',
+        detail: 'Le sujet a été supprimé avec succès',
+        life: 3000,
+      });
+
+      router.back();
+    } catch (error: any) {
+      toastRef.current?.show({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: error.message || 'Une erreur est survenue',
+        life: 3000,
+      });
+    }
+  };
+
+  const reject = () => {
+    toastRef.current?.show({
+      severity: 'warn',
+      summary: 'Rejeté',
+      detail: "Vous avez rejeté l'action",
+      life: 3000,
+    });
+  };
+
   return (
     <>
       <Toast ref={toastRef} />
+      <ConfirmPopup />
       <MemberPage>
         <div className="flex flex-col w-full items-center rounded-md">
           <div className="hidden md:flex fixed left-0 top-0 bg-blue-500 opacity-50 h-1/3 w-full z-0" />
           <div className="relative z-30 shadow-none md:shadow-sm bg-none md:bg-white rounded-md max-w-5xl w-full ">
-            <div className="md:sticky  px-8 pt-8 md:pb-4 -top-8 z-40 md:bg-opacity-85 md:bg-white  rounded-md">
+            <div className="px-8 pt-4 md:pb-4 md:bg-opacity-85 md:bg-white  rounded-md">
               <TopicHeader
                 topic={topic as Topic}
                 router={router}
@@ -166,19 +206,25 @@ const TopicDetailsPage = () => {
                         author={author || null}
                         defaultProfileImage={defaultProfileImage}
                       />
-                      <div className="flex flex-row gap-4 items-center text-blue-500 text-sm w-fit hover:underline p-0 cursor-pointer">
-                        <span className="pi pi-trash"></span>
-                        <span>Supprimer définitivement</span>
-                      </div>
-                      <div
-                        className="flex flex-row gap-4 items-center text-blue-500 text-sm w-fit hover:underline p-0 cursor-pointer"
-                        onClick={() =>
-                          router.push(`/pages/member/topic?topicId=${topicId}`)
-                        }
-                      >
-                        <span className="pi pi-pencil"></span>
-                        <span>Editer un sujet</span>
-                      </div>
+                      {author?.id === session?.user.id && (
+                        <div className="flex flex-flex-col gap-4 w-full">
+                          <div className="flex flex-row gap-4 items-center text-blue-500 text-sm w-fit hover:underline p-0 cursor-pointer">
+                            <span className="pi pi-trash"></span>
+                            <span>Supprimer définitivement</span>
+                          </div>
+                          <div
+                            className="flex flex-row gap-4 items-center text-blue-500 text-sm w-fit hover:underline p-0 cursor-pointer"
+                            onClick={() =>
+                              router.push(
+                                `/pages/member/topic?topicId=${topicId}`,
+                              )
+                            }
+                          >
+                            <span className="pi pi-pencil"></span>
+                            <span>Editer un sujet</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
@@ -197,7 +243,22 @@ const TopicDetailsPage = () => {
                   defaultProfileImage={defaultProfileImage}
                 />
                 <div className="flex flex-col gap-2 p-4">
-                  <div className="flex flex-row gap-4 items-center text-blue-500 text-sm w-fit hover:underline p-0 cursor-pointer">
+                  <div
+                    onClick={e =>
+                      confirmPopup({
+                        target: e.currentTarget,
+                        message: 'Voulez-vous supprimer cet enregistrement ?',
+                        icon: 'pi pi-info-circle',
+                        defaultFocus: 'reject',
+                        acceptClassName: 'p-button-danger',
+                        acceptLabel: 'Confirmer',
+                        rejectLabel: 'Annuler',
+                        accept,
+                        reject,
+                      })
+                    }
+                    className="flex flex-row gap-4 items-center text-blue-500 text-sm w-fit hover:underline p-0 cursor-pointer"
+                  >
                     <span className="pi pi-trash"></span>
                     <span>Supprimer définitivement</span>
                   </div>

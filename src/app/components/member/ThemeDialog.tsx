@@ -29,7 +29,7 @@ export const ThemeDialog: React.FC<{
             </p>
             <Link
               className="flex items-center text-sm font-bold gap-2 w-fit border-b border-gray-900 pb-1"
-              href="/member/topic"
+              href="/pages/member/topic"
               onClick={onHide}
             >
               <span>Nouveau sujet</span>
@@ -51,7 +51,7 @@ export const ThemeDialog: React.FC<{
                 animationDuration=".5s"
               />
             </div>
-          ) : themes.length > 0 ? (
+          ) : themes && themes.length > 0 ? (
             themes.map((theme, index) => (
               <div
                 key={index}

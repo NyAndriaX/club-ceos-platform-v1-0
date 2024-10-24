@@ -14,13 +14,21 @@ export async function POST(
 
     const request = topicSchema.parse(body);
 
+    const { themeId, topicTypeId, ...reste } = request;
+
     const valueTopic: Partial<Prisma.TopicCreateInput> = {
-      ...request,
+      title: reste.title,
+      content: reste.content,
       status: status,
+      coverImage: reste.coverImage || null,
+      theme: {
+        connect: { id: themeId },
+      },
+      type: {
+        connect: { id: topicTypeId },
+      },
       author: {
-        connect: {
-          id: parseInt(userId),
-        },
+        connect: { id: parseInt(userId) },
       },
     };
 

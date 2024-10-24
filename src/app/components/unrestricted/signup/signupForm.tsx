@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { User } from '@prisma/client';
 import LazyLoad from 'react-lazyload';
 import { SignupFormStepFour } from './signupForm.stepFour';

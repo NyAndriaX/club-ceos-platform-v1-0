@@ -3,7 +3,9 @@ import { Prisma, PrismaClient, Topic } from '@prisma/client';
 const prisma: PrismaClient = new PrismaClient();
 
 const handleCreate = async (data: Prisma.TopicCreateInput): Promise<Topic | null> => {
-  const topic = await prisma.topic.create({ data })
+  const topic = await prisma.topic.create({
+    data
+  });
 
   if (!topic) return null;
 

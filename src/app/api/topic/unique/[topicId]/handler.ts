@@ -24,4 +24,12 @@ const handleGetTopicById = async (
   return topic;
 };
 
-export { handleGetTopicById };
+const handleDeleteTopicById = async (topicId: number): Promise<Topic | null> => {
+  const topic = await prisma.topic.delete({ where: { id: topicId } });
+
+  if (!topic) return null;
+
+  return topic
+}
+
+export { handleGetTopicById, handleDeleteTopicById };
