@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useWindow } from '@/app/hooks/useWindow';
 import { Button } from 'primereact/button';
 import { MenuItem } from 'primereact/menuitem';
 import { PanelMenu } from 'primereact/panelmenu';
@@ -27,7 +29,9 @@ const CustomMenuItem: React.FC<{
 };
 
 const MobileNavbar = () => {
+  const router = useRouter();
   const [visible, setVisible] = useState<boolean>(false);
+  const { isMobile } = useWindow();
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
   const items: MenuItem[] = [
@@ -77,6 +81,16 @@ const MobileNavbar = () => {
       >
         <div className="flex flex-row items-center justify-between w-full">
           <div className="logo px-6" />
+          {isMobile && isMenuVisible && (
+            <Button
+              size="small"
+              label="Membres"
+              outlined
+              onClick={() => {
+                router.push('/pages/unrestricted/login'), toggleSidebar();
+              }}
+            />
+          )}
           <Button
             icon={isMenuVisible ? 'pi pi-times' : 'pi pi-bars'}
             size="small"

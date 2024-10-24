@@ -11,7 +11,10 @@ const LoginPage = () => {
         <LoginForm />
         <p className="text-gray-900 text-xs">
           Vous n&apos;êtes pas encore membre ?{' '}
-          <Link href={'/'} className="text-blue-500 hover:underline">
+          <Link
+            href={'/pages/unrestricted/signup'}
+            className="text-blue-500 hover:underline"
+          >
             Rejoignez-nous dès aujourd'hui !
           </Link>
         </p>

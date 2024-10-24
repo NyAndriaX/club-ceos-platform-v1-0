@@ -20,14 +20,17 @@ export const MobileNavbar: React.FC = () => {
     {
       label: 'Poster',
       icon: 'pi pi-plus',
+      command: () => router.push('/pages/member/topic'),
     },
     {
       label: 'Intérêt',
       icon: 'pi pi-bookmark',
+      command: () => router.push('/pages/member/interest-center'),
     },
     {
       label: 'Parcourir',
       icon: 'pi pi-list',
+      command: () => router.push('/pages/member/categories'),
     },
   ];
 
