@@ -68,6 +68,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    '/pages/unrestricted/home',
     '/pages/unrestricted/login',
     '/pages/unrestricted/signup',
     '/pages/unresctricted/subscription',
